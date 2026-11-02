@@ -1,0 +1,61 @@
+<!doctype html>
+<!-- Оформление YouTube-канала: ?m=banner (2560×1440), avatar (800×800), avatar2, wm (водяной знак, прозрачный) -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../brand.css">
+<style>
+body{position:relative}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,240,232,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,240,232,.05) 1px,transparent 1px)}
+svg.net{position:absolute;inset:0}
+/* баннер */
+.B{width:2560px;height:1440px;background:var(--ink)}
+.B .grid{background-size:96px 96px}
+.B .warmL,.B .warmR{position:absolute;top:-200px;bottom:-200px;width:1100px;filter:blur(60px)}
+.B .warmL{left:-520px;background:radial-gradient(ellipse at 30% 50%,rgba(255,96,40,.75),rgba(255,59,48,.35) 40%,transparent 70%)}
+.B .warmR{right:-520px;background:radial-gradient(ellipse at 70% 50%,rgba(255,96,40,.75),rgba(255,59,48,.35) 40%,transparent 70%)}
+.B .lime{position:absolute;left:880px;top:420px;width:800px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,255,46,.14),transparent 65%)}
+.B .bar{position:absolute;left:0;right:0;background:var(--lime)}
+.safe{position:absolute;left:507px;top:508px;width:1546px;height:424px;display:flex;align-items:center;justify-content:space-between}
+.show-safe .safe{outline:3px dashed #f0f}
+.ics{display:grid;grid-template-columns:repeat(2,96px);gap:18px}
+.ic{width:96px;height:96px;border-radius:22px;background:var(--ink2);border:1.5px solid rgba(200,255,46,.35);display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(200,255,46,.12)}
+.ic img{width:56px;height:56px;filter:brightness(0) invert(1)}
+.mid{flex:1;padding:0 44px}
+.top{font-size:24px;color:var(--dim);margin-bottom:20px}.top .dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--red);margin-right:14px;vertical-align:1px;box-shadow:0 0 14px var(--red)}
+.t1{display:flex;align-items:center;gap:26px;white-space:nowrap}
+.t1 .a{font-family:var(--disp);font-weight:800;font-size:86px;line-height:1;color:var(--paper);letter-spacing:-.01em}
+.t1 .p{font-family:var(--disp);font-weight:800;font-size:40px;background:var(--lime);color:var(--ink);padding:8px 18px 10px;border-radius:10px;box-shadow:0 0 40px rgba(200,255,46,.35)}
+.row{display:flex;align-items:center;gap:26px;margin-top:24px}.t2{font-size:24px;line-height:1.5;color:var(--paper);white-space:nowrap}.t2 i{font-style:normal;color:var(--lime);margin:0 14px}
+.cta{font-family:var(--mono);font-weight:700;font-size:25px;letter-spacing:.08em;color:var(--lime);border:2.5px solid var(--lime);border-radius:8px;padding:20px 22px;white-space:nowrap;box-shadow:0 0 30px rgba(200,255,46,.25),inset 0 0 20px rgba(200,255,46,.08);background:rgba(13,13,15,.7)}
+.cta .cur{display:inline-block;width:16px;height:30px;background:var(--lime);vertical-align:-5px;margin-left:6px}
+.cta small{display:block;font-size:16px;color:var(--dim);margin-bottom:8px;letter-spacing:.1em}
+/* аватар */
+.A{width:800px;height:800px;background:#050506;overflow:hidden}
+.A .grid{background-size:50px 50px;-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%)}
+.A .glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(200,255,46,.28),transparent 48%)}
+.A .T{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:430px;line-height:1;color:var(--paper);text-shadow:0 0 30px rgba(200,255,46,.55),0 0 90px rgba(200,255,46,.35)}
+.A .T .cur{width:130px;height:46px;background:var(--lime);margin-left:18px;align-self:flex-end;margin-bottom:222px;box-shadow:0 0 40px rgba(200,255,46,.8)}
+.A2 .T span{background:var(--lime);color:var(--ink);padding:0 60px;text-shadow:none;border-radius:24px;box-shadow:0 0 80px rgba(200,255,46,.55)}
+/* водяной знак */
+.W{width:150px;height:150px;background:transparent}
+.W .c{position:absolute;inset:6px;border-radius:50%;background:var(--ink);border:7px solid var(--lime);display:flex;align-items:center;justify-content:center}
+.W .c b{font-family:var(--disp);font-weight:800;font-size:76px;color:var(--paper);line-height:1;margin-top:2px}
+.W .c{align-items:center}.W .c i{width:24px;height:9px;background:var(--lime);margin-left:4px;margin-top:48px}
+</style></head><body>
+<script>
+const m=new URLSearchParams(location.search).get('m')||'banner';
+function net(w,h,n,cx,cy,r0,r1,seed){let s=seed,R=()=>(s=(s*16807)%2147483647)/2147483647;const P=[];
+  for(let i=0;i<n;i++){const a=R()*Math.PI*2,r=r0+R()*(r1-r0);P.push([cx+Math.cos(a)*r*(w>h?1.9:1),cy+Math.sin(a)*r])}
+  let L='';P.forEach((p,i)=>P.forEach((q,j)=>{if(j>i&&Math.hypot(p[0]-q[0],p[1]-q[1])<(w>h?260:150))L+=`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}"/>`}));
+  return `<svg class="net" width="${w}" height="${h}"><g stroke="rgba(200,255,46,.16)" stroke-width="${w>h?1.5:1.5}">${L}</g><g fill="rgba(200,255,46,.5)">${P.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="${w>h?4:4}"/>`).join('')}</g></svg>`}
+const logos=['openai','claude-color','gemini-color','deepseek-color'];
+if(m==='banner'){document.body.className='B';document.body.innerHTML=`<div class="grid"></div>${net(2560,1440,90,1280,720,330,640,7)}<div class="warmL"></div><div class="warmR"></div><div class="lime"></div>
+<div class="bar" style="top:462px;height:6px"></div><div class="bar" style="top:972px;height:6px"></div>
+<div class="safe"><div class="ics">${logos.map(l=>`<div class="ic"><img src="../logos/${l}.svg"></div>`).join('')}</div>
+<div class="mid"><div class="top mono"><i class="dot"></i>LIVE · ПН–СБ</div>
+<div class="t1"><span class="a">ПОКА ТЫ СПАЛ</span></div>
+<div class="row"><span class="t1"><span class="p">· НОВОСТИ AI</span></span><div class="t2 mono">ЕЖЕДНЕВНО В 6:00 (МАДРИД)<br>90-ДНЕВНЫЙ ЭКСПЕРИМЕНТ</div></div></div>
+<div class="cta"><small>$ youtube --channel</small>&gt; ПОДПИСАТЬСЯ<span class="cur"></span></div></div>`;
+ if(location.hash==='#safe')document.body.classList.add('show-safe')}
+if(m==='avatar'||m==='avatar2'){document.body.className='A'+(m==='avatar2'?' A2':'');document.body.innerHTML=`<div class="grid"></div>${net(800,800,34,400,400,250,370,11)}<div class="glow"></div>
+<div class="T">${m==='avatar2'?'<span>Т</span>':'Т<i class="cur"></i>'}</div>`}
+if(m==='wm'){document.body.className='W';document.body.innerHTML=`<div class="c"><b>Т</b><i></i></div>`}
+</script></body></html>
