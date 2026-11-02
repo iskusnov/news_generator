@@ -12,7 +12,7 @@
 | после | Тексты публикации | Gemini (agents/GEMINI.md) | 05_публикация/publish |
 
 ## Форматы файлов
-- `takes.json` — `{fps, tc_start, opener_after, opener_gap, segments:[{in,out,tag}]}` (секунды исходника).
+- `takes.json` — `{fps, tc_start, opener_after, opener_gap, segments:[{in,out,tag}]}` (секунды исходника). Первые куски — `tag: teaser` (5–10 с суммарно), `opener_after` = их число: после них встаёт интро.
 - `edl.json` — `{fps, tc_start, total, gap_at, gap, edl:[{src_in,src_out,rec,tag,scale}], covers:[{rec_in,rec_out}]}`.
 - `specs.json` — графика: `[{id,type,rec,dur,...параметры}]`, типы: opener, lower, kicker, stat, strike, chip, quote, day, poll, end (graphics/overlays/template.html).
 - `shorts.json` — `[{id,title,dur,pieces:[{src_in,src_out}],chunks:[{s,e,words}],cta,poll?}]`.

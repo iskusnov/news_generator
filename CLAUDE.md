@@ -12,7 +12,7 @@
 1. **Звук и прокси** (Mac): `ffmpeg -i ЗАПИСЬ -vn -ac 1 -ar 16000 -c:a aac -b:a 48k audio.m4a`; прокси для взгляда частями ≤120 с: `ffmpeg -ss X -t 120 -i ЗАПИСЬ -vf fps=5,scale=640:-2 -an proxy_X.mp4`. Застейджить.
 2. **Распознавание**: Groq whisper-large-v3, `timestamp_granularities[]=word` и `segment` → `words.json` (см. pipeline/groq_transcribe.py; для слов добавить word).
 3. **Сигналы**: `python3 pipeline/signals.py audio.m4a silence.json`; `python3.12 pipeline/gaze.py proxy_X.mp4 gaze_X.json --offset X` (склеить away).
-4. **Дубли** (решаешь ты по сценарию из `02_сценарий` и тексту слов): `takes.json` — порядок кусков, холодное открытие, где интро. Каждая новость = блок; служебное и брак не берём.
+4. **Дубли** (решаешь ты по сценарию из `02_сценарий` и тексту слов): `takes.json` — порядок кусков. Начало всегда: **тизер 5–10 с** (3–4 самые цепляющие фразы из разных новостей, по 1,5–3 с, tag `teaser`) → интро (`opener_after` = число кусков тизера) → привет и новости. Каждая новость = блок; служебное и брак не берём.
 5. **Монтажный лист**: `python3 pipeline/cut.py takes.json words.json silence.json gaze.json edl.json`. Всё из `covers` закрыть визуалом новости.
 6. **Графика**: интро (`graphics/compositions/intro.html` + vars: день, дата, 3 главные новости с логотипами; трек из `_бренд/музыка`), плашки/вырезки/выноски (`graphics/overlays`). Прозрачные слои → ProRes 4444 на Mac (VP9-alpha webm → `prores_ks -profile:v 4444`).
 7. **Таймлайн**: `pipeline/fcpxml.py` → `04_монтаж/*.fcpxml`. Импорт в DaVinci: сначала перетащить исходник и `gfx/` в медиапул, затем Import Timeline без «Automatically import source clips».
