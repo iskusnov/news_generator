@@ -1,0 +1,2 @@
+{"name":"poka-ty-spal-graphics","private":true,
+ "dependencies":{"hyperframes":"0.9.5","gsap":"^3.13.0","@fontsource/unbounded":"^5","@fontsource/manrope":"^5","@fontsource/jetbrains-mono":"^5","@lobehub/icons-static-svg":"^1"}}

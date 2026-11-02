@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- Интро «Пока ты спал». Переменные: day,total,date,headlines[{logo,text}],t0 (первый удар, с),beat (длина доли, с),music (путь к треку или пусто) -->
+<html lang="ru"><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../brand.css">
+<script src="../vendor/gsap.min.js"></script>
+<style>
+html,body{width:3840px;height:2160px}
+#root{position:absolute;inset:0;overflow:hidden}
+#s{position:absolute;left:0;top:0;width:1920px;height:1080px;transform:scale(2);transform-origin:0 0;overflow:hidden}
+.bg{position:absolute;inset:0;background:var(--ink)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,240,232,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(245,240,232,.045) 1px,transparent 1px);background-size:96px 96px}
+.glow{position:absolute;width:1500px;height:1500px;left:600px;top:-500px;border-radius:50%;background:radial-gradient(circle,rgba(200,255,46,.18),transparent 60%)}
+.bar{position:absolute;left:0;height:14px;width:2200px;background:var(--lime);transform-origin:left}
+.top{position:absolute;left:80px;right:80px;top:56px;display:flex;justify-content:space-between;font-size:22px;color:var(--dim)}
+.top b{color:var(--paper)}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--red);margin-right:12px;vertical-align:1px}
+.crawl{position:absolute;left:0;right:0;bottom:0;height:64px;background:var(--lime);overflow:hidden;color:var(--ink);font-size:24px;display:flex;align-items:center;white-space:nowrap}
+.crawl .tx{display:inline-block;padding-left:40px}
+.w{position:absolute;left:80px;font-family:var(--disp);font-weight:800;font-size:250px;line-height:.9;color:var(--paper);letter-spacing:-.02em;white-space:nowrap}
+.w.hl span{background:var(--lime);color:var(--ink);padding:0 24px;box-decoration-break:clone}
+.lock{position:absolute;left:80px;top:150px}
+.lock .t{font-family:var(--disp);font-weight:800;font-size:110px;line-height:1;color:var(--paper);white-space:nowrap}
+.lock .pill{display:inline-block;margin-top:22px;padding:12px 22px;background:var(--lime);color:var(--ink);border-radius:8px;font-size:30px}
+.sub{position:absolute;left:80px;top:470px;font-size:22px;color:var(--lime)}
+.hl-row{position:absolute;left:80px;display:flex;align-items:center;gap:26px}
+.hl-row .ic{width:100px;height:100px;border-radius:20px;background:var(--ink2);border:1px solid rgba(245,240,232,.12);display:flex;align-items:center;justify-content:center;flex:none}
+.hl-row .ic img{width:60px;height:60px}.hl-row .ic img.mono{filter:invert(1)}
+.hl-row .tx{font-family:var(--body);font-weight:800;font-size:58px;color:var(--paper);white-space:nowrap}
+.wipe{position:absolute;inset:0;background:var(--lime)}
+.day{position:absolute;right:80px;top:150px;text-align:right;color:var(--paper)}
+.day .n{font-family:var(--disp);font-weight:800;font-size:150px;line-height:1;color:var(--lime)}
+.day .o{font-size:24px;color:var(--dim);margin-top:10px}
+</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="__DUR__" data-width="3840" data-height="2160">
+<div id="s" class="clip" data-start="0" data-duration="__DUR__" data-track-index="0"></div>
+__AUDIO__
+</div>
+<script>
+const V=window.__VARS__||{};
+const day=V.day||1,total=V.total||90,date=V.date||'',heads=V.headlines||[],B=V.beat||0.5,T0=V.t0||0.4;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const s=document.getElementById('s');
+const crawlTxt=(`06:00 · MADRID · ${date} · ДЕНЬ ${day} ИЗ ${total} · НОВОСТИ AI · ПОКА ТЫ СПАЛ · `).repeat(6);
+s.innerHTML=(V.bg?`<img src="${V.bg}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`:'')+`<div class="bg"></div><div class="grid"></div><div class="glow"></div>
+<div class="bar" style="top:300px"></div><div class="bar" style="top:520px;height:6px"></div><div class="bar" style="top:760px;height:10px"></div>
+<div class="top mono"><span><i class="dot"></i>LIVE · 06:00 MADRID</span><span>${esc(date)} · <b>ДЕНЬ ${day}/${total}</b></span></div>
+<div class="w" id="w1" style="top:200px">ПОКА</div><div class="w" id="w2" style="top:445px">ТЫ</div><div class="w hl" id="w3" style="top:690px"><span>СПАЛ</span></div>
+<div class="lock"><div class="t">ПОКА ТЫ СПАЛ</div><div class="pill mono">НОВОСТИ AI</div></div>
+<div class="day"><div class="n">${day}</div><div class="o mono">ДЕНЬ ИЗ ${total}</div></div>
+<div class="sub mono">Сегодня в выпуске</div>
+${heads.map((h,i)=>`<div class="hl-row" style="top:${540+i*135}px"><div class="ic"><img class="${/openai|grok|xai|anthropic/.test(h.logo)?'mono':''}" src="../logos/${h.logo}.svg"></div><div class="tx">${esc(h.text)}</div></div>`).join('')}
+<div class="crawl mono"><span class="tx">${crawlTxt}</span></div>
+<div class="wipe"></div>`;
+const q=x=>s.querySelectorAll(x),b=n=>T0+n*B;
+const tl=gsap.timeline({paused:true});
+gsap.set('.lock,.day,.sub,.hl-row',{autoAlpha:0});gsap.set('.wipe',{xPercent:-101});
+tl.from('.grid',{opacity:0,duration:.4},0)
+  .from('.bar',{scaleX:0,duration:.35,stagger:.07,ease:'power4.out'},0)
+  .to('.bar',{xPercent:110,duration:.4,stagger:.05,ease:'power3.in'},b(3)-.1)
+  .from('.top',{y:-40,opacity:0,duration:.3,ease:'power3.out'},.05)
+  .from('.crawl',{yPercent:100,duration:.35,ease:'power3.out'},.1)
+  .fromTo('.crawl .tx',{x:0},{x:-900,duration:12,ease:'none'},0);
+['#w1','#w2','#w3'].forEach((id,i)=>tl.fromTo(id,{scale:1.35,opacity:0,filter:'blur(14px)'},{scale:1,opacity:1,filter:'blur(0px)',duration:.18,ease:'power4.out'},b(i)));
+tl.to('#s',{x:-8,duration:.04,yoyo:true,repeat:3},b(2)) // удар
+  .to(['#w1','#w2','#w3'],{yPercent:-160,opacity:0,duration:.28,ease:'power3.in',stagger:.04},b(4)-.22)
+  .to('.lock',{autoAlpha:1,duration:.01},b(4)).from('.lock .t',{xPercent:-12,opacity:0,duration:.3,ease:'power4.out'},b(4)).from('.lock .pill',{scale:.4,opacity:0,duration:.3,ease:'back.out(2)'},b(4)+.12)
+  .to('.day',{autoAlpha:1,duration:.01},b(4)).from('.day .n',{yPercent:60,opacity:0,duration:.35,ease:'power4.out'},b(4)+.08)
+  .to('.sub',{autoAlpha:1,duration:.25},b(5)-.1);
+q('.hl-row').forEach((r,i)=>{tl.to(r,{autoAlpha:1,duration:.01},b(5+i)).from(r,{x:-60,duration:.3,ease:'power4.out'},b(5+i)).from(r.querySelector('.ic'),{scale:0,duration:.3,ease:'back.out(2)'},b(5+i))});
+const endB=b(5+Math.max(heads.length,1)+1.5);
+tl.to('.wipe',{xPercent:0,duration:.28,ease:'power4.in'},endB)
+  .set(['.bg','.grid','.glow','.top','.crawl','.lock','.day','.sub','.hl-row'],{autoAlpha:0},endB+.28)
+  .to('.wipe',{xPercent:101,duration:.32,ease:'power4.out'},endB+.3);
+window.__timelines=window.__timelines||{};window.__timelines['main']=tl;tl.seek(0);
+</script></body></html>

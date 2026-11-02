@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "historyId": null,
+  "currentRevision": null,
+  "pendingChanges": true,
+  "files": {},
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "6e57ee8a-564a-430c-822c-3deb230cd429",
+      "completedAt": 1793646946506,
+      "output": "/home/claude/news_generator/graphics/out/intro_b.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

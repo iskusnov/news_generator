@@ -1,0 +1,65 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/unbounded/800.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/manrope/800.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/jetbrains-mono/700.css">
+<script src="../../graphics/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+:root{--ink:#0D0D0F;--paper:#F5F0E8;--lime:#C8FF2E}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:transparent}
+body.bg{background:#555 url(bgv.jpg) center/cover}
+.brand{position:absolute;left:0;right:0;top:214px;text-align:center}
+.brand span{display:inline-block;padding:12px 22px;background:var(--lime);color:var(--ink);font-family:'JetBrains Mono';font-weight:700;font-size:26px;letter-spacing:.12em;border-radius:6px}
+.title{position:absolute;left:70px;right:70px;top:300px;text-align:center}
+.title div{display:inline;font-family:'Unbounded';font-weight:800;font-size:62px;line-height:1.32;color:var(--paper);background:var(--ink);padding:6px 18px;-webkit-box-decoration-break:clone;box-decoration-break:clone;border-radius:6px}
+.title b{color:var(--lime);font-weight:800}
+.cap{position:absolute;left:60px;right:60px;top:1240px;text-align:center;font-family:'Unbounded';font-weight:800;font-size:76px;line-height:1.18;color:#fff;text-shadow:0 4px 0 rgba(0,0,0,.55),0 0 24px rgba(0,0,0,.45);-webkit-text-stroke:2px rgba(13,13,15,.85);paint-order:stroke fill}
+.cap .w{display:inline-block;margin:0 .14em}
+.cap .w.on{color:var(--lime)}
+.cta{position:absolute;left:0;right:0;top:1680px;text-align:center}
+.cta span{display:inline-block;padding:26px 42px;background:var(--lime);color:var(--ink);font-family:'Manrope';font-weight:800;font-size:44px;border-radius:60px}
+.poll{position:absolute;left:110px;right:110px;top:1420px}
+.poll .o{position:relative;margin-top:22px;height:104px;border-radius:10px;background:rgba(13,13,15,.88);overflow:hidden;display:flex;align-items:center;padding:0 34px;font-family:'Manrope';font-weight:800;font-size:42px;color:var(--paper)}
+.poll .o .f{position:absolute;inset:0;background:var(--lime);transform-origin:left}
+.poll .o span{position:relative}
+.poll .o .k{position:relative;margin-right:22px;font-family:'JetBrains Mono';font-size:30px;opacity:.7}
+.logos{position:absolute;left:0;right:0;top:36px;display:flex;justify-content:center;gap:20px}
+.logos .t{width:150px;height:150px;border-radius:34px;background:rgba(13,13,15,.9);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.logos img{width:88px;height:88px}
+.logos img.mono{filter:invert(1)}
+</style></head><body>
+<div id="st"></div>
+<script>
+const st=document.getElementById('st');let TL;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+window.setup=function(p){
+  st.innerHTML=`<div class="logos"><div class="t"><img class="mono" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/openai.svg"></div><div class="t"><img class="" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/claude-color.svg"></div><div class="t"><img class="" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/gemini-color.svg"></div><div class="t"><img class="mono" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/grok.svg"></div><div class="t"><img class="" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/deepseek-color.svg"></div></div><div class="brand"><span>ПОКА ТЫ СПАЛ · НОВОСТИ AI</span></div><div class="title"><div>${p.title}</div></div><div class="cap"></div>
+   ${p.poll?`<div class="poll">${p.poll.opts.map((o,i)=>`<div class="o"><div class="f"></div><span class="k">${'AB'[i]}</span><span>${esc(o)}</span></div>`).join('')}</div>`:''}
+   <div class="cta"><span>${esc(p.cta)}</span></div>`;
+  TL=gsap.timeline({paused:true});
+  TL.to('.logos .t',{y:-40,opacity:0,duration:.35,ease:'power3.in',stagger:.05},2.6)
+    .to('.brand',{y:-150,duration:.5,ease:'power3.inOut'},2.85)
+    .to('.title',{y:-150,duration:.5,ease:'power3.inOut'},2.85);
+  const cap=st.querySelector('.cap');
+  p.chunks.forEach(c=>{
+    TL.call(()=>{},null,c.s);
+  });
+  window._chunks=p.chunks;
+  if(p.poll){const os=st.querySelectorAll('.poll .o');
+    TL.set(st.querySelectorAll('.poll .f'),{scaleX:0},0);
+    os.forEach((o,i)=>TL.from(o,{x:-60,opacity:0,duration:.45,ease:'power3.out'},p.poll.at[i]));
+    TL.to(os[p.poll.pick].querySelector('.f'),{scaleX:1,duration:.6,ease:'power2.inOut'},p.poll.pickAt)
+      .to(os[p.poll.pick].querySelectorAll('span'),{color:'#0D0D0F',duration:.3},p.poll.pickAt+.25);}
+  TL.set('.cta',{opacity:0},0).fromTo('.cta span',{scale:.5,opacity:0},{scale:1,opacity:1,duration:.5,ease:'back.out(2)'},p.dur-p.ctaDur);
+  TL.set('.cta',{opacity:1},p.dur-p.ctaDur);
+  TL.seek(0);
+};
+window.seek=function(t){
+  TL.seek(t,false);
+  const cap=st.querySelector('.cap');const c=window._chunks.find(c=>t>=c.s&&t<c.e);
+  if(!c){cap.innerHTML='';return}
+  cap.innerHTML=c.words.map(w=>`<span class="w ${t>=w.s?'on':''}">${esc(w.t)}</span>`).join('');
+  const k=Math.min(1,(t-c.s)/.12);cap.style.transform=`scale(${.92+.08*k})`;cap.style.opacity=k;
+};
+</script></body></html>

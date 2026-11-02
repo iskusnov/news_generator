@@ -1,0 +1,25 @@
+# CLAUDE.md — как вести выпуск
+
+Сначала прочитай `AGENTS.md` и `docs/STANDARD.md`. Конвейер зафиксирован: не изобретай новые инструменты, меняй только через этот репозиторий.
+
+## Окружение
+- Облачный контейнер Claude: Python 3.13 (+3.12 с mediapipe==0.10.14 для gaze.py), Node 22, ffmpeg, Chromium (Playwright) — графика и анализ.
+- Mac Антона через мост (`device_bash`, Linux-VM, лимит 180 с на вызов): исходники 4K, ffmpeg для нарезки шортсов/прокси. `$HOME/mnt/CloudStorage/GoogleDrive-tony.alexandridis@gmail.com/My Drive/News_generator` = папка Drive. Файлы в облаке без «Доступно офлайн» дают «Resource deadlock avoided» — попроси отметить папку выпуска офлайн или застейдж файл (`device_stage_files`).
+- Ключи на Mac: `~/Downloads/transcribe/.groq_key_claude` (Groq), `~/Downloads/transcribe/.pixabay_key` (Pixabay). Никогда не выводить в чат.
+- HyperFrames: `cd graphics && npm i`, `HYPERFRAMES_BROWSER_PATH=$(node -e "console.log(require('playwright').chromium.executablePath())")`.
+
+## Шаги после записи (папка выпуска `выпуски/ГГГГ-ММ-ДД/`)
+1. **Звук и прокси** (Mac): `ffmpeg -i ЗАПИСЬ -vn -ac 1 -ar 16000 -c:a aac -b:a 48k audio.m4a`; прокси для взгляда частями ≤120 с: `ffmpeg -ss X -t 120 -i ЗАПИСЬ -vf fps=5,scale=640:-2 -an proxy_X.mp4`. Застейджить.
+2. **Распознавание**: Groq whisper-large-v3, `timestamp_granularities[]=word` и `segment` → `words.json` (см. pipeline/groq_transcribe.py; для слов добавить word).
+3. **Сигналы**: `python3 pipeline/signals.py audio.m4a silence.json`; `python3.12 pipeline/gaze.py proxy_X.mp4 gaze_X.json --offset X` (склеить away).
+4. **Дубли** (решаешь ты по сценарию из `02_сценарий` и тексту слов): `takes.json` — порядок кусков, холодное открытие, где интро. Каждая новость = блок; служебное и брак не берём.
+5. **Монтажный лист**: `python3 pipeline/cut.py takes.json words.json silence.json gaze.json edl.json`. Всё из `covers` закрыть визуалом новости.
+6. **Графика**: интро (`graphics/compositions/intro.html` + vars: день, дата, 3 главные новости с логотипами; трек из `_бренд/музыка`), плашки/вырезки/выноски (`graphics/overlays`). Прозрачные слои → ProRes 4444 на Mac (VP9-alpha webm → `prores_ks -profile:v 4444`).
+7. **Таймлайн**: `pipeline/fcpxml.py` → `04_монтаж/*.fcpxml`. Импорт в DaVinci: сначала перетащить исходник и `gfx/` в медиапул, затем Import Timeline без «Automatically import source clips».
+8. **Шортсы/Reels**: вертикальный кроп 1215×2160 → 1080×1920 + оверлей с логотипами на первом кадре, хуком и словесными субтитрами (graphics/overlays/shorts.html), рендер ffmpeg на Mac.
+9. **Проверка**: черновой рендер 540p по edl + `pipeline/qa.py` → `04_монтаж/qa.txt`. С замечаниями не сдавать.
+10. **Публикация**: главы из edl → `chapters.txt`; превью A/B (`graphics/overlays/thumbnail.html`); тексты — Gemini по `agents/GEMINI.md` (или Claude по тем же правилам). Отдать Антону: таймлайн, шортсы, превью, тексты — одним сообщением, всё сразу.
+11. Закоммитить `episodes/ГГГГ-ММ-ДД/` (takes, edl, specs, shorts, publish, transcript).
+
+## Сдача
+В ответе Антону 3–5 строк: что готово, где лежит, что проверить руками. Не «готово», пока qa.py не прошёл.

@@ -1,0 +1,192 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/unbounded/800.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/unbounded/500.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/manrope/600.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/manrope/800.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/jetbrains-mono/500.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/jetbrains-mono/700.css">
+<script src="../../graphics/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+:root{--ink:#0D0D0F;--ink2:#17171B;--paper:#F5F0E8;--dim:rgba(245,240,232,.62);--lime:#C8FF2E;--disp:'Unbounded',sans-serif;--body:'Manrope',sans-serif;--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:transparent}
+body.bg{background:#7a3a2a url(bg.jpg) center/cover}
+#stage{position:absolute;inset:0}
+.mono{font-family:var(--mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.abs{position:absolute}
+/* opener */
+.op{position:absolute;inset:0;background:var(--ink);overflow:hidden}
+.op .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,240,232,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,240,232,.05) 1px,transparent 1px);background-size:120px 120px}
+.op .glow{position:absolute;width:1400px;height:1400px;left:260px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(200,255,46,.16),transparent 62%)}
+.op .top{position:absolute;left:96px;right:96px;top:72px;display:flex;justify-content:space-between;color:var(--dim);font-size:22px}
+.op .top b{color:var(--lime);font-weight:700}
+.op .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#FF3B30;margin-right:14px;vertical-align:1px}
+.clock{position:absolute;left:0;right:0;top:270px;text-align:center;font-family:var(--disp);font-weight:800;font-size:300px;line-height:1;color:var(--paper);letter-spacing:-.02em;white-space:nowrap}
+.clock .d{display:inline-block;height:300px;overflow:hidden;vertical-align:top}
+.clock .d span{display:block;height:300px}
+.clock .c{display:inline-block;width:110px;text-align:center}
+.op .title{position:absolute;left:0;right:0;top:560px;line-height:1.12;text-align:center;font-family:var(--disp);font-weight:800;font-size:96px;color:var(--paper);letter-spacing:.01em}
+.op .title .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .12em}
+.op .title .w i{display:inline-block;font-style:normal}
+.op .title .w.hl i{color:var(--lime)}
+.op .tag{position:absolute;left:0;right:0;top:820px;text-align:center;font-family:var(--body);font-weight:600;font-size:34px;color:var(--dim)}
+.ticks{position:absolute;left:96px;right:96px;bottom:86px;height:44px;display:flex;gap:6px;align-items:flex-end}
+.ticks i{flex:1;height:18px;background:rgba(245,240,232,.18)}
+.ticks i.on{background:var(--lime);height:44px}
+.ticks i:nth-child(10n){height:28px;background:rgba(245,240,232,.35)}
+.op .day{position:absolute;right:96px;bottom:150px;font-size:24px;color:var(--paper)}
+.op .day b{color:var(--lime)}
+.op .bar{position:absolute;left:50%;top:600px;height:8px;width:560px;margin-left:-280px;background:var(--lime);transform-origin:left}
+/* panels */
+.panel{background:var(--ink);color:var(--paper);border-radius:6px}
+.lower{position:absolute;left:96px;bottom:110px;display:flex;align-items:stretch}
+.lower .acc{width:14px;background:var(--lime);border-radius:4px 0 0 4px}
+.lower .box{padding:24px 38px 26px 30px;background:var(--ink);border-radius:0 6px 6px 0;overflow:hidden}
+.lower .nm{font-family:var(--disp);font-weight:800;font-size:54px;line-height:1.05;color:var(--paper);white-space:nowrap}
+.lower .rl{margin-top:12px;font-size:21px;color:var(--lime);white-space:nowrap}
+.kicker{position:absolute;left:96px;top:84px;display:flex;align-items:center;gap:0;overflow:hidden;border-radius:6px}
+.kicker .n{background:var(--lime);color:var(--ink);font-family:var(--mono);font-weight:700;font-size:26px;padding:16px 20px;letter-spacing:.06em}
+.kicker .t{background:var(--ink);color:var(--paper);font-family:var(--body);font-weight:800;font-size:34px;padding:12px 30px 13px;white-space:nowrap}
+.stat{position:absolute;top:300px;width:470px;padding:40px 44px 42px;background:var(--ink);border-radius:8px;overflow:hidden}
+.stat.r{right:96px}.stat.l{left:96px}
+.stat .big{font-family:var(--disp);font-weight:800;font-size:150px;}.stat .big.long{font-size:104px;}.stat .big{line-height:.95;color:var(--lime);letter-spacing:-.03em;white-space:nowrap}
+.stat .lb{margin-top:22px;font-family:var(--body);font-weight:800;font-size:38px;line-height:1.15;color:var(--paper)}
+.stat .sb{margin-top:16px;font-size:20px;color:var(--dim);line-height:1.5}
+.stat .ln{height:6px;background:var(--lime);margin-top:28px;transform-origin:left}
+.strike{position:absolute;right:96px;top:280px;width:600px;padding:38px 44px;background:var(--ink);border-radius:8px}
+.strike .hd{font-size:22px;color:var(--lime)}
+.strike .it{position:relative;margin-top:26px;font-family:var(--disp);font-weight:800;font-size:40px;line-height:1.1;color:var(--paper);white-space:nowrap;display:inline-block}
+.strike .it s{position:absolute;left:-8px;right:-8px;top:52%;height:9px;background:#FF3B30;transform-origin:left;text-decoration:none}
+.chip{position:absolute;right:96px;display:flex;align-items:center;gap:22px;padding:20px 34px 20px 22px;background:var(--ink);border-radius:60px;overflow:hidden}
+.chip .ic{width:58px;height:58px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:24px;color:var(--ink)}
+.chip .a{font-family:var(--body);font-weight:800;font-size:36px;color:var(--paper);white-space:nowrap}
+.chip .b{font-size:19px;color:var(--dim);margin-top:6px;white-space:nowrap}
+.quote{position:absolute;left:0;right:0;bottom:0;height:560px;background:linear-gradient(to top,rgba(13,13,15,.92) 0%,rgba(13,13,15,.75) 45%,rgba(13,13,15,0) 100%)}
+.quote .q{position:absolute;left:120px;right:120px;bottom:110px;font-family:var(--disp);font-weight:800;font-size:66px;line-height:1.16;color:var(--paper)}
+.quote .q .w{display:inline-block;margin-right:.26em;opacity:0}
+.quote .q .w.hl{color:var(--lime)}
+.quote .mk{display:block;margin-bottom:22px;font-size:22px;color:var(--lime)}
+.daybadge{position:absolute;right:96px;top:84px;display:flex;align-items:center;gap:22px;padding:18px 30px;background:var(--lime);border-radius:8px;color:var(--ink)}
+.daybadge .l{font-family:var(--mono);font-weight:700;font-size:24px;letter-spacing:.14em}
+.daybadge .n{font-family:var(--disp);font-weight:800;font-size:76px;line-height:1}
+.daybadge .o{font-family:var(--mono);font-weight:700;font-size:24px;opacity:.6}
+.poll{position:absolute;right:96px;top:250px;width:600px;padding:38px 40px 40px;background:var(--ink);border-radius:8px}
+.poll .hd{font-size:21px;color:var(--lime)}
+.poll .qq{margin-top:16px;font-family:var(--body);font-weight:800;font-size:40px;color:var(--paper);line-height:1.15}
+.poll .op2{position:relative;margin-top:22px;height:84px;border-radius:6px;background:var(--ink2);overflow:hidden;display:flex;align-items:center;padding:0 28px;font-family:var(--body);font-weight:800;font-size:32px;color:var(--paper)}
+.poll .op2 .f{position:absolute;left:0;right:0;top:0;bottom:0;background:var(--lime);transform-origin:left}
+.poll .op2 span{position:relative}
+
+.poll .ft{margin-top:22px;font-size:19px;color:var(--dim)}
+.endc{position:absolute;left:0;right:0;bottom:0;height:620px;background:linear-gradient(to top,rgba(13,13,15,.95) 0%,rgba(13,13,15,.8) 50%,rgba(13,13,15,0) 100%)}
+.endc .s{position:absolute;left:120px;bottom:330px;font-size:24px;color:var(--lime)}
+.endc .h{position:absolute;left:120px;bottom:180px;font-family:var(--disp);font-weight:800;font-size:110px;line-height:1;color:var(--paper);white-space:nowrap}
+.endc .h b{color:var(--lime)}
+.endc .btn{position:absolute;right:120px;bottom:196px;padding:30px 48px;border-radius:60px;background:var(--lime);color:var(--ink);font-family:var(--body);font-weight:800;font-size:40px}
+.endc .ticks{left:120px;right:120px;bottom:90px;height:34px}
+.endc .ticks i.on{height:34px}
+</style></head><body><div id="stage"></div>
+<script>
+const S=document.getElementById('stage');let TL=null;
+const h=(html)=>{S.insertAdjacentHTML('beforeend',html);return S.lastElementChild};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function ticks(n,on){let x='';for(let i=1;i<=n;i++)x+=`<i class="${i<=on?'on':''}"></i>`;return `<div class="ticks">${x}</div>`}
+const E='power3.out',EI='power3.in';
+const B={
+opener(p,tl){ // ~5.2s, opaque; wipes away at the end
+  const d=String(p.day).padStart(2,'0');
+  const el=h(`<div class="op"><div class="grid"></div><div class="glow"></div>
+   <div class="top mono"><span><i class="dot"></i>LIVE · ${esc(p.city||'MADRID')}</span><span>ЭКСПЕРИМЕНТ <b>${d}/${p.total||90}</b></span></div>
+   <div class="clock"><span class="d"><span>0</span><span>0</span></span><span class="d" id="h2"><span>5</span><span>6</span></span><span class="c">:</span><span class="d" id="m1"><span>5</span><span>0</span></span><span class="d" id="m2"><span>9</span><span>0</span></span></div>
+   <div class="bar"></div>
+   <div class="title">${p.title.map(w=>w.br?'<br>':`<span class="w ${w.hl?'hl':''}"><i>${esc(w.t)}</i></span>`).join('')}</div>
+   <div class="tag">${esc(p.tag)}</div>
+   <div class="day mono">ДЕНЬ <b>${d}</b> ИЗ ${p.total||90}</div>
+   ${ticks(p.total||90,0)}</div>`);
+  const q=s=>el.querySelectorAll(s);
+  tl.from(el.querySelector('.grid'),{opacity:0,duration:.8},0)
+    .from(el.querySelector('.top'),{y:-30,opacity:0,duration:.5,ease:E},.1)
+    .from(el.querySelector('.clock'),{scale:.86,opacity:0,duration:.7,ease:E},.05)
+    .to(q('#h2 span,#m1 span,#m2 span'),{yPercent:-100,duration:.42,ease:'back.out(1.6)',stagger:.05},1.15)
+    .from(el.querySelector('.bar'),{scaleX:0,duration:.5,ease:E},1.3)
+    .to(el.querySelector('.glow'),{scale:1.25,opacity:1,duration:1.2},1.2)
+    .to(el.querySelector('.clock'),{y:-120,scale:.55,duration:.7,ease:'power3.inOut'},2.0)
+    .to(el.querySelector('.bar'),{y:-200,scaleX:.35,duration:.7,ease:'power3.inOut'},2.0)
+    .from(q('.title .w i'),{yPercent:110,duration:.55,ease:E,stagger:.09},2.25)
+    .from(el.querySelector('.tag'),{y:20,opacity:0,duration:.5,ease:E},2.6)
+    .from(q('.ticks i'),{scaleY:0,transformOrigin:'bottom',duration:.25,stagger:.006,ease:E},1.6)
+    .from(el.querySelector('.day'),{opacity:0,x:30,duration:.4,ease:E},2.7);
+  for(let i=0;i<p.day;i++) tl.set(q('.ticks i')[i],{className:'on'},3.0+i*.04);
+  tl.to(el,{clipPath:'inset(0 0 100% 0)',duration:.6,ease:'power4.inOut'},p.dur-.65);
+  tl.set(el,{clipPath:'inset(0 0 0% 0)'},0);
+},
+lower(p,tl){
+  const el=h(`<div class="lower"><div class="acc"></div><div class="box"><div class="nm">${esc(p.name)}</div><div class="rl mono">${esc(p.role)}</div></div></div>`);
+  tl.from(el.querySelector('.acc'),{scaleY:0,duration:.35,ease:E},0)
+    .from(el.querySelector('.box'),{clipPath:'inset(0 100% 0 0)',duration:.55,ease:'power4.out'},.15)
+    .from(el.querySelector('.nm'),{x:-40,opacity:0,duration:.5,ease:E},.3)
+    .from(el.querySelector('.rl'),{x:-30,opacity:0,duration:.5,ease:E},.42)
+    .to(el,{x:-60,opacity:0,duration:.4,ease:EI},p.dur-.45);
+},
+kicker(p,tl){
+  const el=h(`<div class="kicker"><div class="n">${esc(p.num)}</div><div class="t">${esc(p.title)}</div></div>`);
+  tl.from(el.querySelector('.n'),{yPercent:-110,duration:.4,ease:E},0)
+    .from(el.querySelector('.t'),{clipPath:'inset(0 100% 0 0)',duration:.55,ease:'power4.out'},.15)
+    .to(el,{y:-30,opacity:0,duration:.35,ease:EI},p.dur-.4);
+},
+stat(p,tl){
+  const el=h(`<div class="stat ${p.side||'r'}"><div class="big ${String(p.big).length>3?'long':''}">${esc(p.big)}</div><div class="lb">${esc(p.label)}</div>${p.sub?`<div class="sb mono">${esc(p.sub)}</div>`:''}<div class="ln"></div></div>`);
+  tl.from(el,{clipPath:'inset(0 0 100% 0)',duration:.55,ease:'power4.out'},0)
+    .from(el.querySelector('.big'),{yPercent:60,opacity:0,duration:.6,ease:E},.15)
+    .from(el.querySelectorAll('.lb,.sb'),{y:20,opacity:0,duration:.45,stagger:.08,ease:E},.32)
+    .from(el.querySelector('.ln'),{scaleX:0,duration:.6,ease:E},.45)
+    .to(el,{x:(p.side=='l'?-80:80),opacity:0,duration:.4,ease:EI},p.dur-.45);
+},
+strike(p,tl){
+  const el=h(`<div class="strike"><div class="hd mono">${esc(p.head)}</div>${p.items.map(t=>`<div><span class="it">${esc(t)}<s></s></span></div>`).join('')}</div>`);
+  tl.from(el,{clipPath:'inset(0 0 100% 0)',duration:.5,ease:'power4.out'},0)
+    .from(el.querySelectorAll('.it'),{x:40,opacity:0,duration:.45,stagger:.18,ease:E},.2);
+  el.querySelectorAll('s').forEach((s,i)=>tl.from(s,{scaleX:0,duration:.35,ease:'power2.inOut'},(p.at||[1.0,1.6])[i]));
+  tl.to(el,{x:80,opacity:0,duration:.4,ease:EI},p.dur-.45);
+},
+chip(p,tl){
+  const el=h(`<div class="chip" style="top:${p.y||300}px"><div class="ic">${esc(p.ic||'→')}</div><div><div class="a">${esc(p.a)}</div>${p.b?`<div class="b mono">${esc(p.b)}</div>`:''}</div></div>`);
+  tl.from(el,{clipPath:'inset(0 0 0 100% round 60px)',duration:.55,ease:'power4.out'},0)
+    .from(el.querySelector('.ic'),{scale:0,duration:.4,ease:'back.out(2)'},.2)
+    .to(el,{x:80,opacity:0,duration:.4,ease:EI},p.dur-.45);
+},
+quote(p,tl){ // words [{t,at,hl}]
+  const el=h(`<div class="quote"><div class="q"><div class="mk mono">${esc(p.mark||'')}</div>${p.words.map(w=>`<span class="w ${w.hl?'hl':''}">${esc(w.t)}</span>`).join('')}</div></div>`);
+  tl.from(el,{opacity:0,duration:.4},0).from(el.querySelector('.mk'),{opacity:0,x:-20,duration:.4},.1);
+  el.querySelectorAll('.w').forEach((s,i)=>tl.fromTo(s,{opacity:0,y:24},{opacity:1,y:0,duration:.22,ease:E},Math.max(.05,p.words[i].at)));
+  tl.to(el,{opacity:0,duration:.4},p.dur-.42);
+},
+day(p,tl){
+  const el=h(`<div class="daybadge"><span class="l">ДЕНЬ</span><span class="n">${p.n}</span><span class="o">/ ${p.total||90}</span></div>`);
+  tl.from(el,{scale:.6,opacity:0,duration:.5,ease:'back.out(1.8)'},0)
+    .from(el.querySelector('.n'),{yPercent:80,opacity:0,duration:.45,ease:E},.15)
+    .to(el,{y:-30,opacity:0,duration:.35,ease:EI},p.dur-.4);
+},
+poll(p,tl){
+  const el=h(`<div class="poll"><div class="hd mono">${esc(p.head)}</div><div class="qq">${esc(p.q)}</div>${p.opts.map((o,i)=>`<div class="op2 ${i==p.pick?'pk':''}"><div class="f"></div><span>${esc(o)}</span></div>`).join('')}<div class="ft mono">${esc(p.foot)}</div></div>`);
+  const ops=el.querySelectorAll('.op2');
+  tl.from(el,{clipPath:'inset(0 0 100% 0)',duration:.5,ease:'power4.out'},0)
+    .from(el.querySelectorAll('.qq,.op2,.ft'),{y:20,opacity:0,duration:.4,stagger:.1,ease:E},.2);
+  ops.forEach((o,i)=>{tl.set(o.querySelector('.f'),{scaleX:0},0);if(i==p.pick){tl.to(o.querySelector('.f'),{scaleX:1,duration:.6,ease:'power2.inOut'},p.pickAt||2.4);tl.to(o.querySelector('span'),{color:'#0D0D0F',duration:.3},(p.pickAt||2.4)+.25)}});
+  tl.to(el,{x:80,opacity:0,duration:.4,ease:EI},p.dur-.45);
+},
+end(p,tl){
+  const el=h(`<div class="endc"><div class="s mono">${esc(p.sub)}</div><div class="h">${p.head}</div><div class="btn">${esc(p.btn)}</div>${ticks(p.total||90,p.day)}</div>`);
+  tl.from(el,{opacity:0,duration:.5},0)
+    .from(el.querySelector('.s'),{x:-30,opacity:0,duration:.4,ease:E},.2)
+    .from(el.querySelector('.h'),{yPercent:40,opacity:0,duration:.6,ease:E},.3)
+    .from(el.querySelector('.btn'),{scale:.5,opacity:0,duration:.5,ease:'back.out(2)'},.6)
+    .from(el.querySelectorAll('.ticks i'),{scaleY:0,transformOrigin:'bottom',duration:.25,stagger:.005,ease:E},.5);
+  if(p.swapAt){const h2=document.createElement('div');h2.className='h';h2.innerHTML=p.head2;el.appendChild(h2);const hh=el.querySelector('.h');
+    tl.set(h2,{opacity:0},0).to(hh,{opacity:0,y:-30,duration:.3,ease:EI},p.swapAt).fromTo(h2,{opacity:0,y:40},{opacity:1,y:0,duration:.5,ease:E},p.swapAt+.25)}
+  tl.to(el,{opacity:0,duration:.5},p.dur-.5);
+}};
+window.setup=function(spec){S.innerHTML='';TL=gsap.timeline({paused:true});B[spec.type](spec,TL);TL.seek(0);};
+window.seek=t=>TL.seek(t,false);
+</script></body></html>
