@@ -1,0 +1,57 @@
+{
+ "fps": 25,
+ "tc_start": 74325,
+ "opener_after": null,
+ "segments": [
+  {
+   "in": 5.3,
+   "out": 8.15,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 33.3,
+   "out": 37.95,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 62.4,
+   "out": 73.7,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 78.6,
+   "out": 88.3,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 116.7,
+   "out": 123.0,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 166.0,
+   "out": 171.9,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 183.8,
+   "out": 208.0,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 232.6,
+   "out": 247.1,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 434.3,
+   "out": 441.4,
+   "tag": "reel1_toxic"
+  },
+  {
+   "in": 442.0,
+   "out": 459.6,
+   "tag": "reel1_toxic"
+  }
+ ]
+}

@@ -1,0 +1,137 @@
+{
+ "fps": 25,
+ "tc_start": 74325,
+ "total": 100.68,
+ "gap_at": null,
+ "gap": 0,
+ "edl": [
+  {
+   "src_in": 5.28,
+   "src_out": 8.16,
+   "rec": 0.0,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 33.28,
+   "src_out": 37.96,
+   "rec": 2.88,
+   "tag": "reel1_toxic",
+   "scale": 1.12
+  },
+  {
+   "src_in": 62.4,
+   "src_out": 72.04,
+   "rec": 7.56,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 72.36,
+   "src_out": 73.68,
+   "rec": 17.2,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 78.6,
+   "src_out": 88.32,
+   "rec": 18.52,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 116.72,
+   "src_out": 117.64,
+   "rec": 28.24,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 118.28,
+   "src_out": 123.0,
+   "rec": 29.16,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 166.0,
+   "src_out": 171.92,
+   "rec": 33.88,
+   "tag": "reel1_toxic",
+   "scale": 1.12
+  },
+  {
+   "src_in": 183.8,
+   "src_out": 208.0,
+   "rec": 39.8,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 232.6,
+   "src_out": 240.08,
+   "rec": 64.0,
+   "tag": "reel1_toxic",
+   "scale": 1.12
+  },
+  {
+   "src_in": 240.92,
+   "src_out": 244.68,
+   "rec": 71.48,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 245.72,
+   "src_out": 247.12,
+   "rec": 75.24,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 434.32,
+   "src_out": 441.4,
+   "rec": 76.64,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  },
+  {
+   "src_in": 442.0,
+   "src_out": 455.72,
+   "rec": 83.72,
+   "tag": "reel1_toxic",
+   "scale": 1.12
+  },
+  {
+   "src_in": 456.36,
+   "src_out": 459.6,
+   "rec": 97.44,
+   "tag": "reel1_toxic",
+   "scale": 1.0
+  }
+ ],
+ "covers": [
+  {
+   "rec_in": 72.32,
+   "rec_out": 74.52,
+   "src_in": 241.77,
+   "src_out": 243.96,
+   "covered_by": "agents"
+  },
+  {
+   "rec_in": 79.08,
+   "rec_out": 81.28,
+   "src_in": 436.76,
+   "src_out": 438.95,
+   "covered_by": "tenth_job"
+  },
+  {
+   "rec_in": 97.44,
+   "rec_out": 98.64,
+   "src_in": 456.36,
+   "src_out": 457.57,
+   "covered_by": "burnout"
+  }
+ ]
+}

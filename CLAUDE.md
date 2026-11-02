@@ -21,5 +21,10 @@
 10. **Публикация**: главы из edl → `chapters.txt`; превью A/B (`graphics/overlays/thumbnail.html`); тексты — Gemini по `agents/GEMINI.md` (или Claude по тем же правилам). Отдать Антону: таймлайн, шортсы, превью, тексты — одним сообщением, всё сразу.
 11. Закоммитить `episodes/ГГГГ-ММ-ДД/` (takes, edl, specs, shorts, publish, transcript).
 
+## Reels / Shorts (Toxic TV и нарезки)
+- Тон и бренд: Toxic TV — чёрный + кислотно-розовый #FF2E93 + вольт #E8FF2E, штампы, «7 vs 18», капс-субтитры (graphics/overlays/toxic_reels.html). Новостные шортсы — бренд «Пока ты спал» (graphics/overlays/shorts.html).
+- Порядок: `takes.json` на каждый ролик → `CUT_GAP=0.22 CUT_PAD=0.07 python3 pipeline/cut.py …` → `reels_config.json` (заголовок, штампы, списки, vs в секундах исходника) → `python3 pipeline/reels.py` → рендер графики (`TPL=toxic_reels.html node graphics/overlays/render_vertical.js`) → VP9-alpha → B-roll из Pixabay на окна `covers` → `python3 pipeline/vertical_render.py … > render.sh` → на Mac `bash render.sh 1`, `2`, `3` (каждый шаг < 180 с; шаг 1 можно повторять — готовые куски пропускаются).
+- Куски рендерятся по одному с точной длиной звука (PCM + apad + -t), иначе звук уезжает; несколько 4K-декодеров сразу VM убивает.
+
 ## Сдача
 В ответе Антону 3–5 строк: что готово, где лежит, что проверить руками. Не «готово», пока qa.py не прошёл.

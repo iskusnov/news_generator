@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- Toxic TV — вертикальный оверлей для Reels (1080×1920, прозрачный). setup(spec), seek(t). -->
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../brand.css">
+<script src="../vendor/gsap.min.js"></script>
+<style>
+:root{--acid:#FF2E93;--volt:#E8FF2E;--blk:#0B0B0D;--wht:#FFFFFF}
+html,body{width:1080px;height:1920px;overflow:hidden;background:transparent}
+body.bg{background:#444 url(bgv.jpg) center/cover}
+.mark{z-index:5;position:absolute;left:56px;top:70px;transform:rotate(-4deg);background:var(--acid);color:var(--blk);font-family:var(--disp);font-weight:800;font-size:40px;padding:10px 20px 12px;letter-spacing:.02em}
+.mark i{font-style:normal;background:var(--blk);color:var(--acid);padding:0 10px;margin-left:8px}
+.title{position:absolute;left:56px;right:56px;top:170px;transform-origin:0 0}
+.title div{display:inline;font-family:var(--disp);font-weight:800;font-size:84px;line-height:1.22;color:var(--wht);background:var(--blk);padding:4px 16px;box-decoration-break:clone;-webkit-box-decoration-break:clone;text-transform:uppercase}
+.title b{color:var(--acid);font-weight:800}
+.cap{position:absolute;left:50px;right:50px;top:1230px;text-align:center;font-family:var(--disp);font-weight:800;font-size:74px;line-height:1.16;color:#fff;text-transform:uppercase;-webkit-text-stroke:3px var(--blk);paint-order:stroke fill;text-shadow:0 6px 0 rgba(0,0,0,.6)}
+.cap .w{display:inline-block;margin:0 .12em}.cap .w.on{color:var(--acid)}
+.stamp{opacity:0;position:absolute;left:50%;top:420px;transform:translateX(-50%) rotate(-6deg);border:10px solid var(--acid);color:var(--acid);font-family:var(--disp);font-weight:800;font-size:76px;line-height:1.05;padding:18px 34px;text-align:center;white-space:nowrap;background:rgba(11,11,13,.82);text-transform:uppercase}
+.stamp small{display:block;font-family:var(--mono);font-size:30px;letter-spacing:.2em;color:var(--wht);margin-bottom:6px}
+.list{position:absolute;left:56px;top:380px}
+.list .it{display:block;width:max-content;margin-bottom:14px;font-family:var(--disp);font-weight:800;font-size:54px;color:var(--blk);background:var(--volt);padding:6px 18px;opacity:0;transform:rotate(-2deg);text-transform:uppercase}
+.list .it:nth-child(2){background:var(--acid);transform:rotate(1.5deg)}.list .it:nth-child(3){background:var(--wht)}
+.vs{opacity:0;position:absolute;left:0;right:0;top:390px;display:flex;justify-content:center;align-items:flex-end;gap:40px}
+.vs .c{text-align:center;background:rgba(11,11,13,.85);padding:24px 34px;border-radius:10px}
+.vs .n{font-family:var(--disp);font-weight:800;font-size:170px;line-height:1;color:var(--wht)}
+.vs .c.b .n{color:var(--acid)}
+.vs .l{font-family:var(--mono);font-size:28px;color:var(--wht);letter-spacing:.12em;margin-top:8px}
+.vs .x{font-family:var(--disp);font-weight:800;font-size:60px;color:var(--volt);padding-bottom:70px}
+.end{opacity:0;position:absolute;inset:0;background:var(--blk);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px}
+.end .big{font-family:var(--disp);font-weight:800;font-size:150px;color:var(--acid);transform:rotate(-4deg)}
+.end .sm{font-family:var(--mono);font-size:34px;color:var(--wht);letter-spacing:.14em}
+</style></head><body><div id="st"></div>
+<script>
+const st=document.getElementById('st');let TL;const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+window.setup=function(p){
+  st.innerHTML=`<div class="mark">TOXIC<i>TV</i></div><div class="title"><div>${p.title}</div></div><div class="cap"></div>`+
+   (p.list?`<div class="list">${p.list.items.map(t=>`<span class="it">${esc(t)}</span>`).join('')}</div>`:'')+
+   (p.stamps||[]).map((s,i)=>`<div class="stamp" id="sp${i}">${s.small?`<small>${esc(s.small)}</small>`:''}${esc(s.text)}</div>`).join('')+
+   (p.vs?`<div class="vs"><div class="c"><div class="n">${p.vs.a}</div><div class="l">${esc(p.vs.al)}</div></div><div class="x">VS</div><div class="c b"><div class="n">${p.vs.b}</div><div class="l">${esc(p.vs.bl)}</div></div></div>`:'')+
+   `<div class="end"><div class="big">TOXIC TV</div><div class="sm">${esc(p.endline||'Подписывайся')}</div></div>`;
+  TL=gsap.timeline({paused:true});
+  // первый кадр — обложка: всё видно сразу; через 2.6 с заголовок уезжает вверх и уменьшается
+  TL.to('.title',{scale:.6,y:0,duration:.45,ease:'power3.inOut'},2.6);
+  if(p.list){st.querySelectorAll('.list .it').forEach((e,i)=>{TL.set(e,{opacity:0},0).fromTo(e,{opacity:0,scale:1.6},{opacity:1,scale:1,duration:.16,ease:'power4.out'},p.list.at[i])});TL.to('.list',{opacity:0,x:-80,duration:.3},p.list.out)}
+  (p.stamps||[]).forEach((s,i)=>{const e='#sp'+i;TL.set(e,{opacity:0},0).fromTo(e,{opacity:0,scale:2.2},{opacity:1,scale:1,duration:.18,ease:'power4.out'},s.at).to(e,{x:'+=6',duration:.04,yoyo:true,repeat:3},s.at+.18).to(e,{opacity:0,duration:.2},s.at+(s.dur||1.8))});
+  if(p.vs){TL.set('.vs',{opacity:0},0).fromTo('.vs .c:first-child',{opacity:0,y:60},{opacity:1,y:0,duration:.25},p.vs.at_a).set('.vs',{opacity:1},p.vs.at_a).fromTo('.vs .x,.vs .c.b',{opacity:0,scale:1.8},{opacity:1,scale:1,duration:.2,ease:'power4.out'},p.vs.at_b).to('.vs',{opacity:0,duration:.25},p.vs.out)}
+  TL.set('.end',{opacity:0},0).to('.end',{opacity:1,duration:.25},p.dur-p.endDur).fromTo('.end .big',{scale:1.6},{scale:1,duration:.3,ease:'power4.out'},p.dur-p.endDur);
+  window._ch=p.chunks;TL.seek(0);
+};
+window.seek=function(t){TL.seek(t,false);const cap=st.querySelector('.cap');const c=window._ch.find(c=>t>=c.s&&t<c.e);
+  cap.innerHTML=c?c.words.map(w=>`<span class="w ${t>=w.s?'on':''}">${esc(w.t)}</span>`).join(''):'';};
+</script></body></html>

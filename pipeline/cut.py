@@ -15,7 +15,8 @@ gaze.json — выход gaze.py (или «-», если проверки взг
   но попадает в "covers": его обязательно закрыть визуалом (вырезка, B-roll, графика), иначе проверка не пройдёт;
 - кусок короче 0,5 с выбрасывается; на каждой склейке план чередуется 1.0 / 1.12 (кроп), кроме коротких кусков.
 """
-import sys, json
+import sys, json, os
+GAP = float(os.environ.get('CUT_GAP', 0.35)); PAD = float(os.environ.get('CUT_PAD', 0.1))  # Reels/Shorts: CUT_GAP=0.22 CUT_PAD=0.07
 takes, words_p, sil_p, gaze_p, out = sys.argv[1:6]
 T = json.load(open(takes)); FPS = T.get('fps', 25)
 W = json.load(open(words_p))['words']
@@ -30,8 +31,8 @@ def split(a, b):
     ws = [w for w in W if a - 0.05 <= w['start'] < b]
     cuts = []
     for x, y in zip(ws, ws[1:]):                       # паузы по словам
-        if y['start'] - x['end'] > 0.35:
-            cuts.append((x['end'] + 0.1, y['start'] - 0.1))
+        if y['start'] - x['end'] > GAP:
+            cuts.append((x['end'] + PAD, y['start'] - PAD))
     for sa, sb in SIL:                                  # тишина по звуку
         lo, hi = max(sa, a), min(sb, b)
         if hi - lo > 0.9: cuts.append((lo + 0.2, hi - 0.12))

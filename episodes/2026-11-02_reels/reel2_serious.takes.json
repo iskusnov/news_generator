@@ -1,0 +1,42 @@
+{
+ "fps": 25,
+ "tc_start": 74325,
+ "opener_after": null,
+ "segments": [
+  {
+   "in": 139.2,
+   "out": 158.4,
+   "tag": "reel2_serious"
+  },
+  {
+   "in": 232.6,
+   "out": 247.1,
+   "tag": "reel2_serious"
+  },
+  {
+   "in": 249.4,
+   "out": 258.4,
+   "tag": "reel2_serious"
+  },
+  {
+   "in": 279.0,
+   "out": 293.2,
+   "tag": "reel2_serious"
+  },
+  {
+   "in": 380.9,
+   "out": 392.1,
+   "tag": "reel2_serious"
+  },
+  {
+   "in": 392.5,
+   "out": 405.5,
+   "tag": "reel2_serious"
+  },
+  {
+   "in": 418.3,
+   "out": 423.6,
+   "tag": "reel2_serious"
+  }
+ ]
+}

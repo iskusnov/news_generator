@@ -1,0 +1,102 @@
+{
+ "fps": 25,
+ "tc_start": 74325,
+ "total": 83.88,
+ "gap_at": null,
+ "gap": 0,
+ "edl": [
+  {
+   "src_in": 139.2,
+   "src_out": 158.4,
+   "rec": 0.0,
+   "tag": "reel2_serious",
+   "scale": 1.0
+  },
+  {
+   "src_in": 232.6,
+   "src_out": 240.08,
+   "rec": 19.2,
+   "tag": "reel2_serious",
+   "scale": 1.12
+  },
+  {
+   "src_in": 240.92,
+   "src_out": 244.68,
+   "rec": 26.68,
+   "tag": "reel2_serious",
+   "scale": 1.0
+  },
+  {
+   "src_in": 245.72,
+   "src_out": 247.12,
+   "rec": 30.44,
+   "tag": "reel2_serious",
+   "scale": 1.0
+  },
+  {
+   "src_in": 249.4,
+   "src_out": 258.4,
+   "rec": 31.84,
+   "tag": "reel2_serious",
+   "scale": 1.0
+  },
+  {
+   "src_in": 279.0,
+   "src_out": 293.2,
+   "rec": 40.84,
+   "tag": "reel2_serious",
+   "scale": 1.12
+  },
+  {
+   "src_in": 380.88,
+   "src_out": 392.08,
+   "rec": 55.04,
+   "tag": "reel2_serious",
+   "scale": 1.0
+  },
+  {
+   "src_in": 392.48,
+   "src_out": 401.96,
+   "rec": 66.24,
+   "tag": "reel2_serious",
+   "scale": 1.12
+  },
+  {
+   "src_in": 402.64,
+   "src_out": 405.52,
+   "rec": 75.72,
+   "tag": "reel2_serious",
+   "scale": 1.0
+  },
+  {
+   "src_in": 418.32,
+   "src_out": 423.6,
+   "rec": 78.6,
+   "tag": "reel2_serious",
+   "scale": 1.12
+  }
+ ],
+ "covers": [
+  {
+   "rec_in": 27.52,
+   "rec_out": 29.72,
+   "src_in": 241.77,
+   "src_out": 243.96,
+   "covered_by": "agents"
+  },
+  {
+   "rec_in": 52.92,
+   "rec_out": 55.04,
+   "src_in": 291.06,
+   "src_out": 293.2,
+   "covered_by": "chaos"
+  },
+  {
+   "rec_in": 61.6,
+   "rec_out": 64.92,
+   "src_in": 387.46,
+   "src_out": 390.75,
+   "covered_by": "choice"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "fps": 25,
+ "tc_start": 74325,
+ "opener_after": null,
+ "segments": [
+  {
+   "in": 232.6,
+   "out": 247.1,
+   "tag": "reel3_agents"
+  },
+  {
+   "in": 279.0,
+   "out": 285.65,
+   "tag": "reel3_agents"
+  }
+ ]
+}
