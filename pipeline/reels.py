@@ -6,6 +6,7 @@ config: [{"id","edl":"<id>.edl.json","title":"... <b>акцент</b>","endline"
           "list":{"items":[..],"src_at":[..],"src_out":X}, "stamps":[{"text","small","src_at","dur"}],
           "vs":{"a","al","b","bl","src_a","src_b","src_out"}}]
 Время элементов задаётся в секундах ИСХОДНИКА (src_*), скрипт переводит его во время ролика по edl.
+tail — секунд стоп-кадра после речи под финальную карточку.
 Субтитры: 1–3 слова, подсветка текущего слова; ошибки распознавания правятся словарём FIX ниже.
 """
 import sys, json, re
@@ -36,13 +37,14 @@ for R in json.load(open(cfg)):
             ch.append(cur); cur = []
         cur.append(w)
     if cur: ch.append(cur)
-    dur = E['total']; endDur = R.get('endDur', 1.6)
+    tail = R.get('tail', 0)  # секунд стоп-кадра в конце под финальную карточку (речь не перекрывается)
+    dur = round(E['total'] + tail, 2); endDur = R.get('endDur', 1.6)
     chunks = []
     for i, c in enumerate(ch):
         e = min(ch[i + 1][0]['s'] if i + 1 < len(ch) else dur, c[-1]['e'] + 0.5)
         if c[0]['s'] < dur - endDur:
             chunks.append({'s': c[0]['s'], 'e': round(min(e, dur - endDur), 2), 'words': [{'t': x['t'], 's': x['s']} for x in c]})
-    spec = {'id': R['id'], 'title': R['title'], 'dur': dur, 'endDur': endDur, 'endline': R.get('endline', 'Подписывайся'), 'chunks': chunks}
+    spec = {'id': R['id'], 'title': R['title'], 'dur': dur, 'endDur': endDur, 'endline': R.get('endline', 'Подписывайся'), 'tail': tail, 'chunks': chunks}
     if 'list' in R:
         L = R['list']; spec['list'] = {'items': L['items'], 'at': [s2r(t) for t in L['src_at']], 'out': s2r(L['src_out'])}
     if 'stamps' in R:

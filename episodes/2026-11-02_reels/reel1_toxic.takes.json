@@ -24,7 +24,7 @@
    "tag": "reel1_toxic"
   },
   {
-   "in": 116.7,
+   "in": 118.3,
    "out": 123.0,
    "tag": "reel1_toxic"
   },
@@ -34,13 +34,13 @@
    "tag": "reel1_toxic"
   },
   {
-   "in": 183.8,
+   "in": 188.7,
    "out": 208.0,
    "tag": "reel1_toxic"
   },
   {
    "in": 232.6,
-   "out": 247.1,
+   "out": 247.55,
    "tag": "reel1_toxic"
   },
   {
@@ -50,7 +50,7 @@
   },
   {
    "in": 442.0,
-   "out": 459.6,
+   "out": 460.4,
    "tag": "reel1_toxic"
   }
  ]

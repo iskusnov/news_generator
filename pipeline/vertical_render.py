@@ -14,22 +14,27 @@ CX = 1920  # центр лица по горизонтали в кадре 3840
 E = json.load(open(edl_p)); S = json.load(open(spec_p))
 tag = os.path.splitext(os.path.basename(out))[0]; tmp = f'$HOME/vrtmp/{tag}'  # промежуточное — на локальном диске VM (быстрее, можно удалять)
 q = shlex.quote
+parts = []
 L = ['#!/bin/bash', 'set -e', f'STEP=${{1:-all}}; mkdir -p {tmp}', 'if [ "$STEP" = all ] || [ "$STEP" = 1 ]; then']
 for i, e in enumerate(E['edl']):
     d = e['src_out'] - e['src_in']; k = e.get('scale', 1.0)
     w, h = int(1215 / k) // 2 * 2, int(2160 / k) // 2 * 2
     x = max(0, min(3840 - w, CX - w // 2)); y = 0 if k == 1.0 else int((2160 - h) * 0.35)
-    part = f'{tmp}/s{i:02d}.mov'; nf = round(d * 25)
+    nf = round(d * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
+    parts.append(part)
     L.append(f'[ -s {part} ] || {{ ffmpeg -v error -y -ss {e["src_in"]:.3f} -i {q(src)} '
              f'-vf crop={w}:{h}:{x}:{y},scale=1080:1920,setsar=1,fps=25 '
              f'-af afade=t=in:d=0.015,afade=t=out:st={max(0, nf/25 - 0.015):.3f}:d=0.015,apad '
-             f'-t {nf/25:.3f} -c:v libx264 -preset veryfast -crf 16 -pix_fmt yuv420p -c:a pcm_s16le -ar 48000 {tmp}/tmp_{i:02d}.mov && mv {tmp}/tmp_{i:02d}.mov {part}; }}')
+             f'-t {nf/25:.3f} -c:v libx264 -preset veryfast -crf 16 -pix_fmt yuv420p -c:a pcm_s16le -ar 48000 {tmp}/tmp.mov && mv {tmp}/tmp.mov {part}; }}')
 L.append('fi')
 L.append('if [ "$STEP" = all ] || [ "$STEP" = 2 ]; then')
-L.append(f'( for f in {tmp}/s*.mov; do echo "file \'$(basename $f)\'"; done ) > {tmp}/list.txt')
+L.append(f"printf '%s\\n' " + ' '.join(q("file '" + os.path.basename(p) + "'") for p in parts) + f' > {tmp}/list.txt')
 L.append(f'ffmpeg -v error -y -f concat -safe 0 -i {tmp}/list.txt -c copy {tmp}/base.mov')
 L.append('fi')
 ins, fc, cur, j = ['-i', 'BASEMOV'], [], '0:v', 1
+tail = S.get('tail', 0)
+if tail:  # стоп-кадр последнего кадра под финальную карточку
+    fc.append(f'[0:v]tpad=stop_mode=clone:stop_duration={tail:.2f}[v0]'); cur = 'v0'
 for b in S.get('broll', []):
     Ln = b['rec_out'] - b['rec_in']
     ins += ['-ss', '1', '-t', f'{Ln:.2f}', '-i', f"{broll_dir}/{b['clip']}.mp4"]
@@ -38,7 +43,7 @@ for b in S.get('broll', []):
     cur = f'c{j}'; j += 1
 ins += ['-c:v', 'libvpx-vp9', '-i', ov]
 fc.append(f'[{j}:v]format=yuva420p[ov];[{cur}][ov]overlay=0:0:format=auto[vout]')
-fc.append('[0:a]loudnorm=I=-14:TP=-1:LRA=11[aout]')
+fc.append('[0:a]loudnorm=I=-14:TP=-1:LRA=11' + (',apad' if tail else '') + '[aout]')
 cmd = ['ffmpeg', '-v', 'error', '-y'] + ins + ['-filter_complex', ';'.join(fc), '-map', '[vout]', '-map', '[aout]',
        '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000',
        '-movflags', '+faststart', '-t', f"{S['dur']:.2f}", out]
