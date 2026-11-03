@@ -1,0 +1,403 @@
+[
+ {
+  "id": "k01",
+  "type": "kicker",
+  "rec": 15.28,
+  "dur": 3.4,
+  "num": "01",
+  "title": "Карпати починил YouTube"
+ },
+ {
+  "id": "lower",
+  "type": "lower",
+  "rec": 23.4,
+  "dur": 5.0,
+  "name": "Антон Искуснов",
+  "role": "Пока ты спал · день 2 из 90"
+ },
+ {
+  "id": "sh_karp",
+  "type": "shot",
+  "rec": 35.92,
+  "dur": 7.0,
+  "src": "../shots/1103_1-08_c.png",
+  "lb": "X · @karpathy"
+ },
+ {
+  "id": "ch_try",
+  "type": "chip",
+  "rec": 63.52,
+  "dur": 4.6,
+  "ic": "→",
+  "a": "hackertube.org",
+  "b": "или фраза Карпати в вашу нейросеть",
+  "y": 760
+ },
+ {
+  "id": "k02",
+  "type": "kicker",
+  "rec": 72.2,
+  "dur": 3.4,
+  "num": "02",
+  "title": "Claude уходит от грубиянов"
+ },
+ {
+  "id": "q_mama",
+  "type": "quote",
+  "rec": 114.4,
+  "dur": 2.85,
+  "words": [
+   {
+    "t": "Мама,",
+    "at": 0.25,
+    "hl": false
+   },
+   {
+    "t": "я",
+    "at": 0.73,
+    "hl": false
+   },
+   {
+    "t": "не",
+    "at": 0.77,
+    "hl": false
+   },
+   {
+    "t": "хамил,",
+    "at": 0.93,
+    "hl": true
+   },
+   {
+    "t": "он",
+    "at": 1.37,
+    "hl": false
+   },
+   {
+    "t": "сам",
+    "at": 1.45,
+    "hl": false
+   },
+   {
+    "t": "ушел.",
+    "at": 1.85,
+    "hl": true
+   }
+  ],
+  "mark": "ПАНЧ"
+ },
+ {
+  "id": "k03",
+  "type": "kicker",
+  "rec": 116.72,
+  "dur": 3.4,
+  "num": "03",
+  "title": "Лимиты: ChatGPT, Grok, Anthropic"
+ },
+ {
+  "id": "ch_limit",
+  "type": "chip",
+  "rec": 118.08,
+  "dur": 5.0,
+  "ic": "$",
+  "a": "ChatGPT + Codex: общий лимит",
+  "b": "с декабря · быстрые чаты не считаются",
+  "y": 760
+ },
+ {
+  "id": "st_17",
+  "type": "stat",
+  "rec": 151.44,
+  "dur": 5.2,
+  "big": "$17B",
+  "label": "выручка Anthropic за III квартал",
+  "sub": "по данным Bloomberg / unusual_whales"
+ },
+ {
+  "id": "q_gb",
+  "type": "quote",
+  "rec": 171.64,
+  "dur": 2.81,
+  "words": [
+   {
+    "t": "Внимание,",
+    "at": 0.25,
+    "hl": false
+   },
+   {
+    "t": "у",
+    "at": 0.69,
+    "hl": false
+   },
+   {
+    "t": "вас",
+    "at": 1.05,
+    "hl": false
+   },
+   {
+    "t": "закончились",
+    "at": 1.17,
+    "hl": false
+   },
+   {
+    "t": "гигабайты.",
+    "at": 1.81,
+    "hl": true
+   }
+  ],
+  "mark": "КАК В 2000-Х"
+ },
+ {
+  "id": "k04",
+  "type": "kicker",
+  "rec": 201.28,
+  "dur": 3.4,
+  "num": "04",
+  "title": "Claude Code и чужие игры"
+ },
+ {
+  "id": "sk_mario",
+  "type": "strike",
+  "rec": 210.96,
+  "dur": 4.6,
+  "head": "Claude Code",
+  "items": [
+   "Марио",
+   "чужая игра"
+  ],
+  "at": [
+   1.1,
+   1.5
+  ]
+ },
+ {
+  "id": "k05",
+  "type": "kicker",
+  "rec": 227.76,
+  "dur": 3.4,
+  "num": "05",
+  "title": "Вирусный пост: 590 × 69"
+ },
+ {
+  "id": "sh_post",
+  "type": "shot",
+  "rec": 230.88,
+  "dur": 9.0,
+  "src": "../shots/1103_2-01_c.png",
+  "lb": "X · 13,5 млн просмотров",
+  "h": 700
+ },
+ {
+  "id": "st_407",
+  "type": "stat",
+  "rec": 256.96,
+  "dur": 4.0,
+  "big": "40 710",
+  "label": "= 590 × 69",
+  "sub": "ответ ChatGPT"
+ },
+ {
+  "id": "k06",
+  "type": "kicker",
+  "rec": 259.88,
+  "dur": 3.4,
+  "num": "06",
+  "title": "MIT: модель правит веса"
+ },
+ {
+  "id": "sh_mit",
+  "type": "shot",
+  "rec": 261.52,
+  "dur": 7.0,
+  "src": "../shots/1103_2-03_c.png",
+  "lb": "MIT · Weight-Space Programming",
+  "h": 760
+ },
+ {
+  "id": "st_x6",
+  "type": "stat",
+  "rec": 267.72,
+  "dur": 4.4,
+  "big": "×6",
+  "label": "рост на математике",
+  "sub": "без обучения и градиентов",
+  "side": "l"
+ },
+ {
+  "id": "k07",
+  "type": "kicker",
+  "rec": 279.08,
+  "dur": 3.4,
+  "num": "07",
+  "title": "Goldman Sachs: ИИ не всем"
+ },
+ {
+  "id": "sh_gs",
+  "type": "shot",
+  "rec": 280.4,
+  "dur": 5.6,
+  "src": "../shots/1103_2-02_c.png",
+  "lb": "X · Bloomberg",
+  "top": 300
+ },
+ {
+  "id": "st_12k",
+  "type": "stat",
+  "rec": 289.32,
+  "dur": 4.4,
+  "big": "12K",
+  "label": "инженеров с Claude и GitHub",
+  "sub": "Goldman Sachs · остальным нельзя"
+ },
+ {
+  "id": "k08",
+  "type": "kicker",
+  "rec": 327.6,
+  "dur": 3.4,
+  "num": "08",
+  "title": "Anthropic Residency"
+ },
+ {
+  "id": "sh_res",
+  "type": "shot",
+  "rec": 328.96,
+  "dur": 6.0,
+  "src": "../shots/1103_1-01_c.png",
+  "lb": "X · @AnthropicAI",
+  "top": 300
+ },
+ {
+  "id": "st_22",
+  "type": "stat",
+  "rec": 336.48,
+  "dur": 4.0,
+  "big": "22.11",
+  "label": "последний день заявок",
+  "sub": "опыт в ML не обязателен"
+ },
+ {
+  "id": "ch_plan",
+  "type": "chip",
+  "rec": 339.04,
+  "dur": 3.6,
+  "ic": "90",
+  "a": "План Б",
+  "b": "если 90 дней не взлетят",
+  "y": 760
+ },
+ {
+  "id": "k09",
+  "type": "kicker",
+  "rec": 342.44,
+  "dur": 3.4,
+  "num": "09",
+  "title": "ИИ-агент и мозг мыши"
+ },
+ {
+  "id": "k10",
+  "type": "kicker",
+  "rec": 375.28,
+  "dur": 3.4,
+  "num": "10",
+  "title": "Эллисон и папа Лев"
+ },
+ {
+  "id": "ch_ell",
+  "type": "chip",
+  "rec": 376.12,
+  "dur": 5.6,
+  "ic": "LE",
+  "a": "Ларри Эллисон, Oracle",
+  "b": "Роботы заменят таксистов, но не человека",
+  "y": 760
+ },
+ {
+  "id": "ch_pope",
+  "type": "chip",
+  "rec": 387.4,
+  "dur": 5.0,
+  "ic": "PL",
+  "a": "Папа Лев XIV",
+  "b": "Не доверять ИИ решения о жизни человека",
+  "y": 760
+ },
+ {
+  "id": "k11",
+  "type": "kicker",
+  "rec": 405.24,
+  "dur": 3.4,
+  "num": "11",
+  "title": "Коротко из X"
+ },
+ {
+  "id": "sh_musk",
+  "type": "shot",
+  "rec": 409.92,
+  "dur": 6.4,
+  "src": "../shots/1103_1-02_c.png",
+  "lb": "X · @elonmusk",
+  "top": 260
+ },
+ {
+  "id": "sh_lifeval",
+  "type": "shot",
+  "rec": 416.64,
+  "dur": 5.0,
+  "src": "../shots/1103_1-03_c.png",
+  "lb": "OpenAI · LifeVal",
+  "h": 760
+ },
+ {
+  "id": "sh_lecun",
+  "type": "shot",
+  "rec": 422.04,
+  "dur": 5.2,
+  "src": "../shots/1103_1-09_c.png",
+  "lb": "X · @ylecun",
+  "h": 760
+ },
+ {
+  "id": "ch_rumor",
+  "type": "chip",
+  "rec": 427.44,
+  "dur": 4.6,
+  "ic": "?",
+  "a": "СЛУХ · не подтверждено",
+  "b": "Скоро новая модель ChatGPT",
+  "y": 760
+ },
+ {
+  "id": "k12",
+  "type": "kicker",
+  "rec": 432.04,
+  "dur": 3.4,
+  "num": "12",
+  "title": "Итог дня"
+ },
+ {
+  "id": "poll",
+  "type": "poll",
+  "rec": 439.8,
+  "dur": 9.74,
+  "head": "Вопрос дня",
+  "q": "Нормально, что ИИ может обидеться на грубость?",
+  "opts": [
+   "Да, так и надо",
+   "Нет, это просто инструмент"
+  ],
+  "pick": -1,
+  "foot": "Ответьте в комментариях"
+ },
+ {
+  "id": "end",
+  "type": "end",
+  "rec": 450.4,
+  "dur": 2.62,
+  "sub": "Ежедневно · 06:00 по Мадриду",
+  "head": "Подписывайтесь",
+  "head2": "Завтра в <b>06:00</b>",
+  "swapAt": 1.4,
+  "btn": "Подписаться",
+  "day": 2,
+  "total": 90
+ }
+]

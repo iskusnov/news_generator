@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/unbounded/800.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/jetbrains-mono/700.css">
+<style>
+:root{--ink:#0D0D0F;--paper:#F5F0E8;--lime:#C8FF2E}
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1280px;height:720px;overflow:hidden;background:#000;position:relative;font-family:'Unbounded'}
+.bg{position:absolute;inset:0;background-repeat:no-repeat}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,13,15,.96) 0%,rgba(13,13,15,.88) 34%,rgba(13,13,15,.35) 56%,rgba(13,13,15,0) 70%)}
+.txt{position:absolute;left:56px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;width:700px}
+.chip{display:inline-block;align-self:flex-start;padding:8px 14px;background:var(--lime);color:var(--ink);font-family:'JetBrains Mono';font-weight:700;font-size:20px;letter-spacing:.1em;border-radius:6px;margin-bottom:26px}
+.l1{font-weight:800;font-size:50px;line-height:1.05;color:var(--paper)}
+.l2{font-weight:800;font-size:92px;line-height:1.02;color:var(--paper);letter-spacing:-.01em}
+.l3{white-space:nowrap;font-weight:800;font-size:158px;line-height:.95;color:var(--lime);letter-spacing:-.03em;text-shadow:0 8px 30px rgba(0,0,0,.4)}
+.day{display:inline-flex;align-self:flex-start;align-items:center;gap:14px;margin-top:22px;padding:12px 22px;background:var(--lime);color:var(--ink);border-radius:8px}
+.day b{font-size:64px;line-height:1}.day span{font-family:'JetBrains Mono';font-weight:700;font-size:26px}
+.logos{position:absolute;left:56px;bottom:40px;display:flex;gap:12px}
+.logos .t{width:74px;height:74px;border-radius:18px;background:rgba(13,13,15,.92);border:1px solid rgba(245,240,232,.12);display:flex;align-items:center;justify-content:center}
+.logos img{width:44px;height:44px}.logos img.mono{filter:invert(1)}
+</style></head><body><div class="bg"></div><div class="shade"></div><div class="txt"></div><div class="logos"></div>
+<script>
+const v=new URLSearchParams(location.search).get('v');
+const L='../../graphics/node_modules/@lobehub/icons-static-svg/icons/';
+document.querySelector('.logos').innerHTML=[['openai.svg',1],['claude-color.svg',0],['gemini-color.svg',0],['grok.svg',1],['deepseek-color.svg',0]].map(([f,m])=>`<div class="t"><img class="${m?'mono':''}" src="${L+f}"></div>`).join('');
+const bg=document.querySelector('.bg'),tx=document.querySelector('.txt');
+const D={A:{img:'t1103A.jpg',html:'<span class="chip">ПОКА ТЫ СПАЛ · ДЕНЬ 2/90</span><div class="l1">CLAUDE ТЕПЕРЬ</div><div class="l2">МОЖЕТ</div><div class="l3" style="font-size:150px">УЙТИ</div>'},
+ B:{img:'t1103B.jpg',html:'<span class="chip">ПОКА ТЫ СПАЛ · ДЕНЬ 2/90</span><div class="l1">КАРПАТИ ЗА ВЕЧЕР</div><div class="l2" style="font-size:84px">ПОЧИНИЛ</div><div class="l3" style="font-size:118px">YOUTUBE</div>'}}[v];
+bg.style.backgroundImage=`url(${D.img})`;bg.style.backgroundSize='1500px auto';bg.style.backgroundPosition='240px -70px';tx.innerHTML=D.html;tx.style.marginTop='-40px';
+</script></body></html>

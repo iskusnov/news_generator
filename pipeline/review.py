@@ -56,7 +56,12 @@ for a, b in zip(pieces, pieces[1:]):
     print(f"  {mm(b['rec'])}  …{' '.join(w['word'] for w in wa)} | {' '.join(w['word'] for w in wb)}…   (src {a['src_out']:.1f}→{b['src_in']:.1f})")
 if AUD:
     import subprocess
-    fc = ''.join(f"[0:a]atrim={e['src_in']}:{e['src_out']},asetpts=PTS-STARTPTS,afade=t=in:d=0.015[a{i}];" for i, e in enumerate(pieces))
-    fc += ''.join(f'[a{i}]' for i in range(len(pieces))) + f'concat=n={len(pieces)}:v=0:a=1[o]'
+    fc, parts, end = '', [], 0.0  # пробелы в монтаже (заставка, паузы) — тишиной, чтобы время совпадало с edl
+    for i, e in enumerate(pieces):
+        if e['rec'] - end > 0.02:
+            fc += f"anullsrc=r=16000:cl=mono,atrim=0:{e['rec'] - end:.3f}[g{i}];"; parts.append(f'[g{i}]')
+        fc += f"[0:a]atrim={e['src_in']}:{e['src_out']},asetpts=PTS-STARTPTS,afade=t=in:d=0.015,aformat=sample_rates=16000:channel_layouts=mono[a{i}];"; parts.append(f'[a{i}]')
+        end = e['rec'] + e['src_out'] - e['src_in']
+    fc += ''.join(parts) + f'concat=n={len(parts)}:v=0:a=1[o]'
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', AUD[0], '-filter_complex', fc, '-map', '[o]', '-b:a', '96k', AUD[1]], check=True)
     print(f'\nЗвуковой черновик: {AUD[1]}')

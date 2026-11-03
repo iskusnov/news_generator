@@ -86,6 +86,10 @@ body.bg{background:#7a3a2a url(bg.jpg) center/cover}
 .endc .btn{position:absolute;right:120px;bottom:196px;padding:30px 48px;border-radius:60px;background:var(--lime);color:var(--ink);font-family:var(--body);font-weight:800;font-size:40px}
 .endc .ticks{left:120px;right:120px;bottom:90px;height:34px}
 .endc .ticks i.on{height:34px}
+.shot{position:absolute;right:96px;top:150px;width:740px}
+.shot .lb{display:inline-block;margin-bottom:14px;padding:10px 18px;background:var(--lime);color:var(--ink);font-family:var(--mono);font-weight:700;font-size:20px;letter-spacing:.1em;border-radius:6px}
+.shot .cd{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55);border:2px solid rgba(13,13,15,.85)}
+.shot .cd img{display:block;width:100%}
 </style></head><body><div id="stage"></div>
 <script>
 const S=document.getElementById('stage');let TL=null;
@@ -149,6 +153,13 @@ strike(p,tl){
     .from(el.querySelectorAll('.it'),{x:40,opacity:0,duration:.45,stagger:.18,ease:E},.2);
   el.querySelectorAll('s').forEach((s,i)=>tl.from(s,{scaleX:0,duration:.35,ease:'power2.inOut'},(p.at||[1.0,1.6])[i]));
   tl.to(el,{x:80,opacity:0,duration:.4,ease:EI},p.dur-.45);
+},
+shot(p,tl){ // скриншот поста: src (путь от overlays/), lb (подпись), h (макс. высота карточки)
+  const el=h(`<div class="shot">${p.lb?`<div class="lb">${esc(p.lb)}</div>`:''}<div class="cd" style="max-height:${p.h||780}px"><img src="${p.src}"></div></div>`);
+  if(p.top!=null)el.style.top=p.top+'px';
+  tl.from(el,{y:60,opacity:0,duration:.55,ease:'power4.out'},0)
+    .from(el.querySelector('.cd'),{clipPath:'inset(0 0 100% 0 round 14px)',duration:.6,ease:'power4.out'},.05)
+    .to(el,{y:-30,opacity:0,duration:.4,ease:EI},p.dur-.45);
 },
 chip(p,tl){
   const el=h(`<div class="chip" style="top:${p.y||300}px"><div class="ic">${esc(p.ic||'→')}</div><div><div class="a">${esc(p.a)}</div>${p.b?`<div class="b mono">${esc(p.b)}</div>`:''}</div></div>`);

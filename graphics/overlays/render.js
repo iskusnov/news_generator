@@ -11,6 +11,7 @@ const only=process.env.ONLY?process.env.ONLY.split(','):null;
   if(preview)await pg.evaluate(()=>document.body.classList.add('bg'));
   for(const s of specs){
     await pg.evaluate(sp=>{window.setup(sp);return 1},s);await pg.evaluate(()=>document.fonts.ready.then(()=>1));
+    await pg.evaluate(()=>Promise.all([...document.images].map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r}))));
     const dir=path.join(outDir,s.id);fs.mkdirSync(dir,{recursive:true});
     const n=Math.round(s.dur*FPS);
     const frames=preview?(s.pv||[0.3,0.5,0.75].map(f=>f*s.dur)).map(t=>Math.round(t*FPS)):[...Array(n).keys()];
