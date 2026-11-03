@@ -8,6 +8,11 @@
 - Ключи на Mac: `~/Downloads/transcribe/.groq_key_claude` (Groq), `~/Downloads/transcribe/.pixabay_key` (Pixabay). Никогда не выводить в чат.
 - HyperFrames: `cd graphics && npm i`, `HYPERFRAMES_BROWSER_PATH=$(node -e "console.log(require('playwright').chromium.executablePath())")`.
 
+## Рендер на Mac (с 03.11)
+- Финальный рендер — нативный ffmpeg на Mac (VideoToolbox, ~2× реального времени в 4K), не в VM. Фоновая служба `com.pokatyspal.render` (pipeline/mac/watch.sh, ставится install.sh) раз в 20 с выполняет задания `~/PokaTySpal/queue/*.sh` по одному; логи `~/PokaTySpal/logs/<имя>.log` и `.rc`. Через мост папка видна как `$HOME/mnt/PokaTySpal`.
+- Задание = bash-скрипт с абсолютными путями macOS (`$HOME/Library/CloudStorage/GoogleDrive-tony.alexandridis@gmail.com/My Drive/...`), ffmpeg из /opt/homebrew/bin. Итог — `05_публикация/…_FINAL.mp4`; после — кадры ФИНАЛЬНОГО файла проверить глазами.
+- Условия: Mac на зарядке, не спит, приложение Claude открыто (мост).
+
 ## Шаги после записи (папка выпуска `выпуски/ГГГГ-ММ-ДД/`)
 1. **Звук и прокси** (Mac): `ffmpeg -i ЗАПИСЬ -vn -ac 1 -ar 16000 -c:a aac -b:a 48k audio.m4a`; прокси для взгляда частями ≤120 с: `ffmpeg -ss X -t 120 -i ЗАПИСЬ -vf fps=5,scale=640:-2 -an proxy_X.mp4`. Застейджить.
 2. **Распознавание**: Groq whisper-large-v3, `timestamp_granularities[]=word` и `segment` → `words.json` (см. pipeline/groq_transcribe.py; для слов добавить word).
