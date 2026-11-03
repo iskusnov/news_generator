@@ -5,11 +5,14 @@ D = sys.argv[1]; P = '/home/claude/news_generator/pipeline'
 W = json.load(open(f'{D}/words2.json'))['words']
 SH = [dict(id='short1_claude_ushel', title='Claude теперь может <b>уйти от вас</b>', segs=[(156.75, 219.5), (230.4, 232.6)]),
       dict(id='short2_590x69', title='Призналась ChatGPT в измене. <b>Он посчитал</b>', segs=[(594.45, 626.4), (634.7, 638.4), (663.9, 672.6)]),
-      dict(id='short3_karpathy', title='Карпати за вечер <b>починил YouTube</b>', segs=[(41.19, 62.2), (80.6, 91.3), (106.0, 112.6), (143.1, 153.5)])]
+      dict(id='short3_karpathy', title='Карпати за вечер <b>починил YouTube</b>', segs=[(41.19, 62.2), (80.6, 91.3), (106.0, 112.6), (143.1, 153.5)]),
+      dict(id='short4_mysh', title='ИИ уже делает <b>операции на мозге</b>', segs=[(936.13, 943.1), (963.1, 968.3), (981.1, 1000.9), (1005.7, 1006.9)])]
 FIX = {'квот': 'Claude', 'Ина': 'ИИ', 'Чаджи-петти': 'ChatGPT', 'Карпаты': 'Карпати', 'Карпатый': 'Карпати',
        'hackersube.org': 'hackertube.org', 'кодом.': 'Claude Code.', 'коду,': 'Claude Code,', 'клейбейтных': 'кликбейтных', 'youtube': 'YouTube'}
-out = []
-for s in SH:
+out = json.load(open(f'{D}/shorts/shorts.json')) if os.environ.get('ONLY') else []
+ONLY = os.environ.get('ONLY', '').split(',') if os.environ.get('ONLY') else None
+out = [o for o in out if not ONLY or o['id'] not in ONLY]
+for s in [x for x in SH if not ONLY or x['id'] in ONLY]:
     tp = f'{D}/shorts/{s["id"]}.takes.json'; ep = f'{D}/shorts/{s["id"]}.edl.json'
     json.dump(dict(fps=25, opener_after=None, segments=[dict(zip(('in', 'out'), x), tag='main') for x in s['segs']]), open(tp, 'w'))
     subprocess.run(['python3', f'{P}/cut.py', tp, f'{D}/words2.json', f'{D}/silence.json', '-', ep], env=dict(os.environ, CUT_GAP='0.22', CUT_PAD='0.07'), check=True, capture_output=True)
