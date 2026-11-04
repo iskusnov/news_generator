@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- Обложка Reels Toxic TV 1080×1920. ?v=1|2 — вариант лица/подачи. Главное — в центре 4:5 (y 285–1635), чтобы не обрезалось в сетке профиля. -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../brand.css">
+<style>
+:root{--acid:#FF2E93;--volt:#E8FF2E;--blk:#0B0B0D;--wht:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--blk)}
+.rays{position:absolute;inset:-400px;background:repeating-conic-gradient(from 0deg at 50% 52%,#1a0610 0 6deg,#3a0a22 6deg 12deg)}
+.glow{position:absolute;left:50%;top:58%;width:1300px;height:1300px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,46,147,.55),rgba(255,46,147,0) 62%)}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 2px,transparent 2.5px);background-size:22px 22px}
+.face{position:absolute;left:50%;width:1080px;transform:translateX(-50%);filter:drop-shadow(0 0 0 var(--volt)) drop-shadow(6px 0 0 var(--volt)) drop-shadow(-6px 0 0 var(--volt)) drop-shadow(0 -6px 0 var(--volt)) drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+.mark{position:absolute;left:60px;top:270px;transform:rotate(-4deg);background:var(--acid);color:var(--blk);font-family:var(--disp);font-weight:800;font-size:44px;padding:10px 22px 12px;z-index:3}
+.mark i{font-style:normal;background:var(--blk);color:var(--acid);padding:0 10px;margin-left:8px}
+.h{position:absolute;left:0;right:0;top:350px;text-align:center;z-index:3;font-family:var(--disp);font-weight:800;text-transform:uppercase;line-height:.92}
+.h .a{font-size:230px;color:var(--volt);-webkit-text-stroke:10px var(--blk);paint-order:stroke fill;text-shadow:14px 14px 0 var(--acid);letter-spacing:-.02em;transform:rotate(-4deg);display:inline-block}
+.h .b{display:inline-block;margin-top:10px;font-size:88px;color:var(--wht);background:var(--blk);padding:6px 26px 12px;transform:rotate(2deg);border:6px solid var(--acid)}
+.logos{position:absolute;left:0;right:0;top:720px;display:flex;justify-content:center;gap:22px;z-index:3}
+.logo{display:flex;align-items:center;gap:14px;background:var(--wht);border-radius:60px;padding:12px 28px 12px 16px;font-family:var(--disp);font-weight:800;font-size:44px;color:var(--blk);box-shadow:8px 8px 0 var(--blk)}
+.logo img{width:62px;height:62px}
+.logo:nth-child(1){transform:rotate(-5deg)}.logo:nth-child(2){transform:rotate(4deg)}
+.burst{position:absolute;z-index:4;width:280px;height:280px;background:var(--volt);clip-path:polygon(50% 0,59% 26%,85% 15%,74% 41%,100% 50%,74% 59%,85% 85%,59% 74%,50% 100%,41% 74%,15% 85%,26% 59%,0 50%,26% 41%,15% 15%,41% 26%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:var(--disp);font-weight:800;color:var(--blk);font-size:44px;line-height:1}
+.burst small{font-size:24px;margin-top:4px}
+.b1{right:24px;top:215px;width:240px;height:240px;font-size:40px;transform:rotate(14deg)}
+.b2{left:20px;top:1090px;width:250px;height:250px;background:var(--acid);color:var(--wht);font-size:38px;transform:rotate(-12deg)}
+.strip{position:absolute;left:-20px;right:-20px;bottom:200px;z-index:5;background:var(--acid);transform:rotate(-3deg);padding:18px 0 22px;text-align:center;white-space:nowrap;font-family:var(--disp);font-weight:800;font-size:66px;color:var(--blk);text-transform:uppercase;box-shadow:0 10px 0 var(--blk)}
+.strip i{font-style:normal;color:var(--wht)}
+.sub{position:absolute;left:0;right:0;bottom:120px;z-index:5;text-align:center;font-family:var(--mono);font-size:34px;letter-spacing:.18em;color:var(--volt);text-transform:uppercase}
+</style></head><body>
+<div class="rays"></div><div class="glow"></div><div class="dots"></div>
+<img class="face" id="face">
+<div class="mark">TOXIC<i>TV</i></div>
+<div class="h"><div class="a">ТОП-3</div><br><div class="b">СКИЛЛА</div></div>
+<div class="logos"><div class="logo"><img src="../logos/claude-color.svg">Claude</div><div class="logo"><img src="../logos/openai.svg">OpenAI</div></div>
+<div class="burst b1">ХИТ!<small>ДУМАЕТ<br>ЗА ТЕБЯ</small></div>
+
+<div class="strip">📺 Магазин <i>на диване</i></div>
+<div class="sub">Toxic TV · звоните прямо сейчас</div>
+<script>
+const v=new URLSearchParams(location.search).get('v')||'1';
+document.getElementById('face').src=v=='2'?'tc_face2.png':'tc_face1.png';
+const f=document.getElementById('face');if(v=='2'){f.style.width='800px';f.style.top=(850-391*800/1080)+'px';}else{f.style.top=(820-612)+'px';f.style.left='48%';}
+</script></body></html>
