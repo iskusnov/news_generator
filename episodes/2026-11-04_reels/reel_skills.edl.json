@@ -1,7 +1,7 @@
 {
  "fps": 25,
  "tc_start": 0,
- "total": 78.52,
+ "total": 83.36,
  "gap_at": null,
  "gap": 0,
  "edl": [
@@ -76,93 +76,94 @@
    "scale": 1.12
   },
   {
+   "src_in": 2002.08,
+   "src_out": 2007.92,
+   "rec": 29.48,
+   "tag": "thought",
+   "scale": 1.0,
+   "bw": true
+  },
+  {
    "src_in": 117.28,
    "src_out": 121.56,
-   "rec": 29.48,
+   "rec": 35.32,
    "tag": "s3",
    "scale": 1.0
   },
   {
    "src_in": 131.44,
    "src_out": 135.84,
-   "rec": 33.76,
+   "rec": 39.6,
    "tag": "s3",
    "scale": 1.12
   },
   {
    "src_in": 170.8,
    "src_out": 172.64,
-   "rec": 38.16,
+   "rec": 44.0,
    "tag": "bonus",
    "scale": 1.0
   },
   {
    "src_in": 173.04,
    "src_out": 181.16,
-   "rec": 40.0,
+   "rec": 45.84,
    "tag": "bonus",
    "scale": 1.12
   },
   {
    "src_in": 191.12,
    "src_out": 195.28,
-   "rec": 48.12,
+   "rec": 53.96,
    "tag": "bonus",
    "scale": 1.0
   },
   {
    "src_in": 195.96,
    "src_out": 200.32,
-   "rec": 52.28,
+   "rec": 58.12,
    "tag": "fomo",
    "scale": 1.12
   },
   {
    "src_in": 215.96,
    "src_out": 218.76,
-   "rec": 56.64,
+   "rec": 62.48,
    "tag": "fomo",
    "scale": 1.0
   },
   {
    "src_in": 1001.28,
    "src_out": 1006.32,
-   "rec": 59.44,
+   "rec": 65.28,
    "tag": "review",
    "scale": 1.0
   },
   {
    "src_in": 232.32,
    "src_out": 235.52,
-   "rec": 64.48,
+   "rec": 70.32,
    "tag": "call",
    "scale": 1.0
   },
   {
    "src_in": 256.36,
    "src_out": 259.0,
-   "rec": 67.68,
+   "rec": 73.52,
    "tag": "small",
    "scale": 1.0
   },
   {
    "src_in": 288.44,
    "src_out": 293.12,
-   "rec": 70.32,
+   "rec": 76.16,
    "tag": "small",
    "scale": 1.12
   },
   {
-   "src_in": 300.6,
-   "src_out": 301.6,
-   "rec": 75.0,
-   "tag": "small",
-   "scale": 1.0
-  },
-  {
    "src_in": 303.32,
    "src_out": 305.84,
-   "rec": 76.0,
+   "rec": 80.84,
    "tag": "small",
    "scale": 1.12
   }

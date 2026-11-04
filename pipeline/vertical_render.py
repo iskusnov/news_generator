@@ -11,7 +11,7 @@ vertical_render.py <edl.json> <spec.json> <исходник> <оверлей .we
 import sys, json, shlex, os
 edl_p, spec_p, src, ov, broll_dir, out = sys.argv[1:7]
 CX = 1920  # центр лица по горизонтали в кадре 3840
-VERT = os.environ.get('VERT') == '1'; SRC2 = os.environ.get('SRC2')  # VERT=1 — исходник уже вертикальный; SRC2 — второй файл (в edl его время = 1000 + t)
+VERT = os.environ.get('VERT') == '1'; SRC2 = os.environ.get('SRC2'); SRC3 = os.environ.get('SRC3')  # VERT=1 — исходник уже вертикальный; SRC2 — второй файл (в edl его время = 1000 + t)
 E = json.load(open(edl_p)); S = json.load(open(spec_p))
 tag = os.path.splitext(os.path.basename(out))[0]; tmp = f'$HOME/vrtmp/{tag}'  # промежуточное — на локальном диске VM (быстрее, можно удалять)
 q = shlex.quote
@@ -25,11 +25,12 @@ for i, e in enumerate(E['edl']):
     else:
         w, h = int(1215 / k) // 2 * 2, int(2160 / k) // 2 * 2
         x = max(0, min(3840 - w, CX - w // 2)); y = 0 if k == 1.0 else int((2160 - h) * 0.35)
-    s_in, s_src = (e['src_in'] - 1000, SRC2) if SRC2 and e['src_in'] >= 1000 else (e['src_in'], src)  # второй файл = время 1000+
-    nf = round(d * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
+    s_in, s_src = (e['src_in'] - 2000, SRC3) if SRC3 and e['src_in'] >= 2000 else (e['src_in'] - 1000, SRC2) if SRC2 and e['src_in'] >= 1000 else (e['src_in'], src)  # 2-й файл = 1000+, 3-й = 2000+
+    bw = ',hue=s=0,eq=contrast=1.12' if e.get('bw') else ''  # врезка «мысли за кадром» — ч/б
+    nf = round(d * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
     parts.append(part)
     L.append(f'[ -s {part} ] || {{ ffmpeg -v error -y -ss {s_in:.3f} -i {q(s_src)} '
-             f'-vf crop={w}:{h}:{x}:{y},scale=1080:1920,setsar=1,fps=25 '
+             f'-vf crop={w}:{h}:{x}:{y},scale=1080:1920,setsar=1,fps=25{bw} '
              f'-af afade=t=in:d=0.015,afade=t=out:st={max(0, nf/25 - 0.015):.3f}:d=0.015,apad '
              f'-t {nf/25:.3f} -c:v libx264 -preset veryfast -crf 16 -pix_fmt yuv420p -c:a pcm_s16le -ar 48000 {tmp}/tmp.mov && mv {tmp}/tmp.mov {part}; }}')
 L.append('fi')
