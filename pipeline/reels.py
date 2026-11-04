@@ -10,7 +10,7 @@ tail — секунд стоп-кадра после речи под финал�
 Субтитры: 1–3 слова, подсветка текущего слова; ошибки распознавания правятся словарём FIX ниже.
 """
 import sys, json, re
-FIX = {'AI-вдохновение': 'AI-вдохновение'}
+FIX = {'AI-вдохновение': 'AI-вдохновение', 'код?': 'кот?', 'главой.': 'головой.', 'банду': 'бонусу', 'отобранное': '«избранное»', 'сохраненных': 'сохранёнок', 'бессонницы,': 'бессонница,'}
 cfg, words_p = sys.argv[1], sys.argv[2]
 W = json.load(open(words_p))['words']
 for R in json.load(open(cfg)):
@@ -51,6 +51,10 @@ for R in json.load(open(cfg)):
         spec['stamps'] = [{'text': s['text'], 'small': s.get('small', ''), 'at': s2r(s['src_at']), 'dur': s.get('dur', 1.8)} for s in R['stamps']]
     if 'vs' in R:
         v = R['vs']; spec['vs'] = {k: v[k] for k in ('a', 'al', 'b', 'bl')}; spec['vs'].update(at_a=s2r(v['src_a']), at_b=s2r(v['src_b']), out=s2r(v['src_out']))
+    if 'extras' in R:   # box / tag / phone / fine (мелкий текст, на это время субтитры скрыты)
+        spec['extras'] = [dict({k: v for k, v in x.items() if k not in ('src_at', 'src_out')}, at=s2r(x['src_at']), out=s2r(x['src_out']) if x['src_out'] < 9000 else round(dur - endDur, 2)) for x in R['extras']]
+    for k in ('capTop', 'stampTop', 'endline2', 'pv'):
+        if k in R: spec[k] = R[k]
     spec['covers'] = E.get('covers', [])
     json.dump(spec, open(R['id'] + '.spec.json', 'w'), ensure_ascii=False, indent=1)
     print(R['id'], f"{dur:.1f} с", len(chunks), 'титров', len(spec['covers']), 'перекрыть B-roll')
