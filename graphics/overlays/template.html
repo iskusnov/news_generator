@@ -90,6 +90,8 @@ body.bg{background:#7a3a2a url(bg.jpg) center/cover}
 .shot .lb{display:inline-block;margin-bottom:14px;padding:10px 18px;background:var(--lime);color:var(--ink);font-family:var(--mono);font-weight:700;font-size:20px;letter-spacing:.1em;border-radius:6px}
 .shot .cd{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55);border:2px solid rgba(13,13,15,.85)}
 .shot .cd img{display:block;width:100%}
+.dimx{position:absolute;inset:0;background:rgba(13,13,15,.62)}
+.dimx .t{position:absolute;left:96px;bottom:110px;font-family:var(--mono);font-weight:700;font-size:26px;letter-spacing:.14em;color:var(--lime);text-transform:uppercase}
 </style></head><body><div id="stage"></div>
 <script>
 const S=document.getElementById('stage');let TL=null;
@@ -160,6 +162,10 @@ shot(p,tl){ // скриншот поста: src (путь от overlays/), lb (�
   tl.from(el,{y:60,opacity:0,duration:.55,ease:'power4.out'},0)
     .from(el.querySelector('.cd'),{clipPath:'inset(0 0 100% 0 round 14px)',duration:.6,ease:'power4.out'},.05)
     .to(el,{y:-30,opacity:0,duration:.4,ease:EI},p.dur-.45);
+},
+dim(p,tl){ // «мысль за кадром»: затемнение поверх ведущего, лицо видно
+  const el=h(`<div class="dimx">${p.text?`<div class="t">${esc(p.text)}</div>`:''}</div>`);
+  tl.from(el,{opacity:0,duration:.3},0).to(el,{opacity:0,duration:.35},p.dur-.35);
 },
 chip(p,tl){
   const el=h(`<div class="chip" style="top:${p.y||300}px"><div class="ic">${esc(p.ic||'→')}</div><div><div class="a">${esc(p.a)}</div>${p.b?`<div class="b mono">${esc(p.b)}</div>`:''}</div></div>`);

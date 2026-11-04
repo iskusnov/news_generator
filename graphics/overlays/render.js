@@ -5,7 +5,7 @@ const only=process.env.ONLY?process.env.ONLY.split(','):null;
 (async()=>{
   const specs=JSON.parse(fs.readFileSync(specFile,'utf8')).filter(s=>!only||only.includes(s.id));
   const b=await chromium.launch();
-  const pg=await b.newPage({viewport:{width:1920,height:1080},deviceScaleFactor:preview?0.5:2});
+  const pg=await b.newPage({viewport:{width:1920,height:1080},deviceScaleFactor:preview?0.5:(+process.env.SCALE||2)});
   await pg.goto('file://'+path.resolve(__dirname,'template.html'));
   await pg.evaluate(()=>document.fonts.ready.then(()=>1));
   if(preview)await pg.evaluate(()=>document.body.classList.add('bg'));
