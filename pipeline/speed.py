@@ -14,7 +14,6 @@ E = json.load(open(p)); W = json.load(open(wp))['words']
 V = re.compile('[аеёиоуыэюяaeiouy]', re.I)
 syl = t = 0.0
 for e in E['edl']:
-    if e.get('src_in', 0) >= 1000: continue
     syl += sum(len(V.findall(w['word'])) for w in W if e['src_in'] <= w['start'] < e['src_out']); t += e['src_out'] - e['src_in']
 rate = syl / t if t else REF / 1.15
 s = float(sys.argv[sys.argv.index('--speed') + 1]) if '--speed' in sys.argv else round(min(HI, max(LO, REF / rate)), 2)
