@@ -19,7 +19,7 @@ for e in sorted(E['edl'], key=lambda e: e['rec']):
     if abs(e['rec'] - prev) > 1 / fps + 1e-6 and not (E.get('gap_at') is not None and abs(e['rec'] - prev - E['gap']) < 1 / fps + 1e-6):
         bad.append(f"дыра/наложение на {prev:.2f} → {e['rec']:.2f}")
     if e['src_out'] - e['src_in'] < 0.5: bad.append(f"огрызок {e['rec']:.2f}")
-    prev = e['rec'] + e['src_out'] - e['src_in']
+    prev = e['rec'] + (e['src_out'] - e['src_in']) / e.get('speed', 1.0)
 for c in E.get('covers', []):
     if not c.get('covered_by'): bad.append(f"взгляд мимо камеры не закрыт: {c['rec_in']:.1f}–{c['rec_out']:.1f}")
 print('Громкость:', (lufs[-1] + ' LUFS') if lufs else 'нет данных')

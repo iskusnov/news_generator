@@ -62,8 +62,8 @@ body.bg{background:#7a3a2a url(bg.jpg) center/cover}
 .chip .ic{width:58px;height:58px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:24px;color:var(--ink)}
 .chip .a{font-family:var(--body);font-weight:800;font-size:36px;color:var(--paper);white-space:nowrap}
 .chip .b{font-size:19px;color:var(--dim);margin-top:6px;white-space:nowrap}
-.quote{position:absolute;left:0;right:0;bottom:0;height:560px;background:linear-gradient(to top,rgba(13,13,15,.92) 0%,rgba(13,13,15,.75) 45%,rgba(13,13,15,0) 100%)}
-.quote .q{position:absolute;left:120px;right:120px;bottom:110px;font-family:var(--disp);font-weight:800;font-size:66px;line-height:1.16;color:var(--paper)}
+.quote{position:absolute;left:0;right:0;bottom:0;height:420px;background:linear-gradient(to top,rgba(13,13,15,.92) 0%,rgba(13,13,15,.75) 45%,rgba(13,13,15,0) 100%)}
+.quote .q{position:absolute;left:120px;right:120px;bottom:72px;font-family:var(--disp);font-weight:800;font-size:52px;line-height:1.16;color:var(--paper)}
 .quote .q .w{display:inline-block;margin-right:.26em;opacity:0}
 .quote .q .w.hl{color:var(--lime)}
 .quote .mk{display:block;margin-bottom:22px;font-size:22px;color:var(--lime)}
@@ -79,6 +79,13 @@ body.bg{background:#7a3a2a url(bg.jpg) center/cover}
 .poll .op2 span{position:relative}
 
 .poll .ft{margin-top:22px;font-size:19px;color:var(--dim)}
+.outro{position:absolute;inset:0;background:var(--ink);overflow:hidden}
+.outro .gl{position:absolute;left:50%;top:50%;width:1400px;height:1400px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(200,255,61,.16),rgba(200,255,61,0) 60%)}
+.outro .s{position:absolute;left:0;right:0;top:330px;text-align:center;font-size:26px;letter-spacing:.24em;color:var(--lime)}
+.outro .h{position:absolute;left:0;right:0;top:400px;text-align:center;font-family:var(--disp);font-weight:800;font-size:150px;line-height:1;color:var(--paper);white-space:nowrap}
+.outro .h b{color:var(--lime)}
+.outro .b{position:absolute;left:0;right:0;top:600px;text-align:center;font-family:var(--body);font-weight:800;font-size:40px;color:var(--paper);opacity:.85}
+.outro .ticks{left:280px;right:280px;bottom:150px;height:34px}.outro .ticks i.on{height:34px}
 .endc{position:absolute;left:0;right:0;bottom:0;height:620px;background:linear-gradient(to top,rgba(13,13,15,.95) 0%,rgba(13,13,15,.8) 50%,rgba(13,13,15,0) 100%)}
 .endc .s{position:absolute;left:120px;bottom:330px;font-size:24px;color:var(--lime)}
 .endc .h{position:absolute;left:120px;bottom:180px;font-family:var(--disp);font-weight:800;font-size:110px;line-height:1;color:var(--paper);white-space:nowrap}
@@ -192,6 +199,14 @@ poll(p,tl){
     .from(el.querySelectorAll('.qq,.op2,.ft'),{y:20,opacity:0,duration:.4,stagger:.1,ease:E},.2);
   ops.forEach((o,i)=>{tl.set(o.querySelector('.f'),{scaleX:0},0);if(i==p.pick){tl.to(o.querySelector('.f'),{scaleX:1,duration:.6,ease:'power2.inOut'},p.pickAt||2.4);tl.to(o.querySelector('span'),{color:'#0D0D0F',duration:.3},(p.pickAt||2.4)+.25)}});
   tl.to(el,{x:80,opacity:0,duration:.4,ease:EI},p.dur-.45);
+},
+outro(p,tl){ // отбивка 5 с после «До встречи»: фирменный экран въезжает справа (зеркально интро)
+  const el=h(`<div class="outro"><div class="gl"></div><div class="s mono">${esc(p.sub||'ПОКА ТЫ СПАЛ · НОВОСТИ AI')}</div><div class="h">${p.head||'Завтра в <b>06:00</b>'}</div><div class="b">${esc(p.line||'Подпишись, чтобы не пропустить')}</div>${ticks(p.total||90,p.day)}</div>`);
+  tl.fromTo(el,{xPercent:100},{xPercent:0,duration:.6,ease:'power3.inOut'},0)
+    .from(el.querySelector('.s'),{y:20,opacity:0,duration:.4,ease:E},.5)
+    .from(el.querySelector('.h'),{yPercent:30,opacity:0,duration:.6,ease:E},.6)
+    .from(el.querySelector('.b'),{opacity:0,duration:.5},1.0)
+    .from(el.querySelectorAll('.ticks i'),{scaleY:0,transformOrigin:'bottom',duration:.25,stagger:.004,ease:E},.8);
 },
 end(p,tl){
   const el=h(`<div class="endc"><div class="s mono">${esc(p.sub)}</div><div class="h">${p.head}</div><div class="btn">${esc(p.btn)}</div>${ticks(p.total||90,p.day)}</div>`);
