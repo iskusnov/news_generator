@@ -21,6 +21,9 @@ HEAD = ['#!/bin/bash', 'set -e', 'export PATH=/opt/homebrew/bin:$PATH',
         'FREE=$(df -g "$HOME" | awk \'NR==2{print $4}\'); echo "free ${FREE}G"; [ "$FREE" -ge 30 ] || { echo "LOW_DISK ${FREE}G — нужно ≥30 ГБ"; exit 9; }',
         'ok(){ ffprobe -v error -show_entries format=duration -of csv=p=0 "$1" >/dev/null 2>&1; }']
 CAM_W, CAM_H, EDGE = 384, 216, 3
+import os
+# экран не 16:9 (урок 23.10: 2644×1394) — SCRFIT=1 вписывает с полями, без растяжения
+SFIT = 'scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2' if os.environ.get('SCRFIT') else 'scale=1920:1080'
 V = '-c:v h264_videotoolbox -b:v 10M -pix_fmt yuv420p'; A = '-c:a pcm_s16le -ar 48000 -ac 2'
 
 def base(edl_p, SCR, CAM, AUD, JD, ns_p=None):
@@ -34,7 +37,7 @@ def base(edl_p, SCR, CAM, AUD, JD, ns_p=None):
         off = [(max(0, a - e['src_in']), b - e['src_in']) for a, b in NS if b > e['src_in'] and a < e['src_out']]
         en = (":enable='not(" + '+'.join(f'between(t,{a:.2f},{b:.2f})' for a, b in off) + ")'") if off else ''
         fc = (f'[1:v]fps={FPS},scale={CAM_W - EDGE}:{CAM_H - EDGE},pad={CAM_W}:{CAM_H}:{EDGE}:0:color=0xF5A623[c];'
-              f'[0:v]fps={FPS},scale=1920:1080,setsar=1[s];[s][c]overlay={1920 - CAM_W}:0{en},format=yuv420p[v];'
+              f'[0:v]fps={FPS},{SFIT},setsar=1[s];[s][c]overlay={1920 - CAM_W}:0{en},format=yuv420p[v];'
               f'[2:a]aresample=48000,afade=t=in:d=0.015,afade=t=out:st={max(0, nf / FPS - 0.015):.3f}:d=0.015,apad[a]')
         cmd = (f'ffmpeg -v error -y -ss {s} -t {t} -i {q(SCR)} -ss {s} -t {t} -i {q(CAM)} -ss {s} -t {t} -i {q(AUD)} '
                f'-filter_complex {q(fc)} -map [v] -map [a] -frames:v {nf} {V} -t {nf / FPS:.3f} {A} parts/tmp.mov && mv parts/tmp.mov {p}')
@@ -66,7 +69,7 @@ def final(edl_p, specs_p, JD, OUT):
     for s in S:
         ins += ['-c:v', 'libvpx-vp9', '-i', f"gfx/{s['id']}.webm"]
         fc.append(f"[{j}:v]format=yuva420p,setpts=PTS-STARTPTS+{s['rec']:.2f}/TB[o{j}]")
-        fc.append(f"[{cur}][o{j}]overlay=0:0:eof_action=pass:enable='between(t,{s['rec']:.2f},{s['rec'] + s['dur']:.2f})'[w{j}]")
+        fc.append(f"[{cur}][o{j}]overlay={s.get('ox', 0)}:{s.get('oy', 0)}:eof_action=pass:enable='between(t,{s['rec']:.2f},{s['rec'] + s['dur']:.2f})'[w{j}]")
         cur = f'w{j}'; j += 1
     fc.append(f'[{cur}]format=yuv420p[v]')
     fc.append('[ca]highpass=f=70,afftdn=nr=12:nf=-50:tn=1,loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.89,apad[a]')

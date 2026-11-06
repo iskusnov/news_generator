@@ -22,7 +22,21 @@ for part, num, title, t in plan['chapters']:
 for i, it in enumerate(plan['items']):
     it = dict(it); t = it.pop('t'); d = it.pop('dur', DUR[it['type']])
     S.append(dict(id=f"{it['type']}{i:02d}", rec=T(t), dur=d, **it))
-slot = lambda s: 'r' if s['type'] == 'stat' else 'full' if s['type'] in ('preroll', 'sting', 'hw') else 'bl'
+# «живые слайды» (type board, урок 23.10+): моушн-панель на пустом месте слайда; время сцен/актёров — от начала плашки
+def _loc(o, r0, beats):
+    if isinstance(o, list): return [_loc(x, r0, beats) for x in o]
+    if not isinstance(o, dict): return o
+    o = dict(o)
+    for k in ('at', 'out'):
+        if isinstance(o.get(k), (int, float)): o[k] = round(T(o[k]) - r0, 2); beats.add(o[k])
+    for k, v in list(o.items()):
+        if isinstance(v, (list, dict)): o[k] = _loc(v, r0, beats)
+    return o
+for bd in plan.get('boards', []):
+    r0 = T(bd['a']); beats = set(); sc = _loc(bd['scenes'], r0, beats)
+    S.append(dict(id=bd['id'], type='board', rec=r0, dur=round(T(bd['b']) - r0, 2), label=bd['label'], box=bd['box'],
+                  ox=bd['box']['x'] - 40, oy=bd['box']['y'] - 40, scenes=sc, beats=sorted(b for b in beats if b >= 0)))
+slot = lambda s: 'r' if s['type'] == 'stat' else 'board' if s['type'] == 'board' else 'full' if s['type'] in ('preroll', 'sting', 'hw') else 'bl'
 S.sort(key=lambda s: s['rec']); last = {}
 for s in S:
     k = slot(s)

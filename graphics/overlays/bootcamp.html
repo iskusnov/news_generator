@@ -170,6 +170,8 @@ function pipeline(box,nodes,links,tl,t0,step,hot){
 }
 const RAG=[{t:'Документы',s:'источники',i:'file-text',x:0,y:0},{t:'Чанки',s:'разбиение',i:'scissors',x:0,y:150},{t:'Эмбеддинги',s:'векторы',i:'binary',x:0,y:300},
   {t:'Векторная БД',s:'индекс',i:'database',x:0,y:450},{t:'Вопрос',s:'запрос',i:'message-square',x:340,y:0},{t:'Поиск',s:'retrieval',i:'scan-search',x:340,y:225},{t:'LLM',s:'ответ',i:'sparkles',x:340,y:450}];
+const QUAL=[{t:'Текст',s:'токены',i:'file-text',x:0,y:0},{t:'Эмбеддинги',s:'смыслы',i:'binary',x:0,y:150},{t:'Внимание',s:'связи',i:'scan-search',x:0,y:300},{t:'След. токен',s:'умный T9',i:'hash',x:0,y:450},
+  {t:'Спека',s:'намерение',i:'file-check',x:340,y:0},{t:'Агент',s:'слон',i:'bot',x:340,y:150},{t:'Ревьюеры',s:'рыбки',i:'fish',x:340,y:300},{t:'Качество',s:'результат',i:'shield-check',x:340,y:450}]; // урок 23.10
 const B={
 preroll(p,tl){ // 7 с, непрозрачный; p: lesson, topic, title:[{t,hl,br}], sub, lector, date, stream, art:'rag'
   const run=(`AI-DRIVEN РАЗРАБОТКА · ПОТОК_${String(p.stream||3).padStart(2,'0')} · УРОК ${p.lesson||''} · ${(p.topic||'').toUpperCase()} · `).repeat(8);
@@ -189,6 +191,7 @@ preroll(p,tl){ // 7 с, непрозрачный; p: lesson, topic, title:[{t,hl
     .from(q('.meta div'),{y:24,opacity:0,duration:.5,ease:E,stagger:.1},1.2)
     .from(q('.tick'),{yPercent:100,duration:.5,ease:E},.6)
     .fromTo(q('.run'),{x:0},{x:-1400,duration:p.dur,ease:'none'},0);
+  if(p.art=='quality')pipeline(el.querySelector('.art'),QUAL,[[0,1],[1,2],[2,3],[4,5],[5,6],[6,7]],tl,.8,.22,[[3,3.0],[7,3.6]]);
   if(p.art=='rag')pipeline(el.querySelector('.art'),RAG,[[0,1],[1,2],[2,3],[4,5],[3,5],[5,6]],tl,.8,.22,[[4,3.0],[5,3.4],[3,3.4],[6,3.9]]);
   tl.to(el,{clipPath:'inset(0 0 100% 0)',duration:.6,ease:'power4.inOut'},p.dur-.65).set(el,{clipPath:'inset(0 0 0% 0)'},0);
 },

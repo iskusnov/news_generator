@@ -136,6 +136,10 @@ svg.lk path.ok{stroke:var(--a5);stroke-width:7}
 .ac.a-card .in .ic{width:48px;height:48px;color:var(--a7)}.ac.a-card.r .in{border-color:#e0412f}.ac.a-card.g .in{border-color:#2c9a5a}.ac.a-card.a .in{border-color:var(--a5);background:#fff3dd}
 .ac.a-fr .in{display:block;position:relative;width:var(--w);height:var(--h);border:7px solid var(--a5);border-radius:46px;background:rgba(245,166,35,.08)}
 .ac.a-fr .in span{position:absolute;left:50%;top:-34px;transform:translateX(-50%);padding:8px 22px;background:var(--a5);border-radius:30px;font-weight:800;font-size:34px;white-space:nowrap}
+.pn.wd{border-radius:22px;box-shadow:0 18px 50px rgba(20,18,15,.16),0 0 0 2px rgba(20,18,15,.06)}
+.pn.wd .lb{display:none;position:absolute;left:28px;top:20px;z-index:4;font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--a7)}
+.pn.wd .ac:not(.a-ln) .in{zoom:1.12}
+.pn.wd .ac.a-card .in{white-space:normal;max-width:1080px;line-height:1.15}
 </style></head><body><div id="st"></div>
 <script>
 const st=document.getElementById('st');let TL;
@@ -148,11 +152,11 @@ const E3='power3.out',EB='back.out(1.7)';
 function box(pn,sc,cls,html,tl){const el=document.createElement('div');el.className='sc '+cls;el.innerHTML=html;pn.appendChild(el);
   const D=Math.max(.6,sc.out-sc.at);
   tl.set(el,{autoAlpha:0},0).fromTo(el,{autoAlpha:0,y:50},{autoAlpha:1,y:0,duration:.4,ease:E3},sc.at).to(el,{autoAlpha:0,y:-40,duration:.3,ease:'power2.in'},sc.out-.3)
-    .fromTo(el,{scale:1},{scale:1.04,duration:D,ease:'none'},sc.at); // медленный наезд — панель всегда живая
+    ;if(!window.WIDE)tl.fromTo(el,{scale:1},{scale:1.04,duration:D,ease:'none'},sc.at); // медленный наезд — панель всегда живая (в 16:9-уроке выключен: между битами кадр стоит)
   if(sc.at>.3){const w=document.createElement('div');w.className='wp';pn.appendChild(w); // шторка между сценами
     tl.set(w,{xPercent:-100},0).fromTo(w,{xPercent:-100},{xPercent:0,duration:.18,ease:'power3.in'},sc.at-.2).to(w,{xPercent:100,duration:.22,ease:'power3.out'},sc.at-.02)}
   return el}
-function bob(tl,els,a,b,amp){els.forEach((d,i)=>{const n=Math.floor((b-a-.5)/1.1);if(n>0)tl.fromTo(d,{y:0},{y:-amp,duration:.55,ease:'sine.inOut',yoyo:true,repeat:n*2-1},a+.5+i*.17)})}
+function bob(tl,els,a,b,amp){if(window.WIDE)return;els.forEach((d,i)=>{const n=Math.floor((b-a-.5)/1.1);if(n>0)tl.fromTo(d,{y:0},{y:-amp,duration:.55,ease:'sine.inOut',yoyo:true,repeat:n*2-1},a+.5+i*.17)})}
 const SC={
 stage(sc,pn,tl){ // actors:[{k:'ic'|'tx'|'pill'|'ln'|'mk'|'dt'|'ring'|'card', i,t,s(sub),c(cls),x,y,x2,y2,z,sz,sc,r,at,enter,out,bob,kf:[{at,x,y,sc,r,o,dur,ease,shake,pop,c,draw}]}]
   const el=box(pn,sc,'',``,tl);
@@ -169,7 +173,9 @@ stage(sc,pn,tl){ // actors:[{k:'ic'|'tx'|'pill'|'ln'|'mk'|'dt'|'ring'|'card', i,
     const at=a.at??sc.at;
     if(k=='ln'){const L=Math.hypot(a.x2-a.x,a.y2-a.y),ang=Math.atan2(a.y2-a.y,a.x2-a.x)*180/Math.PI;IN.style.width=L+'px';
       gsap.set(d,{x:a.x,y:a.y-4,rotation:ang,transformOrigin:'0 50%'});tl.set(d,{autoAlpha:0},0).fromTo(d,{autoAlpha:1,scaleX:0},{scaleX:1,duration:a.dur||.5,ease:'power2.inOut'},at)}
-    else{gsap.set(d,{x:a.x,y:a.y,xPercent:-50,yPercent:-50,scale:a.sc??1,rotation:a.r||0});
+    else{if(window.WIDE){const r=IN.getBoundingClientRect(),PW=pn.clientWidth,PH=pn.clientHeight,hw=r.width/2+14,hh=r.height/2+10; // не вылезать за панель
+        a.x=Math.min(Math.max(a.x,hw),PW-hw);a.y=Math.min(Math.max(a.y,hh),PH-hh)}
+      gsap.set(d,{x:a.x,y:a.y,xPercent:-50,yPercent:-50,scale:a.sc??1,rotation:a.r||0});
       const en=a.enter||'pop',S=a.sc??1;
       const from=en=='left'?{x:a.x-400,autoAlpha:0}:en=='right'?{x:a.x+400,autoAlpha:0}:en=='drop'?{y:a.y-300,autoAlpha:0}:en=='up'?{y:a.y+160,autoAlpha:0}:en=='fade'?{autoAlpha:0}:en=='slam'?{scale:S*2.6,rotation:-25,autoAlpha:0}:{scale:0,autoAlpha:0};
       const to=en=='left'||en=='right'?{x:a.x}:en=='drop'||en=='up'?{y:a.y}:en=='slam'?{scale:S,rotation:a.r||0}:en=='fade'?{}:{scale:S};
@@ -182,8 +188,8 @@ stage(sc,pn,tl){ // actors:[{k:'ic'|'tx'|'pill'|'ln'|'mk'|'dt'|'ring'|'card', i,
       if(f.shake)tl.fromTo(IN,{x:0},{x:14,yoyo:true,repeat:7,duration:.045,ease:'none',immediateRender:false},f.at).set(IN,{x:0},f.at+.4);
       if(f.pop)tl.fromTo(IN,{scale:1.3},{scale:1,duration:.45,ease:EB,immediateRender:false},f.at);
       if(f.spin)tl.fromTo(IN.querySelector('.bx')||IN,{rotation:0},{rotation:360*f.spin,duration:f.dur??.8,ease:'power2.inOut',immediateRender:false},f.at)});
-    if(a.bob){const b0=at+.6,b1=a.out??sc.out,n=Math.floor((b1-b0)/1.2);if(n>0)tl.fromTo(IN,{y:0},{y:-(a.bob===true?8:a.bob),duration:.6,ease:'sine.inOut',yoyo:true,repeat:n*2-1,immediateRender:false},b0)}
-    if(k=='ring'){const b1=a.out??sc.out,n=Math.max(1,Math.floor((b1-at)/1.1));tl.fromTo(IN,{scale:.4,opacity:1},{scale:1.6,opacity:0,duration:1.1,repeat:n-1,ease:'power1.out',immediateRender:false},at)}
+    if(a.bob&&!window.WIDE){const b0=at+.6,b1=a.out??sc.out,n=Math.floor((b1-b0)/1.2);if(n>0)tl.fromTo(IN,{y:0},{y:-(a.bob===true?8:a.bob),duration:.6,ease:'sine.inOut',yoyo:true,repeat:n*2-1,immediateRender:false},b0)}
+    if(k=='ring'){const b1=a.out??sc.out,n=window.WIDE?1:Math.max(1,Math.floor((b1-at)/1.1));tl.fromTo(IN,{scale:.4,opacity:1},{scale:1.6,opacity:0,duration:1.1,repeat:n-1,ease:'power1.out',immediateRender:false},at)}
     if(a.out!=null)tl.to(d,{autoAlpha:0,duration:.25},a.out)});
 },
 kinetic(sc,pn,tl){ // lines:[{t,at,hl,stk,size}], icon, sub:{t,at}
@@ -240,7 +246,20 @@ rank(sc,pn,tl){ // items:[t], at, okN, cut:{after,at,t}
     for(let i=0;i<sc.cut.after;i++)tl.set(rs[i],{className:'rk ok'},sc.cut.at+.3);
     for(let i=sc.cut.after;i<rs.length;i++)tl.to(rs[i],{opacity:.3,duration:.3},sc.cut.at+.3)}
 }};
+function setupWide(p){ // 16:9 урок: моушн-панель на пустом месте слайда. p.box={x,y,w,h} в кадре 1920×1080, сцены — время от начала плашки
+  document.documentElement.style.width=document.body.style.width='1920px';document.documentElement.style.height=document.body.style.height='1080px';
+  const B=p.box||{x:120,y:300,w:1680,h:700};
+  st.innerHTML=`<div class="pn wd"><div class="lb">${esc(p.label||'')}</div></div>`;st.classList.add('motion');
+  const pn=st.querySelector('.pn');Object.assign(pn.style,{left:B.x+'px',top:B.y+'px',width:B.w+'px',height:B.h+'px'});
+  TL=gsap.timeline({paused:true});
+  TL.fromTo(pn,{autoAlpha:0,y:40,scale:.97},{autoAlpha:1,y:0,scale:1,duration:.5,ease:'power3.out'},0).to(pn,{autoAlpha:0,y:-30,duration:.4,ease:'power2.in'},p.dur-.4);
+  const S=[...p.scenes].sort((a,b)=>a.at-b.at);S.forEach((sc,i)=>{sc.out=S[i+1]?Math.max(sc.out??0,S[i+1].at):(sc.out??p.dur-.4)});
+  window.WIDE=true;const bg=document.createElement('div');bg.className='bgd';pn.appendChild(bg);
+  S.forEach(sc=>SC[sc.kind](sc,pn,TL));
+  window._chunks=[];TL.seek(0)}
 window.setup=function(p){
+  if(p.wide)return setupWide(p);
+  window.WIDE=false;
   st.innerHTML=`<div class="top"><span class="logo">НЭЙШН<span class="chev">&gt;&gt;</span></span><span class="pill">${esc(p.tag||'AI-буткемп · RAG')}</span></div>
    <div class="title"><div>${safe(p.title)}</div></div>
    <div class="fr cam"><i class="br tl"></i><i class="br rb"></i><div class="nm">${esc(p.lector||'Николай Барышников')}<small>лектор</small></div></div>
@@ -269,7 +288,7 @@ window.setup=function(p){
 };
 window.seek=function(t){
   TL.seek(t,false);
-  const cap=st.querySelector('.cap');const c=window._chunks.find(c=>t>=c.s&&t<c.e);
+  const cap=st.querySelector('.cap');if(!cap)return;const c=window._chunks.find(c=>t>=c.s&&t<c.e);
   if(!c){cap.innerHTML='';return}
   cap.innerHTML=c.words.map(w=>`<span class="w ${t>=w.s?'on':''}">${esc(w.t)}</span>`).join('');
   const k=Math.min(1,(t-c.s)/.12);cap.style.transform=`scale(${.94+.06*k})`;cap.style.opacity=k;
