@@ -73,6 +73,13 @@
 - План графики урока — `graphics_plan.json` (время исходника; тексты только из лекции) → `python3 bootcamp/build_specs.py graphics_plan.json edl.json specs.json` → `SCALE=1 TPL=bootcamp.html node graphics/overlays/render.js specs.json png/` → VP9-alpha → на Mac в `render/gfx/` (через `device_commit_files` по файлам; .tar коммит не принимает).
 - 05.11: схемы справа не ставили — слайды лектора плотные; главное — главы с картой урока, термины, цитаты, вопросы, цифры.
 
+### 5a. Факт-чек графики (обязательно, решение Антона 06.11)
+Всё, что на экране (живые слайды, плашки, сцены шортсов, заголовки; цвет и ✓/✕ — тоже утверждение), сверяется с речью:
+`python3 pipeline/gfx_factcheck.py extract words.json fc --lesson graphics_plan.json edl.json --shorts shorts/` → items.json, mech.json
+(цитаты дословно, цифры в речи, не раньше слов) и batch_NN.md → каждую пачку проверяет **отдельный агент** (не автор графики) по
+`fc/INSTRUCTIONS.md` → verdict_NN.json → `gfx_factcheck.py report fc` → report.md. Код 3 (есть «противоречит»/«не говорилось») — рендер не запускать.
+Запуск: после написания сцен (до рендера) и по финальной графике перед сдачей. Урок 23.10: 591 текст, 27 замечаний (2 противоречия цвета, 4 домысла).
+
 ### 6. Сборка на Mac и проверка
 - `python3 pipeline/mac_lesson.py base edl.json экран.mp4 avo.mp4 звук.m4a <папка задания> noshare.json > job.sh` — куски (экран + PiP avo поверх окна Zoom + звук m4a) → base.mov (05.11: 218 кусков, ~20 мин).
 - `python3 pipeline/mac_lesson.py final edl.json specs.json <папка задания> <05_готово/…_FINAL.mp4> > job.sh` — пре-ролл перед уроком, карта ДЗ после, плашки, afftdn + −16 LUFS, H.264 8 Мбит/с 1080p (≈3× реального времени).
