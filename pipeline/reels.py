@@ -7,6 +7,7 @@ config: [{"id","edl":"<id>.edl.json","title":"... <b>акцент</b>","endline"
           "vs":{"a","al","b","bl","src_a","src_b","src_out"}}]
 Время элементов задаётся в секундах ИСХОДНИКА (src_*), скрипт переводит его во время ролика по edl.
 tail — секунд стоп-кадра после речи под финальную карточку.
+Ускорение (поле speed в edl от speed.py) учитывается: время = rec + (t − src_in) / speed.
 Субтитры: 1–3 слова, подсветка текущего слова; ошибки распознавания правятся словарём FIX ниже.
 """
 import sys, json, re
@@ -17,16 +18,17 @@ for R in json.load(open(cfg)):
     E = json.load(open(R['edl']))
     def s2r(t):
         for e in E['edl']:
-            if e['src_in'] - 0.05 <= t <= e['src_out'] + 0.05: return round(e['rec'] + max(0, t - e['src_in']), 2)
+            if e['src_in'] - 0.05 <= t <= e['src_out'] + 0.05: return round(e['rec'] + max(0, t - e['src_in']) / e.get('speed', 1.0), 2)
         prev = [e for e in E['edl'] if e['src_out'] <= t]   # время в вырезанном месте → конец предыдущего куска
-        if prev: e = max(prev, key=lambda e: e['src_out']); return round(e['rec'] + e['src_out'] - e['src_in'], 2)
+        if prev: e = max(prev, key=lambda e: e['src_out']); return round(e['rec'] + (e['src_out'] - e['src_in']) / e.get('speed', 1.0), 2)
         raise ValueError(f"{R['id']}: время {t} раньше начала монтажа")
     ws = []
     for e in E['edl']:
         for w in W:
             if e['src_in'] <= w['start'] < e['src_out']:
-                ws.append({'t': FIX.get(w['word'], w['word']), 's': round(e['rec'] + w['start'] - e['src_in'], 2),
-                           'e': round(e['rec'] + min(w['end'], e['src_out']) - e['src_in'], 2)})
+                sp = e.get('speed', 1.0)  # ускорение speed.py: время в ролике = rec + (t − src_in) / speed
+                ws.append({'t': FIX.get(w['word'], w['word']), 's': round(e['rec'] + (w['start'] - e['src_in']) / sp, 2),
+                           'e': round(e['rec'] + (min(w['end'], e['src_out']) - e['src_in']) / sp, 2)})
     for a, b in R.get('replace', []):          # точечные правки текста субтитров
         for w in ws:
             if w['t'] == a: w['t'] = b
@@ -53,7 +55,7 @@ for R in json.load(open(cfg)):
         v = R['vs']; spec['vs'] = {k: v[k] for k in ('a', 'al', 'b', 'bl')}; spec['vs'].update(at_a=s2r(v['src_a']), at_b=s2r(v['src_b']), out=s2r(v['src_out']))
     if 'extras' in R:   # box / tag / phone / fine (мелкий текст, на это время субтитры скрыты)
         spec['extras'] = [dict({k: v for k, v in x.items() if k not in ('src_at', 'src_out')}, at=s2r(x['src_at']), out=s2r(x['src_out']) if x['src_out'] < 9000 else round(dur - endDur, 2)) for x in R['extras']]
-    for k in ('capTop', 'stampTop', 'endline2', 'pv'):
+    for k in ('capTop', 'stampTop', 'endline2', 'endHead', 'pv', 'scenes'):  # scenes — моушн-сцены шортсов из уроков (время ролика)
         if k in R: spec[k] = R[k]
     spec['covers'] = E.get('covers', [])
     json.dump(spec, open(R['id'] + '.spec.json', 'w'), ensure_ascii=False, indent=1)
