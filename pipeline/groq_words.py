@@ -31,8 +31,10 @@ def job(i):
             d = json.loads(r.stdout)
             if 'words' in d: break
         except Exception: pass
+    # галлюцинации — фразы из нескольких слов («Продолжение следует...»): выкидываем слова внутри таких сегментов
+    bad = [(g['start'], g['end']) for g in d.get('segments', []) if any(b in g.get('text', '') for b in BAD)]
     return [{'word': w['word'], 'start': round(w['start'] + s + a.off, 3), 'end': round(w['end'] + s + a.off, 3)} for w in d.get('words', [])
-            if not any(b in w['word'] for b in BAD)]
+            if not any(b in w['word'] for b in BAD) and not any(x - 0.05 <= w['start'] and w['end'] <= y + 0.05 for x, y in bad)]
 W = []
 with ThreadPoolExecutor(4) as ex:
     for r in ex.map(job, range(len(cuts) - 1)): W += r

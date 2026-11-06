@@ -5,6 +5,8 @@
   raw       <timed_dir> <out.md>                 — сырой текст из JSON Groq (по частям)
   speakers  <zoom.txt|.vtt> <in.md> <out.md>     — разметить реплики именами из Zoom-расшифровки (txt или vtt)
   timecodes <clean.md> <out.md> <timed_dir>      — проставить `ЧЧ:ММ:СС` в начале каждого абзаца
+  words     <words.json> <zoom.vtt> <out.md> [names.json] — сырой текст из groq_words.py: абзацы по паузам,
+            таймкоды из слов, спикеры по времени реплик .vtt (names.json: {"Имя в Zoom": "Имя в тексте"})
 
 timed_dir — папка *_timed с zapis_chast_00.json, zapis_chast_01.json … (части по 30 мин = 1800 с).
 Только стандартная библиотека Python 3.
@@ -142,8 +144,54 @@ def cmd_timecodes(clean_path, out_path, timed_dir):
     open(out_path, "w", encoding="utf-8").write("\n".join(lines))
 
 
+def vtt_cues(vtt_path, names=None):
+    """[(start, end, speaker)] из .vtt Zoom."""
+    names = names or {}
+    cues, cur = [], None
+    ts = lambda s: sum(float(x) * m for x, m in zip(s.replace(",", ".").split(":"), (3600, 60, 1)))
+    for l in open(vtt_path, encoding="utf-8"):
+        m = re.match(r"(\d\d:\d\d:\d\d\.\d+) --> (\d\d:\d\d:\d\d\.\d+)", l)
+        if m: cur = (ts(m[1]), ts(m[2])); continue
+        m = re.match(r"^([^:]{1,60}): ", l)
+        if cur and m: cues.append((cur[0], cur[1], names.get(m[1], m[1]))); cur = None
+    return cues
+
+
+def cmd_words(words_path, vtt_path, out_path, names_path=None, gap=1.6, max_words=140):
+    """Сырой текст из words.json (groq_words.py): абзацы по паузам, `ЧЧ:ММ:СС` и спикер по времени реплик Zoom (.vtt).
+    Абзац рвётся на паузе > gap с, на смене спикера или после max_words слов на конце предложения."""
+    names = json.load(open(names_path, encoding="utf-8")) if names_path else {}
+    W = json.load(open(words_path, encoding="utf-8"))["words"]
+    cues = vtt_cues(vtt_path, names); starts = [c[0] for c in cues]
+    def spk_at(t):
+        i = bisect.bisect_right(starts, t) - 1
+        best, bd = "?", 1e9
+        for j in (i, i + 1):
+            if 0 <= j < len(cues):
+                s, e, sp = cues[j]
+                d = 0 if s <= t <= e else min(abs(t - s), abs(t - e))
+                if d < bd: best, bd = sp, d
+        return best if bd < 6 else "?"
+    paras, cur = [], None
+    for k, w in enumerate(W):
+        sp = spk_at((w["start"] + w["end"]) / 2)
+        brk = cur is None or (w["start"] - W[k - 1]["end"] > gap) or (sp != cur["sp"] and sp != "?") or \
+              (len(cur["w"]) >= max_words and re.search(r"[.!?…]$", W[k - 1]["word"].strip()))
+        if brk:
+            cur = {"t": w["start"], "sp": sp if sp != "?" else (cur["sp"] if cur else "?"), "w": []}; paras.append(cur)
+        cur["w"].append(w["word"].strip())
+    out, last = [], None
+    for p in paras:
+        t = int(p["t"]); tc = f"`{t // 3600:02d}:{t % 3600 // 60:02d}:{t % 60:02d}`"
+        lab = f" **{p['sp']}:**" if p["sp"] != last else ""
+        out += [f"{tc}{lab} " + " ".join(p["w"]), ""]; last = p["sp"]
+    open(out_path, "w", encoding="utf-8").write("\n".join(out))
+    print(len(paras), "абзацев;", collections.Counter(p["sp"] for p in paras).most_common(), file=sys.stderr)
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
+    if len(a) in (4, 5) and a[0] == "words": cmd_words(*a[1:]); sys.exit()
     if len(a) == 3 and a[0] == "raw": cmd_raw(a[1], a[2])
     elif len(a) == 4 and a[0] == "speakers": cmd_speakers(a[1], a[2], a[3])
     elif len(a) == 4 and a[0] == "timecodes": cmd_timecodes(a[1], a[2], a[3])
