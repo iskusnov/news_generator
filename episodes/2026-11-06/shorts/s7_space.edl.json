@@ -1,0 +1,143 @@
+{
+ "fps": 25,
+ "tc_start": 0,
+ "total": 86.12,
+ "gap_at": null,
+ "gap": 0,
+ "edl": [
+  {
+   "src_in": 2610.96,
+   "src_out": 2611.92,
+   "rec": 0.0,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 2612.64,
+   "src_out": 2614.88,
+   "rec": 0.96,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 2630.72,
+   "src_out": 2635.24,
+   "rec": 3.2,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 2642.72,
+   "src_out": 2649.88,
+   "rec": 7.72,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 2654.88,
+   "src_out": 2657.36,
+   "rec": 14.88,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 2699.6,
+   "src_out": 2704.76,
+   "rec": 17.36,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 2705.56,
+   "src_out": 2711.52,
+   "rec": 22.52,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 2712.2,
+   "src_out": 2713.68,
+   "rec": 28.48,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 2748.64,
+   "src_out": 2752.4,
+   "rec": 29.96,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 2769.44,
+   "src_out": 2777.64,
+   "rec": 33.72,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 2801.28,
+   "src_out": 2808.12,
+   "rec": 41.92,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3002.16,
+   "src_out": 3005.68,
+   "rec": 48.76,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3020.32,
+   "src_out": 3030.64,
+   "rec": 52.28,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3056.24,
+   "src_out": 3062.4,
+   "rec": 62.6,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3074.88,
+   "src_out": 3076.84,
+   "rec": 68.76,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3077.96,
+   "src_out": 3081.32,
+   "rec": 70.72,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3092.44,
+   "src_out": 3097.08,
+   "rec": 74.08,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3097.72,
+   "src_out": 3099.72,
+   "rec": 78.72,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3112.76,
+   "src_out": 3118.16,
+   "rec": 80.72,
+   "tag": "main",
+   "scale": 1.0
+  }
+ ],
+ "covers": []
+}

@@ -99,6 +99,11 @@ body.bg{background:#7a3a2a url(bg.jpg) center/cover}
 .shot .cd img{display:block;width:100%}
 .dimx{position:absolute;inset:0;background:rgba(13,13,15,.62)}
 .dimx .t{position:absolute;left:96px;bottom:110px;font-family:var(--mono);font-weight:700;font-size:26px;letter-spacing:.14em;color:var(--lime);text-transform:uppercase}
+.tz{position:absolute;left:96px;bottom:150px;max-width:1100px}
+.tz .lg{display:flex;gap:16px;margin-bottom:22px}.tz .lg i{width:92px;height:92px;border-radius:22px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px rgba(0,0,0,.45)}.tz .lg img{width:58px;height:58px}.tz .lg img.mono{filter:none}
+.tz .t{display:inline;font-family:var(--disp);font-weight:800;font-size:72px;line-height:1.18;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:4px 20px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.tz .t b{color:var(--lime);font-weight:800}
+.tz .k{display:inline-block;margin-bottom:16px;padding:8px 14px;background:var(--lime);color:var(--ink);font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:.12em}
 </style></head><body><div id="stage"></div>
 <script>
 const S=document.getElementById('stage');let TL=null;
@@ -201,8 +206,16 @@ poll(p,tl){
   ops.forEach((o,i)=>{tl.set(o.querySelector('.f'),{scaleX:0},0);if(i==p.pick){tl.to(o.querySelector('.f'),{scaleX:1,duration:.6,ease:'power2.inOut'},p.pickAt||2.4);tl.to(o.querySelector('span'),{color:'#0D0D0F',duration:.3},(p.pickAt||2.4)+.25)}});
   tl.to(el,{x:80,opacity:0,duration:.4,ease:EI},p.dur-.45);
 },
+tz(p,tl){ // тизер выпуска: логотипы + крупная подпись внизу слева
+  const L='../../graphics/node_modules/@lobehub/icons-static-svg/icons/';
+  const el=h(`<div class="tz">${p.k?`<div class="k">${esc(p.k)}</div><br>`:''}${(p.logos||[]).length?`<div class="lg">${p.logos.map(n=>n.startsWith('txt:')?`<i style="font-family:var(--body);font-weight:800;font-size:28px;color:#0D0D0F;width:auto;padding:0 18px">${esc(n.slice(4))}</i>`:`<i><img src="${L}${n}.svg"></i>`).join('')}</div>`:''}<div class="t">${p.text}</div></div>`);
+  tl.from(el.querySelectorAll('.lg i'),{y:30,opacity:0,scale:.6,duration:.35,stagger:.06,ease:'back.out(2)'},0)
+    .from(el.querySelector('.t'),{x:-60,opacity:0,duration:.4,ease:E},.05)
+    .to(el,{opacity:0,duration:.2},p.dur-.2);
+},
 outro(p,tl){ // отбивка 5 с после «До встречи»: фирменный экран въезжает справа (зеркально интро)
-  const el=h(`<div class="outro"><div class="gl"></div><div class="s mono">${esc(p.sub||'ПОКА ТЫ СПАЛ · НОВОСТИ AI')}</div><div class="h">${p.head||'Завтра в <b>06:00</b>'}</div><div class="b">${esc(p.line||'Подпишись, чтобы не пропустить')}</div>${ticks(p.total||90,p.day)}</div>`);
+  const el=h(`<div class="outro"><div class="gl"></div><div class="s mono">${esc(p.sub||'ПОКА ТЫ СПАЛ · НОВОСТИ AI')}</div><div class="h">${p.head||'Завтра в <b>06:00</b>'}</div><div class="b">${esc(p.line||'Подпишись, чтобы не пропустить')}</div>${p.noticks?'':ticks(p.total||90,p.day)}</div>`);
+  {const hh=el.querySelector('.h'),n=hh.textContent.length;hh.style.fontSize=Math.min(150,Math.floor(1760/(n*0.68)))+'px';if(n>14)hh.style.top='420px'}
   tl.fromTo(el,{xPercent:100},{xPercent:0,duration:.6,ease:'power3.inOut'},0)
     .from(el.querySelector('.s'),{y:20,opacity:0,duration:.4,ease:E},.5)
     .from(el.querySelector('.h'),{yPercent:30,opacity:0,duration:.6,ease:E},.6)

@@ -15,7 +15,7 @@ out = []
 for e in E['edl']:
     out.append(e)
     for x in I:
-        if e['src_in'] - 0.05 <= x['after'] <= e['src_out'] + 0.05 and not x.get('_done'):
+        if e['src_in'] - 0.05 <= x['after'] <= e['src_out'] + 0.05 and not x.get('_done') and (e.get('tag') == 'teaser') == (x.get('tag') == 'teaser'):  # тизер — отдельно
             out.append(dict(clip=x['clip'], ss=x.get('ss', 0), dur=x['dur'], vol=x.get('vol', 0.8), label=x.get('label', ''),
                             src_in=-1, src_out=-1, fit=x.get('fit', 'auto'))); x['_done'] = True
 miss = [x['after'] for x in I if not x.get('_done')]
@@ -25,8 +25,11 @@ for e in out:
     if E.get('gap_at') is not None and not gap_done and e is not out[0] and e.get('rec', 0) >= E['gap_at'] - 1e-6 and not e.get('clip'):
         pass
     e['rec'] = fr(rec) if e.get('clip') else fr(e['rec'] + shift)
-    if e.get('clip'): shift += fr(e['dur'])
+    if e.get('clip'):
+        if E.get('gap_at') is not None and e['rec'] < E['gap_at'] + shift - 1e-6: gap_shift = E.setdefault('_gs', 0); E['_gs'] = gap_shift + fr(e['dur'])
+        shift += fr(e['dur'])
     rec = e['rec'] + (fr(e['dur']) if e.get('clip') else round((e['src_out'] - e['src_in']) / e.get('speed', 1.0) * FPS) / FPS)
 E['edl'] = out; E['total'] = fr(E['total'] + shift)
+if E.get('_gs'): E['gap_at'] = fr(E['gap_at'] + E.pop('_gs'))  # врезки до заставки сдвигают её
 json.dump(E, open(p, 'w'), ensure_ascii=False, indent=1)
 print(f'врезок {len(I)}, +{shift:.1f} с, итог {int(E["total"] // 60)}:{E["total"] % 60:04.1f}')

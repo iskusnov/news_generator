@@ -1,8 +1,117 @@
 [
  {
+  "id": "tz0",
+  "type": "tz",
+  "rec": 0.04,
+  "dur": 1.19,
+  "logos": [
+   "txt:Uber",
+   "openai",
+   "claude-color"
+  ],
+  "text": "Агенты <b>никому не нужны?</b>",
+  "k": "ИТОГИ НЕДЕЛИ · 7 НОЯБРЯ"
+ },
+ {
+  "id": "tz1",
+  "type": "tz",
+  "rec": 1.28,
+  "dur": 3.27,
+  "logos": [
+   "metaai-color",
+   "claude-color"
+  ],
+  "text": "Лицо, почта <b>и кошелёк</b>",
+  "k": ""
+ },
+ {
+  "id": "tz2",
+  "type": "tz",
+  "rec": 4.6,
+  "dur": 3.87,
+  "logos": [
+   "sora-color",
+   "gemini-color",
+   "kling-color"
+  ],
+  "text": "ИИ-слоп <b>на выборах США</b>",
+  "k": ""
+ },
+ {
+  "id": "tz3",
+  "type": "tz",
+  "rec": 8.52,
+  "dur": 1.63,
+  "logos": [
+   "sora-color",
+   "gemini-color"
+  ],
+  "text": "<b>$187 млн</b> на ИИ-фейки",
+  "k": ""
+ },
+ {
+  "id": "tz4",
+  "type": "tz",
+  "rec": 10.2,
+  "dur": 1.71,
+  "logos": [
+   "txt:Pangram",
+   "gemini-color"
+  ],
+  "text": "Проверяем <b>детектором</b>",
+  "k": ""
+ },
+ {
+  "id": "tz5",
+  "type": "tz",
+  "rec": 11.96,
+  "dur": 1.43,
+  "logos": [
+   "txt:OccupySaaS",
+   "kimi-color"
+  ],
+  "text": "Бунт <b>против подписок</b>",
+  "k": ""
+ },
+ {
+  "id": "tz6",
+  "type": "tz",
+  "rec": 13.44,
+  "dur": 2.35,
+  "logos": [
+   "apple",
+   "txt:Revolut"
+  ],
+  "text": "ИИ <b>с калькулятором</b>",
+  "k": ""
+ },
+ {
+  "id": "tz7",
+  "type": "tz",
+  "rec": 15.84,
+  "dur": 2.63,
+  "logos": [
+   "nvidia-color",
+   "xai"
+  ],
+  "text": "Хуанг · Маск · <b>Хаксли</b>",
+  "k": ""
+ },
+ {
+  "id": "tz8",
+  "type": "tz",
+  "rec": 18.52,
+  "dur": 0.71,
+  "logos": [
+   "nvidia-color"
+  ],
+  "text": "ИИ <b>слушает космос</b>",
+  "k": ""
+ },
+ {
   "id": "k01",
   "type": "kicker",
-  "rec": 13.2,
+  "rec": 26.24,
   "dur": 3.4,
   "num": "01",
   "title": "Агентам выдали лицо, почту и кошелёк"
@@ -10,15 +119,15 @@
  {
   "id": "lower",
   "type": "lower",
-  "rec": 18.56,
+  "rec": 31.6,
   "dur": 4.6,
   "name": "Антон Искуснов",
-  "role": "Пока ты спал · спецвыпуск «ИИ за неделю»"
+  "role": "Пока ты спал · итоги недели · 7 ноября"
  },
  {
   "id": "sh_uber",
   "type": "shot",
-  "rec": 21.04,
+  "rec": 34.08,
   "dur": 5.0,
   "src": "../shots/1106_og_uber.jpg",
   "lb": "TechCrunch · 4 ноября",
@@ -27,7 +136,7 @@
  {
   "id": "st_4",
   "type": "stat",
-  "rec": 22.68,
+  "rec": 35.72,
   "dur": 3.6,
   "big": "4",
   "label": "поездки на такси через ИИ-агентов",
@@ -37,7 +146,7 @@
  {
   "id": "st_320",
   "type": "stat",
-  "rec": 30.52,
+  "rec": 43.56,
   "dur": 4.0,
   "big": "320 млн",
   "label": "заказов за неделю — и только 4 поездки через агентов",
@@ -46,7 +155,7 @@
  {
   "id": "ch_50",
   "type": "chip",
-  "rec": 40.48,
+  "rec": 53.56,
   "dur": 5.0,
   "ic": "⏱",
   "a": "Такси — 50 секунд, еда — 90",
@@ -56,7 +165,7 @@
  {
   "id": "ch_cap",
   "type": "chip",
-  "rec": 54.12,
+  "rec": 67.16,
   "dur": 4.4,
   "ic": "✕",
   "a": "Капча и ручной ввод карты",
@@ -66,7 +175,7 @@
  {
   "id": "src_meta_muse",
   "type": "chip",
-  "rec": 84.24,
+  "rec": 97.28,
   "dur": 4.5,
   "ic": "▶",
   "a": "AI at Meta · Muse",
@@ -76,7 +185,7 @@
  {
   "id": "st_muse",
   "type": "stat",
-  "rec": 96.72,
+  "rec": 109.76,
   "dur": 3.8,
   "big": "10 млн+",
   "label": "скачиваний Meta Muse",
@@ -86,7 +195,7 @@
  {
   "id": "sh_mm",
   "type": "shot",
-  "rec": 99.28,
+  "rec": 112.32,
   "dur": 6.0,
   "src": "../shots/1106_og_machinemail.jpg",
   "lb": "machinemail.dev",
@@ -95,7 +204,7 @@
  {
   "id": "ch_trust",
   "type": "chip",
-  "rec": 114.68,
+  "rec": 127.72,
   "dur": 4.6,
   "ic": "✓",
   "a": "Под каждым письмом — отчёт о доверии",
@@ -105,7 +214,7 @@
  {
   "id": "sh_cl",
   "type": "shot",
-  "rec": 159.88,
+  "rec": 172.92,
   "dur": 4.58,
   "src": "../shots/1106_post_claude.png",
   "lb": "X · @claudeai",
@@ -114,7 +223,7 @@
  {
   "id": "src_claude_finance",
   "type": "chip",
-  "rec": 164.88,
+  "rec": 177.92,
   "dur": 4.5,
   "ic": "▶",
   "a": "Anthropic · Personal Finance",
@@ -124,7 +233,7 @@
  {
   "id": "ch_ro",
   "type": "chip",
-  "rec": 188.32,
+  "rec": 201.36,
   "dur": 4.6,
   "ic": "🔒",
   "a": "Только чтение",
@@ -134,7 +243,7 @@
  {
   "id": "q_intern",
   "type": "quote",
-  "rec": 216.76,
+  "rec": 229.8,
   "dur": 10.21,
   "words": [
    {
@@ -268,7 +377,7 @@
  {
   "id": "k02",
   "type": "kicker",
-  "rec": 227.52,
+  "rec": 240.56,
   "dur": 3.4,
   "num": "02",
   "title": "ИИ-слоп пошёл во власть"
@@ -276,7 +385,7 @@
  {
   "id": "src_slop_fb_satanists",
   "type": "chip",
-  "rec": 250.56,
+  "rec": 263.6,
   "dur": 4.5,
   "ic": "▶",
   "a": "ИИ-реклама · Орегон · Facebook",
@@ -286,7 +395,7 @@
  {
   "id": "st_289",
   "type": "stat",
-  "rec": 275.52,
+  "rec": 288.56,
   "dur": 3.4,
   "big": "289",
   "label": "ИИ-роликов в рекламе на выборах",
@@ -296,7 +405,7 @@
  {
   "id": "st_187",
   "type": "stat",
-  "rec": 279.44,
+  "rec": 292.44,
   "dur": 3.6,
   "big": "$187 млн",
   "label": "потрачено на ИИ-рекламу",
@@ -305,7 +414,7 @@
  {
   "id": "st_x",
   "type": "stat",
-  "rec": 286.6,
+  "rec": 299.64,
   "dur": 3.6,
   "big": "×3700",
   "label": "рост за два года",
@@ -315,7 +424,7 @@
  {
   "id": "src_slop_x_batman",
   "type": "chip",
-  "rec": 303.68,
+  "rec": 316.72,
   "dur": 4.5,
   "ic": "▶",
   "a": "ИИ-ролик · Лос-Анджелес · X @charliebcurran",
@@ -325,7 +434,7 @@
  {
   "id": "src_slop_yt_lee",
   "type": "chip",
-  "rec": 325.92,
+  "rec": 338.96,
   "dur": 4.5,
   "ic": "▶",
   "a": "ИИ-реклама «Bonkers Bichler» · YouTube",
@@ -335,7 +444,7 @@
  {
   "id": "ch_lbl",
   "type": "chip",
-  "rec": 339.28,
+  "rec": 352.32,
   "dur": 4.4,
   "ic": "!",
   "a": "Многие ролики выходят без пометки «ИИ»",
@@ -345,7 +454,7 @@
  {
   "id": "src_google_omni",
   "type": "chip",
-  "rec": 353.68,
+  "rec": 366.72,
   "dur": 4.5,
   "ic": "▶",
   "a": "Google · Gemini Omni 1.2 Flash",
@@ -355,7 +464,7 @@
  {
   "id": "st_15",
   "type": "stat",
-  "rec": 362.56,
+  "rec": 375.6,
   "dur": 3.6,
   "big": "15 сек",
   "label": "ролик за один запрос",
@@ -365,7 +474,7 @@
  {
   "id": "st_1usd",
   "type": "stat",
-  "rec": 376.4,
+  "rec": 389.44,
   "dur": 3.8,
   "big": "≈ $1",
   "label": "ролик в 15 секунд",
@@ -375,7 +484,7 @@
  {
   "id": "sh_ar",
   "type": "shot",
-  "rec": 378.96,
+  "rec": 392.0,
   "dur": 6.0,
   "src": "../shots/1106_post_arena.png",
   "lb": "X · @arena",
@@ -384,7 +493,7 @@
  {
   "id": "sh_az",
   "type": "shot",
-  "rec": 386.56,
+  "rec": 399.6,
   "dur": 6.6,
   "src": "../shots/1106_arsaze.jpg",
   "lb": "arsaze.com",
@@ -393,7 +502,7 @@
  {
   "id": "st_az",
   "type": "stat",
-  "rec": 404.4,
+  "rec": 417.44,
   "dur": 4.2,
   "big": "23 мин",
   "label": "вместо 3 ч 12 мин ручного монтажа",
@@ -403,7 +512,7 @@
  {
   "id": "ch_az",
   "type": "chip",
-  "rec": 412.44,
+  "rec": 425.48,
   "dur": 4.6,
   "ic": "↓",
   "a": "Подключается к Claude как коннектор",
@@ -413,7 +522,7 @@
  {
   "id": "sh_pg",
   "type": "shot",
-  "rec": 435.84,
+  "rec": 448.88,
   "dur": 6.0,
   "src": "../shots/1106_og_pangram.jpg",
   "lb": "pangram.com · блог",
@@ -422,7 +531,7 @@
  {
   "id": "st_pg",
   "type": "stat",
-  "rec": 454.8,
+  "rec": 467.84,
   "dur": 4.0,
   "big": "99,96%",
   "label": "точность — по словам компании",
@@ -432,7 +541,7 @@
  {
   "id": "q_who",
   "type": "quote",
-  "rec": 492.68,
+  "rec": 505.72,
   "dur": 5.21,
   "words": [
    {
@@ -506,7 +615,7 @@
  {
   "id": "q_yoga",
   "type": "quote",
-  "rec": 507.52,
+  "rec": 520.56,
   "dur": 5.09,
   "words": [
    {
@@ -565,7 +674,7 @@
  {
   "id": "k03",
   "type": "kicker",
-  "rec": 511.24,
+  "rec": 524.28,
   "dur": 3.4,
   "num": "03",
   "title": "Великая распродажа ИИ"
@@ -573,7 +682,7 @@
  {
   "id": "ch_occ",
   "type": "chip",
-  "rec": 524.64,
+  "rec": 537.68,
   "dur": 5.0,
   "ic": "✊",
   "a": "OccupySaaS",
@@ -583,7 +692,7 @@
  {
   "id": "ch_za",
   "type": "chip",
-  "rec": 534.96,
+  "rec": 548.0,
   "dur": 4.2,
   "ic": "→",
   "a": "ZeroAuthy ← Auth0 · SalesCompel ← Salesforce",
@@ -593,7 +702,7 @@
  {
   "id": "ch_nc",
   "type": "chip",
-  "rec": 539.2,
+  "rec": 552.24,
   "dur": 4.6,
   "ic": "✓",
   "a": "Не копирует чужой код",
@@ -603,7 +712,7 @@
  {
   "id": "sh_kimi",
   "type": "shot",
-  "rec": 583.12,
+  "rec": 596.16,
   "dur": 5.6,
   "src": "../shots/1106_og_kimi.jpg",
   "lb": "Hugging Face · открытые веса",
@@ -612,7 +721,7 @@
  {
   "id": "st_28",
   "type": "stat",
-  "rec": 586.88,
+  "rec": 599.92,
   "dur": 3.6,
   "big": "2,8 трлн",
   "label": "параметров",
@@ -622,7 +731,7 @@
  {
   "id": "ch_moe",
   "type": "chip",
-  "rec": 597.04,
+  "rec": 610.08,
   "dur": 5.6,
   "ic": "⚕",
   "a": "Смесь экспертов",
@@ -632,7 +741,7 @@
  {
   "id": "sh_rv",
   "type": "shot",
-  "rec": 627.64,
+  "rec": 640.68,
   "dur": 6.0,
   "src": "../shots/1106_og_revolut.jpg",
   "lb": "The Register · Revolut",
@@ -641,7 +750,7 @@
  {
   "id": "st_rv",
   "type": "stat",
-  "rec": 638.08,
+  "rec": 651.12,
   "dur": 4.0,
   "big": "−90%",
   "label": "расходы Revolut на ИИ для кода",
@@ -651,7 +760,7 @@
  {
   "id": "st_ap",
   "type": "stat",
-  "rec": 650.96,
+  "rec": 664.0,
   "dur": 5.0,
   "big": "$25",
   "label": "новый лимит Apple на ИИ в день",
@@ -660,7 +769,7 @@
  {
   "id": "st_6k",
   "type": "stat",
-  "rec": 663.2,
+  "rec": 676.24,
   "dur": 3.6,
   "big": "$6000",
   "label": "в месяц на одного инженера",
@@ -670,7 +779,7 @@
  {
   "id": "q_calc",
   "type": "quote",
-  "rec": 699.36,
+  "rec": 712.4,
   "dur": 16.33,
   "words": [
    {
@@ -894,7 +1003,7 @@
  {
   "id": "q_cap",
   "type": "quote",
-  "rec": 717.12,
+  "rec": 730.16,
   "dur": 8.17,
   "words": [
    {
@@ -1016,9 +1125,19 @@
   "mark": "ПАНЧ"
  },
  {
+  "id": "ch_tg",
+  "type": "chip",
+  "rec": 748.68,
+  "dur": 6.5,
+  "ic": "✈",
+  "a": "@scaling_ai",
+  "b": "гиты, ссылки, плейбуки — ссылка в описании",
+  "y": 760
+ },
+ {
   "id": "k04",
   "type": "kicker",
-  "rec": 723.84,
+  "rec": 749.84,
   "dur": 3.4,
   "num": "04",
   "title": "Хуанг, Маск, Хаксли и инопланетяне"
@@ -1026,7 +1145,7 @@
  {
   "id": "sh_ata",
   "type": "shot",
-  "rec": 736.76,
+  "rec": 762.76,
   "dur": 6.4,
   "src": "../shots/1106_og_nvidia.jpg",
   "lb": "Allen Telescope Array · NVIDIA",
@@ -1035,7 +1154,7 @@
  {
   "id": "st_tb",
   "type": "stat",
-  "rec": 774.64,
+  "rec": 800.64,
   "dur": 4.2,
   "big": "2,4 Тб/с",
   "label": "скорость обработки",
@@ -1045,7 +1164,7 @@
  {
   "id": "q_alien",
   "type": "quote",
-  "rec": 801.72,
+  "rec": 827.72,
   "dur": 11.53,
   "words": [
    {
@@ -1214,7 +1333,7 @@
  {
   "id": "sh_musk",
   "type": "shot",
-  "rec": 828.28,
+  "rec": 854.28,
   "dur": 9.0,
   "src": "../shots/1106_post_musk.png",
   "lb": "X · @elonmusk",
@@ -1223,7 +1342,7 @@
  {
   "id": "q_free",
   "type": "quote",
-  "rec": 870.08,
+  "rec": 896.08,
   "dur": 4.69,
   "words": [
    {
@@ -1272,7 +1391,7 @@
  {
   "id": "q_sub",
   "type": "quote",
-  "rec": 958.04,
+  "rec": 984.04,
   "dur": 4.13,
   "words": [
    {
@@ -1341,7 +1460,7 @@
  {
   "id": "k05",
   "type": "kicker",
-  "rec": 963.8,
+  "rec": 989.8,
   "dur": 3.4,
   "num": "05",
   "title": "Напоследок: Nothing"
@@ -1349,28 +1468,20 @@
  {
   "id": "sh_nth",
   "type": "shot",
-  "rec": 965.4,
+  "rec": 991.4,
   "dur": 6.0,
   "src": "../shots/1106_og_nothing.jpg",
   "lb": "TechCrunch · Nothing",
   "top": 200
  },
  {
-  "id": "ch_tg",
-  "type": "chip",
-  "rec": 993.36,
-  "dur": 6.5,
-  "ic": "✈",
-  "a": "t.me/scaling_ai",
-  "b": "гиты, ссылки, плейбуки — ссылка в описании",
-  "y": 760
- },
- {
   "id": "outro",
   "type": "outro",
-  "rec": 1012.84,
+  "rec": 1023.24,
   "dur": 5.0,
-  "day": 5,
-  "total": 90
+  "sub": "ИТОГИ НЕДЕЛИ · 7 НОЯБРЯ",
+  "head": "Пока ты спал · <b>Новости AI</b>",
+  "line": "Коротко и по делу о самом интересном в мире AI. Подпишись, чтобы не пропустить.",
+  "noticks": 1
  }
 ]

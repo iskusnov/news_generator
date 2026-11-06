@@ -7,8 +7,8 @@ E = json.load(open(f'{D}/ep/edl.json')); W = json.load(open(f'{D}/words.json'))[
 fr = lambda t: round(t * FPS) / FPS
 def s2r(t):
     for e in E['edl']:
-        if not e.get('clip') and e['src_in'] - 0.05 <= t <= e['src_out'] + 0.05: return fr(e['rec'] + max(0, t - e['src_in']) / e.get('speed', 1.0))
-    nx = [e for e in E['edl'] if not e.get('clip') and e['src_in'] > t]
+        if not e.get('clip') and e.get('tag') != 'teaser' and e['src_in'] - 0.05 <= t <= e['src_out'] + 0.05: return fr(e['rec'] + max(0, t - e['src_in']) / e.get('speed', 1.0))
+    nx = [e for e in E['edl'] if not e.get('clip') and e.get('tag') != 'teaser' and e['src_in'] > t]
     if nx and nx[0]['src_in'] - t < 3: return fr(nx[0]['rec'])
     raise ValueError(t)
 def wat(p, near):
@@ -22,6 +22,21 @@ def quote(id, a, b, hl, mark, tail=1.0):
     words = [dict(t=FIX.get(w['word'], w['word']), at=round(s2r(w['start']) - r0, 2), hl=any(w['word'].lower().startswith(h) for h in hl)) for w in ws]
     G(id, 'quote', r0, round(s2r(ws[-1]['start']) - r0 + tail, 2), words=[w for w in words if w['t']], mark=mark)
 SH = '../shots/1106_'
+# тизер до заставки: на каждый кусок — логотипы и крупная подпись
+TZ = [(['txt:Uber', 'openai', 'claude-color'], 'Агенты <b>никому не нужны?</b>', 'ИТОГИ НЕДЕЛИ · 7 НОЯБРЯ'),
+      (['metaai-color', 'claude-color'], 'Лицо, почта <b>и кошелёк</b>', ''),
+      (['sora-color', 'gemini-color', 'kling-color'], 'ИИ-слоп <b>на выборах США</b>', ''),
+      (['sora-color', 'gemini-color'], '<b>$187 млн</b> на ИИ-фейки', ''),
+      (['txt:Pangram', 'gemini-color'], 'Проверяем <b>детектором</b>', ''),
+      (['txt:OccupySaaS', 'kimi-color'], 'Бунт <b>против подписок</b>', ''),
+      (['apple', 'txt:Revolut'], 'ИИ <b>с калькулятором</b>', ''),
+      (['nvidia-color', 'xai'], 'Хуанг · Маск · <b>Хаксли</b>', ''),
+      (['nvidia-color'], 'ИИ <b>слушает космос</b>', '')]
+tp = [e for e in E['edl'] if e.get('tag') == 'teaser']
+for i, (e, (lg, tx, k)) in enumerate(zip(tp, TZ)):
+    end = tp[i + 1]['rec'] if i + 1 < len(tp) else E['gap_at']
+    if i == 2: end = tp[3]['rec']  # слоп: подпись держится и на ролике с сатанистами
+    G(f'tz{i}', 'tz', e['rec'] + 0.05, round(end - e['rec'] - 0.05, 2), logos=lg, text=tx, k=k)
 # подписи источников на врезках-роликах
 for e in E['edl']:
     if e.get('clip') and e.get('label'):
@@ -30,7 +45,7 @@ for e in E['edl']:
 for i, (t, ttl) in enumerate([(20.04, 'Агентам выдали лицо, почту и кошелёк'), (685.71, 'ИИ-слоп пошёл во власть'),
                               (1654.34, 'Великая распродажа ИИ'), (2543.97, 'Хуанг, Маск, Хаксли и инопланетяне'), (4075.3, 'Напоследок: Nothing')], 1):
     G(f'k{i:02d}', 'kicker', s2r(t) - 0.6, 3.4, num=f'{i:02d}', title=ttl)
-G('lower', 'lower', s2r(wat('при', 24.4)) + 1.0, 4.6, name='Антон Искуснов', role='Пока ты спал · спецвыпуск «ИИ за неделю»')
+G('lower', 'lower', s2r(wat('при', 24.4)) + 1.0, 4.6, name='Антон Искуснов', role='Пока ты спал · итоги недели · 7 ноября')
 # 1 Агенты
 G('sh_uber', 'shot', s2r(wat('uber', 25.84)) + 2.2, 5.0, src=SH + 'og_uber.jpg', lb='TechCrunch · 4 ноября', top=200)
 G('st_4', 'stat', s2r(wat('4', 30.48)) - 0.2, 3.6, big='4', label='поездки на такси через ИИ-агентов', sub='Uber · самая загруженная неделя октября', side='l')
@@ -79,11 +94,11 @@ G('sh_musk', 'shot', s2r(wat('ясамин', 3154.92)) - 0.2, 9.0, src=SH + 'pos
 quote('q_free', 3293.5, 3297.4, ['счастливыми', 'свободными'], 'ХАКСЛИ', 1.2)
 quote('q_sub', 4049.8, 4056.0, ['подписку'], 'ПАНЧ', 1.2)
 G('sh_nth', 'shot', s2r(wat('компания', 4075.3)) + 1.0, 6.0, src=SH + 'og_nothing.jpg', lb='TechCrunch · Nothing', top=200)
-G('ch_tg', 'chip', s2r(wat('телеграм', 5002.9)) - 0.3, 6.5, ic='✈', a='t.me/scaling_ai', b='гиты, ссылки, плейбуки — ссылка в описании', y=760)
-G('outro', 'outro', E['total'] + 0.2, 5.0, day=5, total=90)
+G('ch_tg', 'chip', s2r(wat('телеграм-канал', 5114.74)) - 0.3, 6.5, ic='✈', a='@scaling_ai', b='гиты, ссылки, плейбуки — ссылка в описании', y=760)
+G('outro', 'outro', E['total'] + 0.2, 5.0, sub='ИТОГИ НЕДЕЛИ · 7 НОЯБРЯ', head='Пока ты спал · <b>Новости AI</b>', line='Коротко и по делу о самом интересном в мире AI. Подпишись, чтобы не пропустить.', noticks=1)
 clips = [(e['rec'], e['rec'] + e['dur']) for e in E['edl'] if e.get('clip')]
 for x in S:  # плашки не заходят на ролики: старт после ролика, конец до ролика
-    if x['id'].startswith('src_') or x['type'] == 'outro': continue
+    if x['id'].startswith('src_') or x['type'] in ('outro', 'tz'): continue
     for a, b in clips:
         if a - 0.05 <= x['rec'] < b: x['rec'] = fr(b + 0.15)
         elif x['rec'] < a < x['rec'] + x['dur']: x['dur'] = round(a - x['rec'] - 0.1, 2)
@@ -94,7 +109,7 @@ json.dump(S, open(f'{D}/ep/specs.json', 'w'), ensure_ascii=False, indent=1)
 # пересечения и наезды на врезки-ролики
 clips = [(e['rec'], e['rec'] + e['dur']) for e in E['edl'] if e.get('clip')]
 for s in S:
-    if s['id'].startswith('src_') or s['type'] == 'outro': continue
+    if s['id'].startswith('src_') or s['type'] in ('outro', 'tz'): continue
     for a, b in clips:
         if s['rec'] < b and s['rec'] + s['dur'] > a: print('НА РОЛИК', s['id'], s['rec'], (a, b))
 for a, b in zip(S, S[1:]):

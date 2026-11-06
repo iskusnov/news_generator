@@ -2,7 +2,7 @@
 """Задание финального рендера выпуска для службы на Mac (~/PokaTySpal/queue).
 
 mac_final.py <edl.json> <specs.json> <crawl.json> <src.mov на Mac> <папка задания на Mac> <выход .mp4 на Mac> > job.sh
-В папке задания лежат: intro.mp4 (4K, со звуком), gfx/<id>.webm (VP9 с альфой, 1920×1080), crawl.png + crawl_label.png (1x),
+В папке задания лежат: intro.mp4 (4K, со звуком), gfx/<id>.webm (VP9 с альфой, 1920×1080), crawl.png + crawl_label.png (1x) или crawl_<i>.png окнами (pipeline/crawl.py),
 sfx.wav (звук перехода между новостями), outro.wav (хвост трека под отбивку, 5 с).
 Шаги (нативный ffmpeg, VideoToolbox):
  0) проверка места: меньше 30 ГБ свободно — задание сразу падает с LOW_DISK (Антону писать сразу, не ждать);
@@ -21,8 +21,13 @@ edl_p, specs_p, crawl_p, SRC, JD, OUT = sys.argv[1:7]
 E = json.load(open(edl_p)); S = json.load(open(specs_p)); C = json.load(open(crawl_p))
 FPS = 25; TAIL = max(0.0, max(s['rec'] + s['dur'] for s in S) - E['total'])
 q = shlex.quote
-SRC2, SRC3 = os.environ.get('SRC2'), os.environ.get('SRC3')  # запись из нескольких файлов: в edl время 2-го файла = OFF2 + t, 3-го = OFF3 + t
-OFF2, OFF3 = float(os.environ.get('OFF2', 1000)), float(os.environ.get('OFF3', 2000)); SRC4, OFF4 = os.environ.get('SRC4'), float(os.environ.get('OFF4', 5000))  # 4-й файл (вставка) = OFF4 + t  # если 1-й файл длиннее 1000 с — сдвинуть (например 3000/4000)
+# запись из нескольких файлов: SRCn + OFFn (n=2..9), в edl время n-го файла = OFFn + t
+SRCS = sorted([(float(os.environ.get(f'OFF{i}', {2: 1000, 3: 2000, 4: 5000}.get(i, 0))), os.environ[f'SRC{i}'])
+               for i in range(2, 10) if os.environ.get(f'SRC{i}')], reverse=True)
+def pick_src(t):
+    for off, path in SRCS:
+        if t >= off: return t - off, path
+    return t, SRC
 V = '-c:v hevc_videotoolbox -b:v 45M -tag:v hvc1 -pix_fmt yuv420p'
 A = '-c:a pcm_s16le -ar 48000 -ac 2'
 L = ['#!/bin/bash', 'set -e', 'export PATH=/opt/homebrew/bin:$PATH',
@@ -54,7 +59,7 @@ for e in E['edl']:
     parts.append(p)
     vs = f',setpts=PTS/{sp}' if sp != 1.0 else ''
     at = f'atempo={sp},' if sp != 1.0 else ''
-    s_in, s_src = (e['src_in'] - OFF4, SRC4) if SRC4 and e['src_in'] >= OFF4 else (e['src_in'] - OFF3, SRC3) if SRC3 and e['src_in'] >= OFF3 else (e['src_in'] - OFF2, SRC2) if SRC2 and e['src_in'] >= OFF2 else (e['src_in'], SRC)
+    s_in, s_src = pick_src(e['src_in'])
     cmd = (f'ffmpeg -v error -y -ss {s_in:.3f} -t {d + 0.5:.3f} -i {q(s_src)} -frames:v {nf} '
            f'-vf crop={w}:{h}:{x}:{y},scale=3840:2160{vs},fps=25,setsar=1,format=yuv420p {V} '
            f'-af {at}afade=t=in:d=0.015,afade=t=out:st={max(0, nf/FPS - 0.015):.3f}:d=0.015,apad -t {nf/FPS:.3f} {A} parts/tmp.mov && mv parts/tmp.mov {p}')
@@ -64,12 +69,17 @@ L.append("printf '%s\\n' " + ' '.join(q(f"file '{p.split('/')[-1]}'") for p in p
 L.append('ffmpeg -v error -xerror -y -f concat -safe 0 -i parts/list.txt -c copy base.mov')
 L.append(f'B=$(ffprobe -v error -show_entries format=duration -of csv=p=0 base.mov); python3 -c "import sys; b=float(sys.argv[1]); sys.exit(0 if abs(b-{E["total"]:.2f})<0.5 else 4)" "$B" || {{ echo "BASE_LEN $B ≠ {E["total"]:.2f}"; exit 4; }}')
 L.append('echo "base $(date +%T)"')
-ins = ['-i', 'base.mov', '-loop', '1', '-i', 'crawl.png', '-loop', '1', '-i', 'crawl_label.png']
-fc = [f'[0:v]tpad=stop_mode=clone:stop_duration={TAIL:.2f}[v0]',
-      '[1:v]scale=iw*2:ih*2,format=rgba[cr]', '[2:v]scale=iw*2:ih*2,format=rgba[lb]',
-      f"[v0][cr]overlay=x='-mod(t*{C['speed']*2}\\,{C['cycle']*2})':y=H-h:shortest=0:enable='between(t,{C['from']:.2f},{C['to']:.2f})'[v1]",
-      f"[v1][lb]overlay=x=0:y=H-h:enable='between(t,{C['from']:.2f},{C['to']:.2f})'[v2]"]
-cur = 'v2'; j = 3
+# бегущая строка: одно окно {from,to,cycle,speed} (crawl.png) или окна {speed, windows:[{from,to,png,label,cycle,lw}]} (pipeline/crawl.py)
+WIN = C['windows'] if 'windows' in C else [dict(C, png='crawl.png', label='crawl_label.png', lw=0)]
+ins = ['-i', 'base.mov']; fc = [f'[0:v]tpad=stop_mode=clone:stop_duration={TAIL:.2f}[v0]']; cur = 'v0'; j = 1
+for k, w in enumerate(WIN):
+    sp = w.get('speed', C.get('speed', 110)); en = f"between(t,{w['from']:.2f},{w['to']:.2f})"
+    ins += ['-loop', '1', '-i', w['png'], '-loop', '1', '-i', w['label']]
+    fc += [f'[{j}:v]scale=iw*2:ih*2,format=rgba[cr{k}]', f'[{j+1}:v]scale=iw*2:ih*2,format=rgba[lb{k}]',
+           f"[{cur}][cr{k}]overlay=x='{w['lw']*2:.0f}-mod((t-{w['from']:.2f})*{sp*2}\\,{w['cycle']*2})':y=H-h:shortest=0:enable='{en}'[cv{k}]",
+           f"[cv{k}][lb{k}]overlay=x=0:y=H-h:enable='{en}'[cl{k}]"]
+    cur = f'cl{k}'; j += 2
+
 for s in S:
     ins += ['-c:v', 'libvpx-vp9', '-i', f"gfx/{s['id']}.webm"]
     fc.append(f"[{j}:v]scale=3840:2160,format=yuva420p,setpts=PTS-STARTPTS+{s['rec']:.2f}/TB[o{j}]")

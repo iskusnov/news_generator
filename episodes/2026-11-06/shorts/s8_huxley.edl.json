@@ -1,0 +1,164 @@
+{
+ "fps": 25,
+ "tc_start": 0,
+ "total": 74.44,
+ "gap_at": null,
+ "gap": 0,
+ "edl": [
+  {
+   "src_in": 2543.92,
+   "src_out": 2547.04,
+   "rec": 0.0,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3136.16,
+   "src_out": 3139.6,
+   "rec": 3.12,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3154.88,
+   "src_out": 3158.88,
+   "rec": 6.56,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3159.16,
+   "src_out": 3164.48,
+   "rec": 10.56,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3172.8,
+   "src_out": 3177.44,
+   "rec": 15.88,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3186.08,
+   "src_out": 3187.88,
+   "rec": 20.52,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3203.68,
+   "src_out": 3208.96,
+   "rec": 22.32,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3209.68,
+   "src_out": 3212.76,
+   "rec": 27.6,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3213.0,
+   "src_out": 3214.8,
+   "rec": 30.68,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3219.28,
+   "src_out": 3220.96,
+   "rec": 32.48,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3231.44,
+   "src_out": 3233.6,
+   "rec": 34.16,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3254.32,
+   "src_out": 3256.6,
+   "rec": 36.32,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3256.8,
+   "src_out": 3260.92,
+   "rec": 38.6,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3262.16,
+   "src_out": 3271.44,
+   "rec": 42.72,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3283.24,
+   "src_out": 3285.92,
+   "rec": 52.0,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3293.44,
+   "src_out": 3298.72,
+   "rec": 54.68,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 3361.92,
+   "src_out": 3364.56,
+   "rec": 59.96,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3365.32,
+   "src_out": 3365.96,
+   "rec": 62.6,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3366.6,
+   "src_out": 3369.44,
+   "rec": 63.24,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3370.16,
+   "src_out": 3372.04,
+   "rec": 66.08,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 3372.52,
+   "src_out": 3374.72,
+   "rec": 67.96,
+   "tag": "main",
+   "scale": 1.0
+  },
+  {
+   "src_in": 4002.32,
+   "src_out": 4006.6,
+   "rec": 70.16,
+   "tag": "main",
+   "scale": 1.12
+  }
+ ],
+ "covers": []
+}

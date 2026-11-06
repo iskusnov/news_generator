@@ -19,7 +19,7 @@ body{width:1280px;height:720px;overflow:hidden;background:var(--ink);position:re
 <script>
 const v=new URLSearchParams(location.search).get('v');const S=document.getElementById('s');
 const L='../../graphics/node_modules/@lobehub/icons-static-svg/icons/';
-const chip='<div class="chip">СПЕЦВЫПУСК · ИИ ЗА НЕДЕЛЮ</div>';
+const chip='<div class="chip">ИТОГИ НЕДЕЛИ · 7 НОЯБРЯ</div>';
 const LR=(a,l,t,sz)=>`<div style="position:absolute;left:${l}px;top:${t}px;display:flex;gap:14px">${a.map(n=>`<div style="width:${sz}px;height:${sz}px;border-radius:${sz*.24}px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px rgba(0,0,0,.5)"><img src="${L}${n}.svg" style="width:${sz*.62}px"></div>`).join('')}</div>`;
 const T={
 A:`<div class="glow" style="width:760px;height:760px;left:520px;top:0;background:rgba(255,59,48,.32)"></div>${chip}
@@ -35,5 +35,44 @@ ${LR(['gemini-color','claude-color','openai','nvidia-color'],48,420,84)}
 <div class="card" style="left:48px;top:540px;width:200px;height:140px;background:url(../shots/1106_satan.jpg) center/cover;transform:rotate(-3deg)"></div>
 <div class="card" style="left:270px;top:545px;width:200px;height:135px;background:url(../shots/1106_og_nvidia.jpg) center/cover;transform:rotate(3deg)"></div>
 <img class="face" src="f1106_006.png" style="height:740px;right:-160px;bottom:-140px">`};
+
+const TL=(t,sz)=>`<div style="width:${sz}px;height:${sz}px;border-radius:${sz*.24}px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px rgba(0,0,0,.5);font-family:Manrope;font-weight:800;font-size:${sz*Math.min(.26,1.3/t.length)}px;color:#000">${t}</div>`;
+const IC=(n,sz)=>n.startsWith('txt:')?TL(n.slice(4),sz):`<div style="width:${sz}px;height:${sz}px;border-radius:${sz*.24}px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px rgba(0,0,0,.5)"><img src="${L}${n}.svg" style="width:${sz*.62}px"></div>`;
+const ROW=(a,l,t,sz,g)=>`<div style="position:absolute;left:${l}px;top:${t}px;display:flex;flex-wrap:wrap;gap:${g||12}px;width:${(sz+(g||12))*5}px">${a.map(n=>IC(n,sz)).join('')}</div>`;
+const FACE=(f,st)=>`<img class="face" src="${f}" style="${st||'height:740px;right:-160px;bottom:-140px'}">`;
+Object.assign(T,{
+C:`<div class="glow" style="width:760px;height:760px;left:560px;top:0;background:rgba(200,255,46,.22)"></div>${chip}
+<div class="ttl" style="font-size:76px;width:760px">Главное<br>в <b>AI</b><br>за неделю</div>
+<div class="tag" style="left:48px;top:330px;background:var(--red);color:#fff;font-size:34px;transform:rotate(-3deg)">ЗА 15 МИНУТ</div>
+${ROW(['txt:Uber','meta-color','claude-color','openai','gemini-color','nvidia-color','apple','kimi-color','xai','txt:Revolut'],48,420,96,14)}
+${FACE('f1106_006.png')}`,
+D:`<div class="glow" style="width:760px;height:760px;left:520px;top:0;background:rgba(255,59,48,.32)"></div>${chip}
+<div class="ttl" style="font-size:58px;width:800px">Агенты никому<br>не нужны.<br><i>Зато слоп —</i><br><b>$187 млн</b></div>
+${ROW(['txt:Uber','meta-color','claude-color'],48,440,84,12)}
+<div class="card" style="left:360px;top:410px;width:300px;height:240px;background:url(../shots/1106_satan.jpg) center/cover;transform:rotate(4deg)"></div>
+<div class="tag" style="left:330px;top:600px;background:var(--red);color:#fff;font-size:24px;transform:rotate(-4deg)">ВЫБОРЫ США</div>
+${FACE('f1106_002.png')}`,
+E:`<div class="glow" style="width:760px;height:760px;left:520px;top:0;background:rgba(200,255,46,.18)"></div>${chip}
+<div class="ttl" style="font-size:60px;width:760px">Хуанг, Маск<br>и Хаксли:<br><b>что общего?</b></div>
+${ROW(['nvidia-color','xai','txt:Хаксли'],48,380,110,16)}
+<div class="tag" style="left:48px;top:520px;background:var(--paper);color:var(--ink);font-size:26px;transform:rotate(-2deg)">«О дивный новый мир»</div>
+<div class="tag" style="left:48px;top:590px;background:var(--lime);color:var(--ink);font-size:26px;transform:rotate(1deg)">+ ИИ ищет инопланетян</div>
+${FACE('f1106_015.png')}`,
+F:`<div style="position:absolute;inset:0;background:url(../shots/1106_og_nvidia.jpg) center/cover;opacity:.55"></div><div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,13,15,.95) 0%,rgba(13,13,15,.7) 50%,rgba(13,13,15,.1) 100%)"></div>${chip}
+<div class="ttl" style="font-size:80px;width:760px">ИИ ищет<br><b>инопла-<br>нетян</b></div>
+${ROW(['nvidia-color','txt:SETI'],48,420,100,14)}
+<div class="tag" style="left:48px;top:560px;background:var(--red);color:#fff;font-size:28px;transform:rotate(-3deg)">+ агенты, слоп, Маск</div>
+${FACE('f1106_002.png')}`,
+G:`<div class="glow" style="width:760px;height:760px;left:560px;top:0;background:rgba(200,255,46,.16)"></div>${chip}
+<div class="ttl" style="font-size:54px;width:760px">Итоги недели<br>в <b>AI</b></div>
+<div style="position:absolute;left:48px;top:200px;display:flex;flex-direction:column;gap:16px;width:720px">
+${[[['meta-color','claude-color'],'Агенты с кошельком — и 4 заказа'],[['gemini-color'],'<i style="font-style:normal;color:#FF3B30">$187 млн</i> на ИИ-слоп'],[['openai','txt:Rev'],'Бунт против подписок'],[['nvidia-color'],'ИИ ищет инопланетян']].map((r,i)=>`<div style="display:flex;align-items:center;gap:14px;background:rgba(245,240,232,.07);border-left:6px solid var(--lime);padding:10px 16px;border-radius:10px"><div style="font-family:Unbounded;font-weight:800;font-size:40px;color:var(--lime);width:40px">${i+1}</div>${r[0].map(n=>IC(n,64)).join('')}<div style="font-family:Manrope;font-weight:800;font-size:34px;color:var(--paper);line-height:1.05">${r[1]}</div></div>`).join('')}
+</div>
+${FACE('f1106_006.png','height:700px;right:-200px;bottom:-140px')}`,
+H:`<div style="position:absolute;left:0;top:0;width:820px;height:720px;background:url(../shots/1106_satan_big.jpg) center 30%/cover"></div><div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,13,15,.92) 0%,rgba(13,13,15,.45) 45%,rgba(13,13,15,.9) 75%)"></div>${chip}
+<div class="ttl" style="font-size:96px;width:760px"><i>$187 млн</i></div>
+<div class="ttl" style="top:170px;font-size:56px;width:760px">на ИИ-фейки<br><b>и это только начало</b></div>
+${ROW(['gemini-color','claude-color','openai','nvidia-color'],48,560,90,14)}
+${FACE('f1106_002.png')}`});
 S.innerHTML=T[v||'A'];
 </script></body></html>

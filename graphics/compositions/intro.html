@@ -41,10 +41,10 @@ const day=V.day||1,total=V.total||90,date=V.date||'',heads=V.headlines||[],B=V.b
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const s=document.getElementById('s');
 const SP=V.special; // спецвыпуск: вместо номера дня — плашка (например «СПЕЦ» / «ИИ ЗА НЕДЕЛЮ»)
-const crawlTxt=(SP?`СПЕЦВЫПУСК · ${SP.sub||''} · ${date} · ПОКА ТЫ СПАЛ · `:`06:00 · MADRID · ${date} · ДЕНЬ ${day} ИЗ ${total} · НОВОСТИ AI · ПОКА ТЫ СПАЛ · `).repeat(6);
+const crawlTxt=(SP?(SP.crawl||`СПЕЦВЫПУСК · ${SP.sub||''} · ${date} · ПОКА ТЫ СПАЛ · `):`06:00 · MADRID · ${date} · ДЕНЬ ${day} ИЗ ${total} · НОВОСТИ AI · ПОКА ТЫ СПАЛ · `).repeat(6);
 s.innerHTML=(V.bg?`<img src="${V.bg}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`:'')+`<div class="bg"></div><div class="grid"></div><div class="glow"></div>
 <div class="bar" style="top:300px"></div><div class="bar" style="top:520px;height:6px"></div><div class="bar" style="top:760px;height:10px"></div>
-<div class="top mono"><span><i class="dot"></i>LIVE · 06:00 MADRID</span><span>${esc(date)} · <b>${SP?'СПЕЦВЫПУСК':`ДЕНЬ ${day}/${total}`}</b></span></div>
+<div class="top mono"><span>${SP?esc(SP.top||'ИТОГИ НЕДЕЛИ'):'<i class="dot"></i>LIVE · 06:00 MADRID'}</span><span>${esc(date)} · <b>${SP?'СПЕЦВЫПУСК':`ДЕНЬ ${day}/${total}`}</b></span></div>
 <div class="w" id="w1" style="top:200px">ПОКА</div><div class="w" id="w2" style="top:445px">ТЫ</div><div class="w hl" id="w3" style="top:690px"><span>СПАЛ</span></div>
 <div class="lock"><div class="t">ПОКА ТЫ СПАЛ</div><div class="pill mono">НОВОСТИ AI</div></div>
 <div class="day"><div class="n"${SP?' style="font-size:110px"':''}>${SP?esc(SP.n):day}</div><div class="o mono">${SP?esc(SP.sub):`ДЕНЬ ИЗ ${total}`}</div></div>

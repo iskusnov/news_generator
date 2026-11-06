@@ -17,6 +17,11 @@ CX = 1920  # центр лица по горизонтали в кадре 3840
 VERT = os.environ.get('VERT') == '1'; LESSON = os.environ.get('LESSON') == '1'; MOTION = os.environ.get('MOTION') == '1'; CAMY = int(os.environ.get('CAMY', 280)); CAM, AUD = os.environ.get('CAM'), os.environ.get('AUD'); SRC2 = os.environ.get('SRC2'); SRC3 = os.environ.get('SRC3')  # VERT=1 — исходник уже вертикальный; SRC2 — второй файл (в edl его время = 1000 + t)
 OFF2, OFF3 = float(os.environ.get('OFF2', 1000)), float(os.environ.get('OFF3', 2000)); SRC4, OFF4 = os.environ.get('SRC4'), float(os.environ.get('OFF4', 5000))  # 4-й файл (вставка) = OFF4 + t  # если 1-й файл длиннее 1000 с — сдвинуть (например 3000/4000)
 E = json.load(open(edl_p)); S = json.load(open(spec_p))
+SRCS = sorted([(float(os.environ.get(f'OFF{i}', {2: 1000, 3: 2000, 4: 5000}.get(i, 0))), os.environ[f'SRC{i}']) for i in range(2, 10) if os.environ.get(f'SRC{i}')], reverse=True)
+def pick_src(t):  # запись из нескольких файлов: время в edl = OFFn + t для n-го файла
+    for off, path in SRCS:
+        if t >= off: return t - off, path
+    return t, src
 tag = os.path.splitext(os.path.basename(out))[0]; tmp = f'$HOME/vrtmp/{tag}'  # промежуточное — на локальном диске VM (быстрее, можно удалять)
 q = shlex.quote
 parts = []
@@ -29,7 +34,7 @@ for i, e in enumerate(E['edl']):
     else:
         w, h = int(1215 / k) // 2 * 2, int(2160 / k) // 2 * 2
         x = max(0, min(3840 - w, CX - w // 2)); y = 0 if k == 1.0 else int((2160 - h) * 0.35)
-    s_in, s_src = (e['src_in'] - OFF4, SRC4) if SRC4 and e['src_in'] >= OFF4 else (e['src_in'] - OFF3, SRC3) if SRC3 and e['src_in'] >= OFF3 else (e['src_in'] - OFF2, SRC2) if SRC2 and e['src_in'] >= OFF2 else (e['src_in'], src)  # 2-й файл = 1000+, 3-й = 2000+
+    s_in, s_src = pick_src(e['src_in'])  # файл по смещению: SRC2..SRC9 / OFF2..OFF9
     bw = ',hue=s=0,eq=contrast=1.12' if e.get('bw') else ''  # врезка «мысли за кадром» — ч/б
     nf = round(d / sp * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}{f"_x{sp}" if sp != 1.0 else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
     parts.append(part)
