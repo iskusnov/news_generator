@@ -30,6 +30,39 @@ body.bg{background:#555 url(bgv.jpg) center/cover}
 .logos img.mono{filter:invert(1)}
 .logos .lt{color:#fff;font-family:'Manrope';font-weight:800;font-size:46px;letter-spacing:-1px}
 .cta span{white-space:pre-line;line-height:1.15}
+
+/* карточки-перебивки: full — на весь кадр (фон затемнён), mid — по центру, low — над субтитрами */
+.card{position:absolute;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;text-align:center}
+.card.full{inset:0;background:rgba(13,13,15,.86)}
+.card.mid{top:560px;height:760px}
+.card.low{top:1170px;height:240px}
+.card .n{font-family:'Unbounded';font-weight:800;font-size:260px;line-height:.95;color:var(--lime);letter-spacing:-.04em}
+.card .n.s{font-size:150px}
+.card .l{margin-top:22px;font-family:'Unbounded';font-weight:800;font-size:58px;line-height:1.15;color:var(--paper);padding:0 60px}
+.card .l b{color:var(--lime)}
+.card .k{margin-top:18px;font-family:'JetBrains Mono';font-weight:700;font-size:30px;letter-spacing:.08em;color:rgba(245,240,232,.6)}
+.card .chips{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;padding:0 40px}
+.card .chip{padding:22px 34px;border-radius:18px;background:var(--ink);color:var(--paper);font-family:'Unbounded';font-weight:800;font-size:46px;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.card .chip.r{background:#FF3B30;color:#fff}.card .chip.g{background:var(--lime);color:var(--ink)}
+.card .ph{width:940px;border-radius:26px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);border:6px solid var(--paper);position:relative}
+.card .ph img{display:block;width:100%}
+.card .ph .src{position:absolute;left:0;right:0;bottom:0;padding:14px 22px;background:rgba(13,13,15,.8);color:var(--paper);font-family:'JetBrains Mono';font-weight:700;font-size:26px;text-align:left}
+.card .tag{margin-bottom:24px;padding:14px 26px;border-radius:10px;background:#FF3B30;color:#fff;font-family:'Unbounded';font-weight:800;font-size:40px;transform:rotate(-2deg)}
+.card .bars{display:flex;align-items:flex-end;gap:80px;height:620px}
+.card .bar{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.card .bar i{display:block;width:230px;border-radius:16px 16px 0 0;background:var(--lime);transform-origin:bottom}
+.card .bar.a i{background:rgba(245,240,232,.4)}
+.card .bar u{text-decoration:none;font-family:'Unbounded';font-weight:800;font-size:56px;color:var(--paper);margin-bottom:16px}
+.card .bar s{text-decoration:none;font-family:'JetBrains Mono';font-weight:700;font-size:34px;color:rgba(245,240,232,.7);margin-top:16px}
+/* финальная отбивка на весь кадр */
+.end{position:absolute;inset:0;background:var(--ink);opacity:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.end .eb{padding:14px 24px;background:var(--lime);color:var(--ink);font-family:'JetBrains Mono';font-weight:700;font-size:30px;letter-spacing:.12em;border-radius:8px}
+.end .et{margin-top:60px;font-family:Unbounded;font-weight:800;font-size:78px;line-height:1.05;color:var(--paper);text-transform:uppercase}
+.end .et b{color:var(--lime)}
+.end .es{margin-top:40px;font-family:Manrope;font-weight:800;font-size:46px;line-height:1.25;white-space:pre-line;color:rgba(245,240,232,.85)}
+.end .sub{margin-top:90px;display:flex;align-items:center;gap:22px;padding:30px 54px;border-radius:70px;background:#FF0033;color:#fff;font-family:'Manrope';font-weight:800;font-size:54px}
+.end .sub svg{width:60px;height:60px}
+.end .eg{position:absolute;width:900px;height:900px;border-radius:50%;filter:blur(60px);background:rgba(200,255,46,.16);left:90px;top:300px}
 </style></head><body>
 <div id="st"></div>
 <script>
@@ -42,7 +75,9 @@ const logoHtml=L=>(L||DEF_LOGOS).map(x=>x.startsWith('txt:')?`<div class="t"><b 
 window.setup=function(p){
   st.innerHTML=`<div class="logos">${logoHtml(p.logos)}</div><div class="brand"><span>ПОКА ТЫ СПАЛ · НОВОСТИ AI</span></div><div class="title"><div>${p.title}</div></div><div class="cap"></div>
    ${p.poll?`<div class="poll">${p.poll.opts.map((o,i)=>`<div class="o"><div class="f"></div><span class="k">${'AB'[i]}</span><span>${esc(o)}</span></div>`).join('')}</div>`:''}
-   <div class="cta"><span>${esc(p.cta)}</span></div>`;
+   <div class="cta"><span>${esc(p.cta)}</span></div>
+   ${(p.cards||[]).map((c,i)=>`<div class="card ${c.pos||'full'}" id="cd${i}">${c.html}</div>`).join('')}
+   ${p.end?`<div class="end"><div class="eg"></div><div class="eb">ПОКА ТЫ СПАЛ · НОВОСТИ AI</div><div class="et">${p.end.title}</div><div class="es">${esc(p.end.sub||'')}</div><div class="sub"><svg viewBox="0 0 24 24" fill="#fff"><path d="M10 15l5.2-3L10 9v6zm11.6-7.8c.2.9.4 2.4.4 4.8s-.2 3.9-.4 4.8c-.2.6-.7 1.1-1.3 1.3-.9.2-3.7.4-8.3.4s-7.4-.2-8.3-.4c-.6-.2-1.1-.7-1.3-1.3C2.2 15.9 2 14.4 2 12s.2-3.9.4-4.8c.2-.6.7-1.1 1.3-1.3C4.6 5.7 7.4 5.5 12 5.5s7.4.2 8.3.4c.6.2 1.1.7 1.3 1.3z"/></svg>ПОДПИСАТЬСЯ</div></div>`:''}`;
   TL=gsap.timeline({paused:true});
   TL.to('.logos .t',{y:-40,opacity:0,duration:.35,ease:'power3.in',stagger:.05},2.6)
     .to('.brand',{y:-150,duration:.5,ease:'power3.inOut'},2.85)
@@ -51,7 +86,7 @@ window.setup=function(p){
   p.chunks.forEach(c=>{
     TL.call(()=>{},null,c.s);
   });
-  window._chunks=p.chunks;
+  window._chunks=p.chunks; window._end=p.end?p.dur-p.end.dur:null;
   if(p.poll){const os=st.querySelectorAll('.poll .o');
     TL.set(st.querySelectorAll('.poll .f'),{scaleX:0},0);
     os.forEach((o,i)=>TL.from(o,{x:-60,opacity:0,duration:.45,ease:'power3.out'},p.poll.at[i]));
@@ -59,10 +94,25 @@ window.setup=function(p){
       .to(os[p.poll.pick].querySelectorAll('span'),{color:'#0D0D0F',duration:.3},p.poll.pickAt+.25);}
   TL.set('.cta',{opacity:0},0).fromTo('.cta span',{scale:.5,opacity:0},{scale:1,opacity:1,duration:.5,ease:'back.out(2)'},p.dur-p.ctaDur);
   TL.set('.cta',{opacity:1},p.dur-p.ctaDur);
+
+  (p.cards||[]).forEach((c,i)=>{const el='#cd'+i;
+    TL.set(el,{opacity:0},0).fromTo(el,{opacity:0},{opacity:1,duration:.18},c.at)
+      .fromTo(el+' > *',{scale:.6,y:40},{scale:1,y:0,duration:.45,ease:'back.out(1.8)',stagger:.12},c.at)
+      .to(el,{opacity:0,duration:.2},c.at+c.dur-.2);
+    st.querySelectorAll(el+' .bar i').forEach((b,k)=>TL.fromTo(b,{scaleY:0},{scaleY:1,duration:.7,ease:'power3.out'},c.at+.3+k*.35));
+    st.querySelectorAll(el+' .chip').forEach((b,k)=>TL.fromTo(b,{scale:.4,opacity:0},{scale:1,opacity:1,duration:.35,ease:'back.out(2)'},c.at+(c.stag||.35)*k));
+  });
+  if(p.end){const e0=p.dur-p.end.dur;
+    TL.set('.end',{opacity:0},0).fromTo('.end',{opacity:0,scale:1.08},{opacity:1,scale:1,duration:.35,ease:'power3.out'},e0)
+      .from('.end .eb',{y:-60,opacity:0,duration:.4},e0+.1).from('.end .et',{y:80,opacity:0,duration:.5,ease:'back.out(1.6)'},e0+.2)
+      .from('.end .es',{opacity:0,duration:.4},e0+.5).from('.end .sub',{scale:.3,opacity:0,duration:.5,ease:'back.out(2.2)'},e0+.7)
+      .to('.end .sub',{scale:1.08,duration:.3,yoyo:true,repeat:3,ease:'sine.inOut'},e0+1.3);
+    TL.set('.cta',{display:'none'},0);}
   TL.seek(0);
 };
 window.seek=function(t){
   TL.seek(t,false);
+  if(window._end&&t>=window._end){st.querySelector('.cap').innerHTML='';return}
   const cap=st.querySelector('.cap');const c=window._chunks.find(c=>t>=c.s&&t<c.e);
   if(!c){cap.innerHTML='';return}
   cap.innerHTML=c.words.map(w=>`<span class="w ${t>=w.s?'on':''}">${esc(w.t)}</span>`).join('');

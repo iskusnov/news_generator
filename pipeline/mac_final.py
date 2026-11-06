@@ -22,7 +22,7 @@ E = json.load(open(edl_p)); S = json.load(open(specs_p)); C = json.load(open(cra
 FPS = 25; TAIL = max(0.0, max(s['rec'] + s['dur'] for s in S) - E['total'])
 q = shlex.quote
 SRC2, SRC3 = os.environ.get('SRC2'), os.environ.get('SRC3')  # запись из нескольких файлов: в edl время 2-го файла = OFF2 + t, 3-го = OFF3 + t
-OFF2, OFF3 = float(os.environ.get('OFF2', 1000)), float(os.environ.get('OFF3', 2000))  # если 1-й файл длиннее 1000 с — сдвинуть (например 3000/4000)
+OFF2, OFF3 = float(os.environ.get('OFF2', 1000)), float(os.environ.get('OFF3', 2000)); SRC4, OFF4 = os.environ.get('SRC4'), float(os.environ.get('OFF4', 5000))  # 4-й файл (вставка) = OFF4 + t  # если 1-й файл длиннее 1000 с — сдвинуть (например 3000/4000)
 V = '-c:v hevc_videotoolbox -b:v 45M -tag:v hvc1 -pix_fmt yuv420p'
 A = '-c:a pcm_s16le -ar 48000 -ac 2'
 L = ['#!/bin/bash', 'set -e', 'export PATH=/opt/homebrew/bin:$PATH',
@@ -32,11 +32,20 @@ L = ['#!/bin/bash', 'set -e', 'export PATH=/opt/homebrew/bin:$PATH',
 parts = []
 gap_done = False
 for e in E['edl']:
-    if E.get('gap_at') is not None and not gap_done and e['rec'] >= E['gap_at'] - 1e-6:
+    if E.get('gap_at') is not None and not gap_done and not e.get('clip') and e['rec'] >= E['gap_at'] - 1e-6:
         nf = round(E['gap'] * FPS)
         L.append(f'ok parts/intro.mov || ffmpeg -v error -y -i intro.mp4 -frames:v {nf} -vf fps=25,scale=3840:2160,format=yuv420p {V} '
                  f'-af apad -t {nf/FPS:.3f} {A} parts/intro.mov')
         parts.append('parts/intro.mov'); gap_done = True
+    if e.get('clip'):  # врезка-ролик (inserts.py): вписать в 4K, вертикальный — поверх размытой копии, свой звук
+        nf = round(e['dur'] * FPS); p = f"parts/c_{e['clip'].rsplit('.', 1)[0]}_{e['ss']:.2f}_{nf}.mov"; parts.append(p)
+        fc_ = ("[0:v]fps=25,setsar=1,split[a][b];[a]scale=3840:2160:force_original_aspect_ratio=increase,crop=3840:2160,boxblur=40:3,eq=brightness=-0.3[bg];"
+               "[b]scale=3840:2160:force_original_aspect_ratio=decrease[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,format=yuv420p[v];"
+               f"[0:a]aresample=48000,volume={e.get('vol', 0.8)},afade=t=in:d=0.2,afade=t=out:st={max(0, nf / FPS - 0.3):.3f}:d=0.3,apad[au]")
+        cmd = (f'ffmpeg -v error -y -ss {e["ss"]:.3f} -t {e["dur"] + 0.5:.3f} -i media/{q(e["clip"])} -filter_complex {q(fc_)} -map [v] -map [au] '
+               f'-frames:v {nf} {V} -t {nf / FPS:.3f} {A} parts/tmp.mov && mv parts/tmp.mov {p}')
+        L.append(f'ok {p} || {{ {cmd}; }}')
+        continue
     sp = e.get('speed', 1.0)
     d = e['src_out'] - e['src_in']; nf = round(d / sp * FPS); k = e.get('scale', 1.0)
     w, h = int(3840 / k) // 2 * 2, int(2160 / k) // 2 * 2
@@ -45,7 +54,7 @@ for e in E['edl']:
     parts.append(p)
     vs = f',setpts=PTS/{sp}' if sp != 1.0 else ''
     at = f'atempo={sp},' if sp != 1.0 else ''
-    s_in, s_src = (e['src_in'] - OFF3, SRC3) if SRC3 and e['src_in'] >= OFF3 else (e['src_in'] - OFF2, SRC2) if SRC2 and e['src_in'] >= OFF2 else (e['src_in'], SRC)
+    s_in, s_src = (e['src_in'] - OFF4, SRC4) if SRC4 and e['src_in'] >= OFF4 else (e['src_in'] - OFF3, SRC3) if SRC3 and e['src_in'] >= OFF3 else (e['src_in'] - OFF2, SRC2) if SRC2 and e['src_in'] >= OFF2 else (e['src_in'], SRC)
     cmd = (f'ffmpeg -v error -y -ss {s_in:.3f} -t {d + 0.5:.3f} -i {q(s_src)} -frames:v {nf} '
            f'-vf crop={w}:{h}:{x}:{y},scale=3840:2160{vs},fps=25,setsar=1,format=yuv420p {V} '
            f'-af {at}afade=t=in:d=0.015,afade=t=out:st={max(0, nf/FPS - 0.015):.3f}:d=0.015,apad -t {nf/FPS:.3f} {A} parts/tmp.mov && mv parts/tmp.mov {p}')

@@ -13,7 +13,7 @@ const only=process.env.ONLY?process.env.ONLY.split(','):null;
     await pg.evaluate(sp=>{window.setup(sp);return 1},s);await pg.evaluate(()=>document.fonts.ready.then(()=>1));
     const dir=path.join(outDir,s.id);fs.mkdirSync(dir,{recursive:true});
     const n=Math.round(s.dur*FPS);
-    const frames=preview?(s.pv||[0.3,0.5,0.75].map(f=>f*s.dur)).map(t=>Math.round(t*FPS)):[...Array(n).keys()];
+    const frames=preview?(s.pv||[0.3,0.5,0.75].map(f=>f*s.dur)).map(t=>Math.round(t*FPS)):[...Array(n).keys()].filter(f=>f>=+(process.env.FROM_END?n-Math.round(+process.env.FROM_END*FPS):0));
     for(const f of frames){
       await pg.evaluate(t=>{window.seek(t);return 1},f/FPS);
       await pg.screenshot({path:path.join(dir,`f${String(f).padStart(4,'0')}.${preview?'jpg':'png'}`),omitBackground:!preview,...(preview?{type:'jpeg',quality:80}:{})});

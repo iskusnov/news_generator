@@ -1,8 +1,8 @@
 {
  "fps": 25,
  "tc_start": 0,
- "total": 1056.48,
- "gap_at": 7.12,
+ "total": 1012.64,
+ "gap_at": 6.2,
  "gap": 7.6,
  "edl": [
   {
@@ -10,1303 +10,1576 @@
    "src_out": 5.76,
    "rec": 0.0,
    "tag": "cold",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 6.0,
    "src_out": 10.08,
-   "rec": 3.04,
+   "rec": 2.64,
    "tag": "cold",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 20.04,
    "src_out": 36.0,
-   "rec": 14.72,
+   "rec": 13.8,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 36.16,
    "src_out": 41.36,
-   "rec": 30.68,
+   "rec": 27.68,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 56.12,
    "src_out": 60.52,
-   "rec": 35.88,
+   "rec": 32.2,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 67.4,
    "src_out": 69.16,
-   "rec": 40.28,
+   "rec": 36.04,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 70.04,
    "src_out": 77.4,
-   "rec": 42.04,
+   "rec": 37.56,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 77.88,
    "src_out": 92.72,
-   "rec": 49.4,
+   "rec": 43.96,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 112.8,
    "src_out": 121.04,
-   "rec": 64.24,
+   "rec": 56.88,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 162.04,
    "src_out": 165.48,
-   "rec": 72.48,
+   "rec": 64.04,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 171.56,
    "src_out": 184.32,
-   "rec": 75.92,
+   "rec": 67.04,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 200.2,
    "src_out": 204.56,
-   "rec": 88.68,
+   "rec": 78.12,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 205.32,
    "src_out": 207.64,
-   "rec": 93.04,
+   "rec": 81.92,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
+  },
+  {
+   "clip": "meta_muse.mp4",
+   "ss": 14,
+   "dur": 9,
+   "vol": 0.7,
+   "label": "AI at Meta · Muse",
+   "src_in": -1,
+   "src_out": -1,
+   "fit": "auto",
+   "rec": 83.92
   },
   {
    "src_in": 245.64,
    "src_out": 251.8,
-   "rec": 95.36,
+   "rec": 92.92,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 268.44,
    "src_out": 274.52,
-   "rec": 101.52,
+   "rec": 98.28,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 287.24,
    "src_out": 302.56,
-   "rec": 107.6,
+   "rec": 103.56,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 303.44,
    "src_out": 309.32,
-   "rec": 122.92,
+   "rec": 116.88,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 324.44,
    "src_out": 336.48,
-   "rec": 128.8,
+   "rec": 122.0,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 337.04,
    "src_out": 341.72,
-   "rec": 140.84,
+   "rec": 132.48,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 341.88,
    "src_out": 345.76,
-   "rec": 145.52,
+   "rec": 136.56,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 346.48,
    "src_out": 347.92,
-   "rec": 149.4,
+   "rec": 139.92,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 358.6,
    "src_out": 364.64,
-   "rec": 150.84,
+   "rec": 141.16,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 377.24,
    "src_out": 386.04,
-   "rec": 156.88,
+   "rec": 146.4,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 397.92,
    "src_out": 404.76,
-   "rec": 165.68,
+   "rec": 154.04,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 405.0,
    "src_out": 410.24,
-   "rec": 172.52,
+   "rec": 160.0,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
+  },
+  {
+   "clip": "claude_finance.mp4",
+   "ss": 22,
+   "dur": 9,
+   "vol": 0.6,
+   "label": "Anthropic · Personal Finance",
+   "src_in": -1,
+   "src_out": -1,
+   "fit": "auto",
+   "rec": 164.56
   },
   {
    "src_in": 429.88,
    "src_out": 449.44,
-   "rec": 177.76,
+   "rec": 173.56,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 464.6,
    "src_out": 472.04,
-   "rec": 197.32,
+   "rec": 190.56,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 490.6,
    "src_out": 493.48,
-   "rec": 204.76,
+   "rec": 197.04,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 511.2,
    "src_out": 520.24,
-   "rec": 207.64,
+   "rec": 199.56,
    "tag": "b1",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 548.16,
    "src_out": 571.92,
-   "rec": 216.68,
+   "rec": 207.44,
    "tag": "b1",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 685.72,
    "src_out": 692.32,
-   "rec": 240.44,
+   "rec": 228.12,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 693.16,
    "src_out": 699.28,
-   "rec": 247.04,
+   "rec": 233.84,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 728.88,
    "src_out": 730.8,
-   "rec": 253.16,
+   "rec": 239.16,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 731.16,
    "src_out": 735.28,
-   "rec": 255.08,
+   "rec": 240.84,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 744.28,
    "src_out": 746.16,
-   "rec": 259.2,
+   "rec": 244.44,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 747.0,
    "src_out": 751.84,
-   "rec": 261.08,
+   "rec": 246.08,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
+  },
+  {
+   "clip": "slop_fb_satanists.mp4",
+   "ss": 0,
+   "dur": 10,
+   "vol": 0.8,
+   "label": "ИИ-реклама · Орегон · Facebook",
+   "src_in": -1,
+   "src_out": -1,
+   "fit": "auto",
+   "rec": 250.28
   },
   {
    "src_in": 759.32,
    "src_out": 765.52,
-   "rec": 265.92,
+   "rec": 260.28,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 780.4,
    "src_out": 782.32,
-   "rec": 272.12,
+   "rec": 265.68,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 824.88,
    "src_out": 831.08,
-   "rec": 274.04,
+   "rec": 267.36,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 845.08,
    "src_out": 855.76,
-   "rec": 280.24,
+   "rec": 272.76,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 856.12,
    "src_out": 861.04,
-   "rec": 290.92,
+   "rec": 282.04,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 873.0,
    "src_out": 875.88,
-   "rec": 295.84,
+   "rec": 286.32,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 897.2,
    "src_out": 903.8,
-   "rec": 298.72,
+   "rec": 288.84,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 937.0,
    "src_out": 942.72,
-   "rec": 305.32,
+   "rec": 294.56,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 955.56,
    "src_out": 958.32,
-   "rec": 311.04,
+   "rec": 299.52,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 958.96,
    "src_out": 960.6,
-   "rec": 313.8,
+   "rec": 301.92,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
+  },
+  {
+   "clip": "slop_x_batman.mp4",
+   "ss": 23,
+   "dur": 13,
+   "vol": 0.7,
+   "label": "ИИ-ролик · Лос-Анджелес · X @charliebcurran",
+   "src_in": -1,
+   "src_out": -1,
+   "fit": "auto",
+   "rec": 303.36
   },
   {
    "src_in": 982.12,
    "src_out": 987.4,
-   "rec": 315.44,
+   "rec": 316.36,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 988.4,
    "src_out": 989.6,
-   "rec": 320.72,
+   "rec": 320.96,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 990.48,
    "src_out": 994.68,
-   "rec": 321.92,
+   "rec": 322.0,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
+  },
+  {
+   "clip": "slop_yt_lee.mp4",
+   "ss": 3,
+   "dur": 8,
+   "vol": 0.8,
+   "label": "ИИ-реклама «Bonkers Bichler» · YouTube",
+   "src_in": -1,
+   "src_out": -1,
+   "fit": "auto",
+   "rec": 325.64
   },
   {
    "src_in": 1020.24,
    "src_out": 1029.6,
-   "rec": 326.12,
+   "rec": 333.64,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1063.44,
    "src_out": 1070.56,
-   "rec": 335.48,
+   "rec": 341.76,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1097.4,
    "src_out": 1103.6,
-   "rec": 342.6,
+   "rec": 347.96,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
+  },
+  {
+   "clip": "google_omni.mp4",
+   "ss": 10,
+   "dur": 9,
+   "vol": 0.6,
+   "label": "Google · Gemini Omni 1.2 Flash",
+   "src_in": -1,
+   "src_out": -1,
+   "fit": "auto",
+   "rec": 353.36
   },
   {
    "src_in": 1115.48,
    "src_out": 1130.68,
-   "rec": 348.8,
+   "rec": 362.36,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1140.04,
    "src_out": 1144.04,
-   "rec": 364.0,
+   "rec": 375.56,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1169.2,
    "src_out": 1175.88,
-   "rec": 368.0,
+   "rec": 379.04,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1201.88,
    "src_out": 1204.08,
-   "rec": 374.68,
+   "rec": 384.84,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1205.44,
    "src_out": 1215.6,
-   "rec": 376.88,
+   "rec": 386.76,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1224.0,
    "src_out": 1231.92,
-   "rec": 387.04,
+   "rec": 395.6,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1261.52,
    "src_out": 1270.12,
-   "rec": 394.96,
+   "rec": 402.48,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1277.04,
    "src_out": 1280.12,
-   "rec": 403.56,
+   "rec": 409.96,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1324.76,
    "src_out": 1330.0,
-   "rec": 406.64,
+   "rec": 412.64,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1338.72,
    "src_out": 1340.68,
-   "rec": 411.88,
+   "rec": 417.2,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1340.84,
    "src_out": 1351.48,
-   "rec": 413.84,
+   "rec": 418.92,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1367.96,
    "src_out": 1375.88,
-   "rec": 424.48,
+   "rec": 428.16,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1376.44,
    "src_out": 1377.4,
-   "rec": 432.4,
+   "rec": 435.04,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1406.64,
    "src_out": 1412.24,
-   "rec": 433.36,
+   "rec": 435.88,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1423.64,
    "src_out": 1425.56,
-   "rec": 438.96,
+   "rec": 440.76,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1426.16,
    "src_out": 1427.4,
-   "rec": 440.88,
+   "rec": 442.44,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1427.64,
    "src_out": 1429.52,
-   "rec": 442.12,
+   "rec": 443.52,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1429.72,
    "src_out": 1432.8,
-   "rec": 444.0,
+   "rec": 445.16,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1443.72,
    "src_out": 1446.92,
-   "rec": 447.08,
+   "rec": 447.84,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1447.28,
    "src_out": 1455.76,
-   "rec": 450.28,
+   "rec": 450.64,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1494.68,
    "src_out": 1500.88,
-   "rec": 458.76,
+   "rec": 458.0,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1521.84,
    "src_out": 1533.16,
-   "rec": 464.96,
+   "rec": 463.4,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
+  },
+  {
+   "clip": "pangram_demo.mp4",
+   "ss": 0,
+   "dur": 19.3,
+   "vol": 0.9,
+   "label": "",
+   "src_in": -1,
+   "src_out": -1,
+   "fit": "auto",
+   "rec": 473.24
   },
   {
    "src_in": 1559.84,
    "src_out": 1561.0,
-   "rec": 476.28,
+   "rec": 492.52,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1561.36,
    "src_out": 1574.68,
-   "rec": 477.44,
+   "rec": 493.52,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1575.24,
    "src_out": 1577.04,
-   "rec": 490.76,
+   "rec": 505.12,
    "tag": "b2",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1604.4,
    "src_out": 1610.32,
-   "rec": 492.56,
+   "rec": 506.68,
    "tag": "b2",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1654.32,
    "src_out": 1660.88,
-   "rec": 498.48,
+   "rec": 511.84,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1703.68,
    "src_out": 1705.36,
-   "rec": 505.04,
+   "rec": 517.56,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1718.08,
    "src_out": 1720.96,
-   "rec": 506.72,
+   "rec": 519.04,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1731.28,
    "src_out": 1733.64,
-   "rec": 509.6,
+   "rec": 521.56,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1745.36,
    "src_out": 1750.2,
-   "rec": 511.96,
+   "rec": 523.6,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1770.12,
    "src_out": 1775.92,
-   "rec": 516.8,
+   "rec": 527.8,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1788.08,
    "src_out": 1790.84,
-   "rec": 522.6,
+   "rec": 532.84,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1793.84,
    "src_out": 1794.96,
-   "rec": 525.36,
+   "rec": 535.24,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1807.28,
    "src_out": 1809.04,
-   "rec": 526.48,
+   "rec": 536.2,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1826.04,
    "src_out": 1831.92,
-   "rec": 528.24,
+   "rec": 537.72,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1847.2,
    "src_out": 1855.76,
-   "rec": 534.12,
+   "rec": 542.84,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1864.08,
    "src_out": 1871.56,
-   "rec": 542.68,
+   "rec": 550.28,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1890.6,
    "src_out": 1899.68,
-   "rec": 550.16,
+   "rec": 556.8,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1903.56,
    "src_out": 1912.0,
-   "rec": 559.24,
+   "rec": 564.68,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1926.16,
    "src_out": 1933.0,
-   "rec": 567.68,
+   "rec": 572.0,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1967.04,
    "src_out": 1971.88,
-   "rec": 574.52,
+   "rec": 577.96,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 1995.4,
    "src_out": 1998.16,
-   "rec": 579.36,
+   "rec": 582.16,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 1998.56,
    "src_out": 2000.48,
-   "rec": 582.12,
+   "rec": 584.56,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2004.32,
    "src_out": 2007.68,
-   "rec": 584.04,
+   "rec": 586.24,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2015.6,
    "src_out": 2017.6,
-   "rec": 587.4,
+   "rec": 589.16,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2023.76,
    "src_out": 2026.72,
-   "rec": 589.4,
+   "rec": 590.88,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2035.76,
    "src_out": 2038.08,
-   "rec": 592.36,
+   "rec": 593.44,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2038.68,
    "src_out": 2040.52,
-   "rec": 594.68,
+   "rec": 595.44,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2054.96,
    "src_out": 2057.2,
-   "rec": 596.52,
+   "rec": 597.04,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2057.6,
    "src_out": 2065.68,
-   "rec": 598.76,
+   "rec": 599.0,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2066.8,
    "src_out": 2068.68,
-   "rec": 606.84,
+   "rec": 606.04,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2074.88,
    "src_out": 2077.64,
-   "rec": 608.72,
+   "rec": 607.68,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2095.4,
    "src_out": 2104.6,
-   "rec": 611.48,
+   "rec": 610.08,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2115.28,
    "src_out": 2120.76,
-   "rec": 620.68,
+   "rec": 618.08,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2121.16,
    "src_out": 2126.44,
-   "rec": 626.16,
+   "rec": 622.84,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2228.76,
    "src_out": 2231.36,
-   "rec": 631.44,
+   "rec": 627.44,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2231.72,
    "src_out": 2236.2,
-   "rec": 634.04,
+   "rec": 629.72,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2236.72,
    "src_out": 2242.08,
-   "rec": 638.52,
+   "rec": 633.6,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2248.08,
    "src_out": 2253.56,
-   "rec": 643.88,
+   "rec": 638.28,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2261.32,
    "src_out": 2270.68,
-   "rec": 649.36,
+   "rec": 643.04,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2281.4,
    "src_out": 2290.44,
-   "rec": 658.72,
+   "rec": 651.16,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2290.64,
    "src_out": 2293.04,
-   "rec": 667.76,
+   "rec": 659.04,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2305.12,
    "src_out": 2317.88,
-   "rec": 670.16,
+   "rec": 661.12,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2334.8,
    "src_out": 2346.12,
-   "rec": 682.92,
+   "rec": 672.2,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2346.6,
    "src_out": 2352.88,
-   "rec": 694.24,
+   "rec": 682.04,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2365.6,
    "src_out": 2369.16,
-   "rec": 700.52,
+   "rec": 687.52,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2389.12,
    "src_out": 2391.84,
-   "rec": 704.08,
+   "rec": 690.6,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2449.28,
    "src_out": 2455.08,
-   "rec": 706.8,
+   "rec": 692.96,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2455.72,
    "src_out": 2457.56,
-   "rec": 712.6,
+   "rec": 698.0,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2467.36,
    "src_out": 2485.28,
-   "rec": 714.44,
+   "rec": 699.6,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2487.4,
    "src_out": 2489.88,
-   "rec": 732.36,
+   "rec": 715.2,
    "tag": "b3",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2510.08,
    "src_out": 2516.72,
-   "rec": 734.84,
+   "rec": 717.36,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2517.92,
    "src_out": 2519.44,
-   "rec": 741.48,
+   "rec": 723.12,
    "tag": "b3",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2543.96,
    "src_out": 2547.04,
-   "rec": 743.0,
+   "rec": 724.44,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2567.36,
    "src_out": 2574.92,
-   "rec": 746.08,
+   "rec": 727.12,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2610.96,
    "src_out": 2611.84,
-   "rec": 753.64,
+   "rec": 733.68,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2612.68,
    "src_out": 2614.88,
-   "rec": 754.52,
+   "rec": 734.44,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2630.76,
    "src_out": 2635.24,
-   "rec": 756.72,
+   "rec": 736.36,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2642.72,
    "src_out": 2649.88,
-   "rec": 761.2,
+   "rec": 740.24,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2654.88,
    "src_out": 2657.36,
-   "rec": 768.36,
+   "rec": 746.48,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2699.6,
    "src_out": 2704.76,
-   "rec": 770.84,
+   "rec": 748.64,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2705.56,
    "src_out": 2711.52,
-   "rec": 776.0,
+   "rec": 753.12,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2712.2,
    "src_out": 2713.68,
-   "rec": 781.96,
+   "rec": 758.32,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2748.64,
    "src_out": 2756.84,
-   "rec": 783.44,
+   "rec": 759.6,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 2769.44,
    "src_out": 2777.64,
-   "rec": 791.64,
+   "rec": 766.72,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 2801.32,
    "src_out": 2808.12,
-   "rec": 799.84,
+   "rec": 773.84,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3002.16,
    "src_out": 3005.68,
-   "rec": 806.64,
+   "rec": 779.76,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3020.32,
    "src_out": 3030.64,
-   "rec": 810.16,
+   "rec": 782.84,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3031.24,
    "src_out": 3036.64,
-   "rec": 820.48,
+   "rec": 791.8,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3056.24,
    "src_out": 3062.52,
-   "rec": 825.88,
+   "rec": 796.48,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3075.12,
    "src_out": 3076.84,
-   "rec": 832.16,
+   "rec": 801.96,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3077.48,
    "src_out": 3081.32,
-   "rec": 833.88,
+   "rec": 803.44,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3092.48,
    "src_out": 3097.08,
-   "rec": 837.72,
+   "rec": 806.76,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3097.72,
    "src_out": 3099.72,
-   "rec": 842.32,
+   "rec": 810.76,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3105.6,
    "src_out": 3107.48,
-   "rec": 844.32,
+   "rec": 812.48,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3112.8,
    "src_out": 3118.16,
-   "rec": 846.2,
+   "rec": 814.12,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3127.88,
    "src_out": 3135.56,
-   "rec": 851.56,
+   "rec": 818.8,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3136.16,
    "src_out": 3139.6,
-   "rec": 859.24,
+   "rec": 825.48,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3154.92,
    "src_out": 3158.92,
-   "rec": 862.68,
+   "rec": 828.48,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3159.12,
    "src_out": 3164.48,
-   "rec": 866.68,
+   "rec": 831.96,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3172.84,
    "src_out": 3177.44,
-   "rec": 872.04,
+   "rec": 836.64,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3186.08,
    "src_out": 3187.88,
-   "rec": 876.64,
+   "rec": 840.64,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3203.68,
    "src_out": 3208.92,
-   "rec": 878.44,
+   "rec": 842.2,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3209.76,
    "src_out": 3212.8,
-   "rec": 883.68,
+   "rec": 846.76,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3212.96,
    "src_out": 3214.8,
-   "rec": 886.72,
+   "rec": 849.4,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3219.28,
    "src_out": 3220.96,
-   "rec": 888.56,
+   "rec": 851.0,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3231.44,
    "src_out": 3233.6,
-   "rec": 890.24,
+   "rec": 852.48,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3254.32,
    "src_out": 3260.84,
-   "rec": 892.4,
+   "rec": 854.36,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3262.24,
    "src_out": 3271.44,
-   "rec": 898.92,
+   "rec": 860.04,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3283.28,
    "src_out": 3285.92,
-   "rec": 908.12,
+   "rec": 868.04,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3293.48,
    "src_out": 3332.32,
-   "rec": 910.76,
+   "rec": 870.32,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3333.4,
    "src_out": 3340.72,
-   "rec": 949.6,
+   "rec": 904.08,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3341.48,
    "src_out": 3351.96,
-   "rec": 956.92,
+   "rec": 910.44,
    "tag": "b4",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 3361.96,
    "src_out": 3364.56,
-   "rec": 967.4,
+   "rec": 919.56,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3365.32,
    "src_out": 3365.96,
-   "rec": 970.0,
+   "rec": 921.84,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3366.56,
    "src_out": 3369.36,
-   "rec": 970.64,
+   "rec": 922.4,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3370.24,
    "src_out": 3371.96,
-   "rec": 973.44,
+   "rec": 924.84,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 3385.76,
    "src_out": 3392.0,
-   "rec": 975.16,
+   "rec": 926.32,
    "tag": "b4",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 4002.32,
    "src_out": 4006.6,
-   "rec": 981.4,
+   "rec": 931.76,
    "tag": "fin",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 4006.96,
    "src_out": 4016.44,
-   "rec": 985.68,
+   "rec": 935.48,
    "tag": "fin",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 4016.68,
    "src_out": 4030.08,
-   "rec": 995.16,
+   "rec": 943.72,
    "tag": "fin",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 4032.88,
    "src_out": 4035.24,
-   "rec": 1008.56,
+   "rec": 955.36,
    "tag": "fin",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 4036.2,
    "src_out": 4037.2,
-   "rec": 1010.92,
+   "rec": 957.4,
    "tag": "fin",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 4049.76,
    "src_out": 4053.88,
-   "rec": 1011.92,
+   "rec": 958.28,
    "tag": "fin",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 4065.52,
    "src_out": 4068.4,
-   "rec": 1016.04,
+   "rec": 961.88,
    "tag": "fin",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 4075.32,
    "src_out": 4084.68,
-   "rec": 1018.92,
+   "rec": 964.4,
    "tag": "fin",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 4089.76,
    "src_out": 4094.32,
-   "rec": 1028.28,
+   "rec": 972.52,
    "tag": "fin",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 4139.32,
    "src_out": 4143.6,
-   "rec": 1032.84,
+   "rec": 976.48,
    "tag": "fin",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 4143.88,
    "src_out": 4148.64,
-   "rec": 1037.12,
+   "rec": 980.2,
    "tag": "fin",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 4149.84,
    "src_out": 4150.76,
-   "rec": 1041.88,
+   "rec": 984.32,
    "tag": "fin",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
   },
   {
    "src_in": 4152.04,
    "src_out": 4159.52,
-   "rec": 1042.8,
+   "rec": 985.12,
    "tag": "fin",
-   "scale": 1.12
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 4163.44,
    "src_out": 4164.08,
-   "rec": 1050.28,
+   "rec": 991.64,
    "tag": "fin",
-   "scale": 1.0
+   "scale": 1.0,
+   "speed": 1.15
+  },
+  {
+   "src_in": 5001.2,
+   "src_out": 5019.12,
+   "rec": 992.2,
+   "tag": "fin",
+   "scale": 1.12,
+   "speed": 1.15
   },
   {
    "src_in": 4188.92,
    "src_out": 4194.48,
-   "rec": 1050.92,
+   "rec": 1007.8,
    "tag": "fin",
-   "scale": 1.12
+   "scale": 1.0,
+   "speed": 1.15
   }
  ],
- "covers": []
+ "covers": [],
+ "speed": 1.15,
+ "rate_syl_s": 5.1
 }

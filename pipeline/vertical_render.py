@@ -15,7 +15,7 @@ import sys, json, shlex, os
 edl_p, spec_p, src, ov, broll_dir, out = sys.argv[1:7]
 CX = 1920  # центр лица по горизонтали в кадре 3840
 VERT = os.environ.get('VERT') == '1'; LESSON = os.environ.get('LESSON') == '1'; MOTION = os.environ.get('MOTION') == '1'; CAMY = int(os.environ.get('CAMY', 280)); CAM, AUD = os.environ.get('CAM'), os.environ.get('AUD'); SRC2 = os.environ.get('SRC2'); SRC3 = os.environ.get('SRC3')  # VERT=1 — исходник уже вертикальный; SRC2 — второй файл (в edl его время = 1000 + t)
-OFF2, OFF3 = float(os.environ.get('OFF2', 1000)), float(os.environ.get('OFF3', 2000))  # если 1-й файл длиннее 1000 с — сдвинуть (например 3000/4000)
+OFF2, OFF3 = float(os.environ.get('OFF2', 1000)), float(os.environ.get('OFF3', 2000)); SRC4, OFF4 = os.environ.get('SRC4'), float(os.environ.get('OFF4', 5000))  # 4-й файл (вставка) = OFF4 + t  # если 1-й файл длиннее 1000 с — сдвинуть (например 3000/4000)
 E = json.load(open(edl_p)); S = json.load(open(spec_p))
 tag = os.path.splitext(os.path.basename(out))[0]; tmp = f'$HOME/vrtmp/{tag}'  # промежуточное — на локальном диске VM (быстрее, можно удалять)
 q = shlex.quote
@@ -29,7 +29,7 @@ for i, e in enumerate(E['edl']):
     else:
         w, h = int(1215 / k) // 2 * 2, int(2160 / k) // 2 * 2
         x = max(0, min(3840 - w, CX - w // 2)); y = 0 if k == 1.0 else int((2160 - h) * 0.35)
-    s_in, s_src = (e['src_in'] - OFF3, SRC3) if SRC3 and e['src_in'] >= OFF3 else (e['src_in'] - OFF2, SRC2) if SRC2 and e['src_in'] >= OFF2 else (e['src_in'], src)  # 2-й файл = 1000+, 3-й = 2000+
+    s_in, s_src = (e['src_in'] - OFF4, SRC4) if SRC4 and e['src_in'] >= OFF4 else (e['src_in'] - OFF3, SRC3) if SRC3 and e['src_in'] >= OFF3 else (e['src_in'] - OFF2, SRC2) if SRC2 and e['src_in'] >= OFF2 else (e['src_in'], src)  # 2-й файл = 1000+, 3-й = 2000+
     bw = ',hue=s=0,eq=contrast=1.12' if e.get('bw') else ''  # врезка «мысли за кадром» — ч/б
     nf = round(d / sp * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}{f"_x{sp}" if sp != 1.0 else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
     parts.append(part)
@@ -61,13 +61,22 @@ if tail:  # стоп-кадр последнего кадра под финал�
     fc.append(f'[0:v]tpad=stop_mode=clone:stop_duration={tail:.2f}[v0]'); cur = 'v0'
 for b in S.get('broll', []):
     Ln = b['rec_out'] - b['rec_in']
-    ins += ['-ss', '1', '-t', f'{Ln:.2f}', '-i', f"{broll_dir}/{b['clip']}.mp4"]
-    fc.append(f"[{j}:v]scale=-2:1920,crop=1080:1920,setsar=1,fps=25,setpts=PTS-STARTPTS+{b['rec_in']:.2f}/TB[b{j}]")
+    ins += ['-ss', f"{b.get('ss', 1):.2f}", '-t', f'{Ln:.2f}', '-i', f"{broll_dir}/{b['clip']}.mp4"]
+    if b.get('fit'):  # горизонтальный ролик целиком по центру поверх размытой копии (врезка-пример)
+        fc.append(f"[{j}:v]fps=25,setsar=1,split[bf{j}][bg{j}];[bg{j}]scale=-2:1920,crop=1080:1920,boxblur=30:2,eq=brightness=-0.25[bb{j}];"
+                  f"[bf{j}]scale=1080:-2[bt{j}];[bb{j}][bt{j}]overlay=0:(H-h)/2-{b.get('up', 120)},setpts=PTS-STARTPTS+{b['rec_in']:.2f}/TB[b{j}]")
+    else:
+        fc.append(f"[{j}:v]scale=-2:1920,crop=1080:1920,setsar=1,fps=25,setpts=PTS-STARTPTS+{b['rec_in']:.2f}/TB[b{j}]")
     fc.append(f"[{cur}][b{j}]overlay=0:0:eof_action=pass:enable='between(t,{b['rec_in']:.2f},{b['rec_out']:.2f})'[c{j}]")
     cur = f'c{j}'; j += 1
 ins += ['-c:v', 'libvpx-vp9', '-i', ov]
 fc.append(f'[{j}:v]format=yuva420p[ov];[{cur}][ov]overlay=0:0:format=auto[vout]')
-fc.append('[0:a]loudnorm=I=-14:TP=-1:LRA=11' + (',apad' if tail else '') + '[aout]')
+fc.append('[0:a]loudnorm=I=-14:TP=-1:LRA=11' + (',apad' if tail else '') + '[av]')
+mix = ['[av]']
+for k, x in enumerate(S.get('sfx', [])):  # звуки (отбивка): файл в папке b-roll/задания, at — секунды ролика
+    j += 1; ins += ['-i', f"{broll_dir}/{x['file']}"]; ms = int(x['at'] * 1000)
+    fc.append(f"[{j}:a]aresample=48000,volume={x.get('vol', 0.5)},adelay={ms}|{ms}[sx{k}]"); mix.append(f'[sx{k}]')
+fc.append(''.join(mix) + (f'amix=inputs={len(mix)}:normalize=0:duration=first[aout]' if len(mix) > 1 else 'anull[aout]'))
 cmd = ['ffmpeg', '-v', 'error', '-y'] + ins + ['-filter_complex', ';'.join(fc), '-map', '[vout]', '-map', '[aout]',
        '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000',
        '-movflags', '+faststart', '-t', f"{S['dur']:.2f}", out]

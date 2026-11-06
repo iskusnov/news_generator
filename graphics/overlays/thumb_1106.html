@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/unbounded/800.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/manrope/800.css">
+<link rel="stylesheet" href="../../graphics/node_modules/@fontsource/jetbrains-mono/700.css">
+<style>
+:root{--ink:#0D0D0F;--paper:#F5F0E8;--lime:#C8FF2E;--red:#FF3B30}
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1280px;height:720px;overflow:hidden;background:var(--ink);position:relative;font-family:'Unbounded'}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,240,232,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,240,232,.05) 1px,transparent 1px);background-size:64px 64px}
+.glow{position:absolute;border-radius:50%;filter:blur(30px)}
+.face{position:absolute;right:-120px;bottom:-60px;height:700px;filter:drop-shadow(5px 0 0 var(--lime)) drop-shadow(-5px 0 0 var(--lime)) drop-shadow(0 -5px 0 var(--lime)) drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+.ttl{position:absolute;left:48px;top:60px;width:720px;font-weight:800;line-height:.95;letter-spacing:-.02em;color:var(--paper);text-transform:uppercase}
+.ttl b{color:var(--lime);font-weight:800}.ttl i{font-style:normal;color:var(--red)}
+.chip{position:absolute;left:48px;top:26px;padding:6px 12px;background:var(--lime);color:var(--ink);font-family:'JetBrains Mono';font-weight:700;font-size:16px;letter-spacing:.1em;border-radius:6px}
+.card{position:absolute;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6);border:3px solid #fff}
+.tag{position:absolute;padding:8px 16px;font-family:'Unbounded';font-weight:800;font-size:30px;border-radius:8px}
+.bar{position:absolute;display:flex;align-items:center;gap:14px;padding:0 26px;height:84px;border-radius:42px;background:#fff;color:#444;font-family:'Manrope';font-weight:800;font-size:30px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+</style></head><body><div class="grid"></div><div id="s"></div>
+<script>
+const v=new URLSearchParams(location.search).get('v');const S=document.getElementById('s');
+const L='../../graphics/node_modules/@lobehub/icons-static-svg/icons/';
+const chip='<div class="chip">СПЕЦВЫПУСК · ИИ ЗА НЕДЕЛЮ</div>';
+const LR=(a,l,t,sz)=>`<div style="position:absolute;left:${l}px;top:${t}px;display:flex;gap:14px">${a.map(n=>`<div style="width:${sz}px;height:${sz}px;border-radius:${sz*.24}px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px rgba(0,0,0,.5)"><img src="${L}${n}.svg" style="width:${sz*.62}px"></div>`).join('')}</div>`;
+const T={
+A:`<div class="glow" style="width:760px;height:760px;left:520px;top:0;background:rgba(255,59,48,.32)"></div>${chip}
+<div class="ttl" style="font-size:80px;width:760px">ИИ сделал<br><i>мой фейк</i></div>
+<div class="card" style="left:56px;top:300px;width:250px;height:335px;background:url(../shots/1106_poster.jpg) center/cover;transform:rotate(-4deg)"></div>
+<div class="tag" style="left:40px;top:560px;background:var(--red);color:#fff;font-size:26px;transform:rotate(-6deg)">ИИ ОБНАРУЖЕН</div>
+${LR(['gemini-color','claude-color','openai','nvidia-color'],340,320,88)}
+<div class="tag" style="left:340px;top:440px;background:var(--lime);color:var(--ink);font-size:24px">агенты · слоп · космос</div>
+<img class="face" src="f1106_002.png" style="height:740px;right:-160px;bottom:-140px">`,
+B:`<div class="glow" style="width:760px;height:760px;left:520px;top:0;background:rgba(200,255,46,.2)"></div>${chip}
+<div class="ttl" style="font-size:84px;width:700px">Что ИИ<br><b>сделает</b><br>с нами?</div>
+${LR(['gemini-color','claude-color','openai','nvidia-color'],48,420,84)}
+<div class="card" style="left:48px;top:540px;width:200px;height:140px;background:url(../shots/1106_satan.jpg) center/cover;transform:rotate(-3deg)"></div>
+<div class="card" style="left:270px;top:545px;width:200px;height:135px;background:url(../shots/1106_og_nvidia.jpg) center/cover;transform:rotate(3deg)"></div>
+<img class="face" src="f1106_006.png" style="height:740px;right:-160px;bottom:-140px">`};
+S.innerHTML=T[v||'A'];
+</script></body></html>
