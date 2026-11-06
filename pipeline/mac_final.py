@@ -21,7 +21,8 @@ edl_p, specs_p, crawl_p, SRC, JD, OUT = sys.argv[1:7]
 E = json.load(open(edl_p)); S = json.load(open(specs_p)); C = json.load(open(crawl_p))
 FPS = 25; TAIL = max(0.0, max(s['rec'] + s['dur'] for s in S) - E['total'])
 q = shlex.quote
-SRC2, SRC3 = os.environ.get('SRC2'), os.environ.get('SRC3')  # запись из нескольких файлов: в edl время 2-го файла = 1000 + t, 3-го = 2000 + t
+SRC2, SRC3 = os.environ.get('SRC2'), os.environ.get('SRC3')  # запись из нескольких файлов: в edl время 2-го файла = OFF2 + t, 3-го = OFF3 + t
+OFF2, OFF3 = float(os.environ.get('OFF2', 1000)), float(os.environ.get('OFF3', 2000))  # если 1-й файл длиннее 1000 с — сдвинуть (например 3000/4000)
 V = '-c:v hevc_videotoolbox -b:v 45M -tag:v hvc1 -pix_fmt yuv420p'
 A = '-c:a pcm_s16le -ar 48000 -ac 2'
 L = ['#!/bin/bash', 'set -e', 'export PATH=/opt/homebrew/bin:$PATH',
@@ -44,7 +45,7 @@ for e in E['edl']:
     parts.append(p)
     vs = f',setpts=PTS/{sp}' if sp != 1.0 else ''
     at = f'atempo={sp},' if sp != 1.0 else ''
-    s_in, s_src = (e['src_in'] - 2000, SRC3) if SRC3 and e['src_in'] >= 2000 else (e['src_in'] - 1000, SRC2) if SRC2 and e['src_in'] >= 1000 else (e['src_in'], SRC)
+    s_in, s_src = (e['src_in'] - OFF3, SRC3) if SRC3 and e['src_in'] >= OFF3 else (e['src_in'] - OFF2, SRC2) if SRC2 and e['src_in'] >= OFF2 else (e['src_in'], SRC)
     cmd = (f'ffmpeg -v error -y -ss {s_in:.3f} -t {d + 0.5:.3f} -i {q(s_src)} -frames:v {nf} '
            f'-vf crop={w}:{h}:{x}:{y},scale=3840:2160{vs},fps=25,setsar=1,format=yuv420p {V} '
            f'-af {at}afade=t=in:d=0.015,afade=t=out:st={max(0, nf/FPS - 0.015):.3f}:d=0.015,apad -t {nf/FPS:.3f} {A} parts/tmp.mov && mv parts/tmp.mov {p}')

@@ -28,13 +28,19 @@ body.bg{background:#555 url(bgv.jpg) center/cover}
 .logos .t{width:150px;height:150px;border-radius:34px;background:rgba(13,13,15,.9);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .logos img{width:88px;height:88px}
 .logos img.mono{filter:invert(1)}
+.logos .lt{color:#fff;font-family:'Manrope';font-weight:800;font-size:46px;letter-spacing:-1px}
+.cta span{white-space:pre-line;line-height:1.15}
 </style></head><body>
 <div id="st"></div>
 <script>
 const st=document.getElementById('st');let TL;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const IC='../../graphics/node_modules/@lobehub/icons-static-svg/icons/';
+const DEF_LOGOS=['openai.svg|mono','claude-color.svg','gemini-color.svg','grok.svg|mono','deepseek-color.svg'];
+// логотип: 'файл.svg' | 'файл.svg|mono' | 'txt:Uber' (текстовая плашка, если иконки нет)
+const logoHtml=L=>(L||DEF_LOGOS).map(x=>x.startsWith('txt:')?`<div class="t"><b class="lt">${esc(x.slice(4))}</b></div>`:`<div class="t"><img class="${x.endsWith('|mono')?'mono':''}" src="${IC+x.split('|')[0]}"></div>`).join('');
 window.setup=function(p){
-  st.innerHTML=`<div class="logos"><div class="t"><img class="mono" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/openai.svg"></div><div class="t"><img class="" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/claude-color.svg"></div><div class="t"><img class="" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/gemini-color.svg"></div><div class="t"><img class="mono" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/grok.svg"></div><div class="t"><img class="" src="../../graphics/node_modules/@lobehub/icons-static-svg/icons/deepseek-color.svg"></div></div><div class="brand"><span>ПОКА ТЫ СПАЛ · НОВОСТИ AI</span></div><div class="title"><div>${p.title}</div></div><div class="cap"></div>
+  st.innerHTML=`<div class="logos">${logoHtml(p.logos)}</div><div class="brand"><span>ПОКА ТЫ СПАЛ · НОВОСТИ AI</span></div><div class="title"><div>${p.title}</div></div><div class="cap"></div>
    ${p.poll?`<div class="poll">${p.poll.opts.map((o,i)=>`<div class="o"><div class="f"></div><span class="k">${'AB'[i]}</span><span>${esc(o)}</span></div>`).join('')}</div>`:''}
    <div class="cta"><span>${esc(p.cta)}</span></div>`;
   TL=gsap.timeline({paused:true});
