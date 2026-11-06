@@ -150,6 +150,7 @@ kicker(p,tl){
 },
 stat(p,tl){
   const el=h(`<div class="stat ${p.side||'r'}"><div class="big ${String(p.big).length>3?'long':''}">${esc(p.big)}</div><div class="lb">${esc(p.label)}</div>${p.sub?`<div class="sb mono">${esc(p.sub)}</div>`:''}<div class="ln"></div></div>`);
+  {const b=el.querySelector('.big'),n=String(p.big).length;b.style.fontSize=(n<=3?150:n<=4?108:n<=5?94:n<=6?82:n<=7?72:66)+'px';}  // длинное число — мельче, по числу знаков (замер до загрузки шрифта врёт)
   tl.from(el,{clipPath:'inset(0 0 100% 0)',duration:.55,ease:'power4.out'},0)
     .from(el.querySelector('.big'),{yPercent:60,opacity:0,duration:.6,ease:E},.15)
     .from(el.querySelectorAll('.lb,.sb'),{y:20,opacity:0,duration:.45,stagger:.08,ease:E},.32)
