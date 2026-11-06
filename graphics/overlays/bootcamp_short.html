@@ -1,0 +1,71 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Шортсы из уроков буткемпа (1080×1920), временная дизайн-система v2 (bootcamp/DESIGN.md). Спека — из pipeline/reels.py
+     (title, chunks, dur, endDur, endline, tail; доп.: tag, lector). Слой поверх базы pipeline/vertical_render.py (LESSON=1):
+     бумажный фон, камера лектора 1080×608 (y 280), слайд 1080×608 (y 904). -->
+<script src="../../graphics/node_modules/gsap/dist/gsap.min.js"></script>
+<script src="icons_boot.js"></script>
+<style>
+@font-face{font-family:'Inter';font-weight:100 900;src:url(../fonts/inter-cyrillic-wght-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Inter';font-weight:100 900;src:url(../fonts/inter-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2190-2193,U+2212,U+2215,U+2260,U+FEFF,U+FFFD}
+@font-face{font-family:'JBM';font-weight:100 800;src:url(../fonts/jetbrains-mono-cyrillic-wght-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'JBM';font-weight:100 800;src:url(../fonts/jetbrains-mono-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2190-2193,U+2260}
+:root{--paper:#fffdf8;--warm:#fbf7ef;--line:#ddd8ce;--ink:#14120f;--body:#4a453d;--muted:#726d63;--a3:#ffc65c;--a5:#f5a623;--a7:#c97a0a;--sans:'Inter',Arial,sans-serif;--mono:'JBM',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:transparent;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+body.bg{background:#fffdf8 url(bgv_short.jpg) center/cover}
+#st{position:absolute;inset:0}
+.top{position:absolute;left:48px;right:48px;top:40px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:30px;letter-spacing:.02em}.chev{font-family:var(--mono);font-weight:800;color:var(--a5);letter-spacing:-.08em;margin-left:6px}
+.pill{font-family:var(--mono);font-weight:600;font-size:21px;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:40px;background:var(--a5)}
+.title{position:absolute;left:48px;right:48px;top:104px;height:160px;display:flex;align-items:center;font-weight:800;font-size:54px;line-height:1.08;letter-spacing:-.03em}
+.title b{color:var(--a7)}
+/* рамки видео: камера и слайд */
+.fr{position:absolute;left:0;width:1080px;height:608px;border:0}
+.fr .br{position:absolute;width:44px;height:44px;border:6px solid var(--a5)}
+.fr .tl{left:18px;top:18px;border-right:0;border-bottom:0}.fr .rb{right:18px;bottom:18px;border-left:0;border-top:0}
+.cam{top:280px}.sld{top:904px}
+.nm{position:absolute;left:28px;bottom:24px;padding:8px 14px;background:var(--paper);border-left:5px solid var(--a5);font-weight:700;font-size:24px;box-shadow:0 6px 18px rgba(20,18,15,.18)}
+.nm small{margin-left:10px;font-family:var(--mono);font-weight:600;font-size:17px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cover{position:absolute;right:0;top:904px;width:186px;height:106px;background:var(--paper)}
+.cover span{position:absolute;right:20px;top:24px;font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--a7)}
+.cap{position:absolute;left:40px;right:40px;top:1528px;text-align:center;font-weight:800;font-size:60px;line-height:1.1;letter-spacing:-.02em}
+.cap .w{display:inline-block;margin:0 .12em;color:var(--ink)}
+.cap .w.on{color:var(--a7)}
+.end{position:absolute;inset:0;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}
+.end .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(20,18,15,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(20,18,15,.06) 1px,transparent 1px);background-size:64px 64px}
+.end .h{position:relative;font-weight:800;font-size:76px;letter-spacing:-.035em;text-align:center;line-height:1.05}
+.end .h b{color:var(--a5)}
+.end .s{position:relative;font-family:var(--mono);font-weight:600;font-size:26px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.end .b{position:relative;padding:24px 40px;background:var(--a5);border-radius:60px;font-weight:800;font-size:40px}
+</style></head><body><div id="st"></div>
+<script>
+const st=document.getElementById('st');let TL;
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const safe=s=>esc(s).replace(/&lt;(\/?)b>/g,'<$1b>');
+window.setup=function(p){
+  st.innerHTML=`<div class="top"><span class="logo">НЭЙШН<span class="chev">&gt;&gt;</span></span><span class="pill">${esc(p.tag||'AI-буткемп · RAG')}</span></div>
+   <div class="title"><div>${safe(p.title)}</div></div>
+   <div class="fr cam"><i class="br tl"></i><i class="br rb"></i><div class="nm">${esc(p.lector||'Николай Барышников')}<small>лектор</small></div></div>
+   <div class="fr sld"><i class="br tl"></i><i class="br rb"></i></div>
+   <div class="cover"><span>слайд урока</span></div>
+   <div class="cap"></div>
+   <div class="end"><div class="grid"></div><div class="s">${esc(p.endline2||'Буткемп НЭЙШН · урок про RAG')}</div><div class="h">${p.endHead||'Больше про <b>AI-driven</b><br>разработку'}</div><div class="b">${esc(p.endline||'Подписывайся')}</div></div>`;
+  TL=gsap.timeline({paused:true});
+  TL.from('.top',{y:-30,opacity:0,duration:.45,ease:'power3.out'},0)
+    .from('.title>div',{y:30,opacity:0,duration:.55,ease:'power3.out'},.1)
+    .from('.fr .br',{scale:0,duration:.4,ease:'back.out(2)',stagger:.06},.2)
+    .from('.nm',{x:-40,opacity:0,duration:.45,ease:'power3.out'},.5);
+  const E=st.querySelector('.end');
+  TL.set(E,{opacity:0},0).fromTo(E,{opacity:0,y:60},{opacity:1,y:0,duration:.45,ease:'power3.out'},p.dur-p.endDur)
+    .from(E.querySelectorAll('.s,.h,.b'),{y:30,opacity:0,duration:.45,stagger:.1,ease:'power3.out'},p.dur-p.endDur+.15);
+  window._chunks=p.chunks;TL.seek(0);
+};
+window.seek=function(t){
+  TL.seek(t,false);
+  const cap=st.querySelector('.cap');const c=window._chunks.find(c=>t>=c.s&&t<c.e);
+  if(!c){cap.innerHTML='';return}
+  cap.innerHTML=c.words.map(w=>`<span class="w ${t>=w.s?'on':''}">${esc(w.t)}</span>`).join('');
+  const k=Math.min(1,(t-c.s)/.12);cap.style.transform=`scale(${.94+.06*k})`;cap.style.opacity=k;
+};
+</script></body></html>

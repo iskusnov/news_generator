@@ -1,0 +1,12 @@
+{
+ "s01_llm_nikuda_ne_hodit": "01 — LLM сама никуда не ходит RAG — это обёртка.mp4",
+ "s02_ne_nuzhna_vektornaya_baza": "02 — Не тащите векторную базу по умолчанию.mp4",
+ "s03_bot_vernul_dengi": "03 — Бот поддержки сам вернул деньги клиенту.mp4",
+ "s04_odin_id_ne_odno_znanie": "04 — Один ID ≠ одно знание.mp4",
+ "s05_dokument_celikom_v_chank": "05 — Почему нельзя положить документ одним чанком.mp4",
+ "s06_gde_oshibaetsya_embedding": "06 — Где векторный поиск ошибается.mp4",
+ "s07_smena_embeddinga_pereindeksaciya": "07 — Сменили модель эмбеддинга — переиндексируй всё.mp4",
+ "s08_luchshe_ne_otvechat": "08 — Иногда RAG лучше не отвечать.mp4",
+ "s09_novaya_model_kazhdye_2_mesyaca": "09 — Новая модель раз в 2 месяца — и всё заново.mp4",
+ "s10_golden_dataset_avtotest": "10 — Golden dataset — это ваш автотест.mp4"
+}

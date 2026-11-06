@@ -1,0 +1,195 @@
+[
+ {
+  "id": "s01_llm_nikuda_ne_hodit",
+  "edl": "s01_llm_nikuda_ne_hodit.edl.json",
+  "title": "LLM сама никуда не ходит. RAG — это <b>обёртка</b>",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "моделька",
+    "модель"
+   ],
+   [
+    "лэмку,",
+    "LLM,"
+   ],
+   [
+    "лэмки.",
+    "LLM."
+   ],
+   [
+    "Рак",
+    "RAG"
+   ],
+   [
+    "ЛМК",
+    "LLM"
+   ],
+   [
+    "рак",
+    "RAG"
+   ]
+  ]
+ },
+ {
+  "id": "s02_ne_nuzhna_vektornaya_baza",
+  "edl": "s02_ne_nuzhna_vektornaya_baza.edl.json",
+  "title": "Не тащите векторную базу <b>по умолчанию</b>",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "греб",
+    "grep"
+   ],
+   [
+    "рак",
+    "RAG"
+   ]
+  ]
+ },
+ {
+  "id": "s03_bot_vernul_dengi",
+  "edl": "s03_bot_vernul_dengi.edl.json",
+  "title": "Бот поддержки <b>сам вернул деньги</b> клиенту",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "моделька",
+    "модель"
+   ]
+  ]
+ },
+ {
+  "id": "s04_odin_id_ne_odno_znanie",
+  "edl": "s04_odin_id_ne_odno_znanie.edl.json",
+  "title": "Один ID <b>≠</b> одно знание",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "одишник",
+    "ID-шник"
+   ],
+   [
+    "пробил",
+    "пробел"
+   ]
+  ]
+ },
+ {
+  "id": "s05_dokument_celikom_v_chank",
+  "edl": "s05_dokument_celikom_v_chank.edl.json",
+  "title": "Почему нельзя положить документ <b>одним чанком</b>",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "чанг,",
+    "чанк,"
+   ]
+  ]
+ },
+ {
+  "id": "s06_gde_oshibaetsya_embedding",
+  "edl": "s06_gde_oshibaetsya_embedding.edl.json",
+  "title": "Где векторный поиск <b>ошибается</b>",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "embedding",
+    "эмбеддинг"
+   ],
+   [
+    "рак",
+    "RAG"
+   ]
+  ]
+ },
+ {
+  "id": "s07_smena_embeddinga_pereindeksaciya",
+  "edl": "s07_smena_embeddinga_pereindeksaciya.edl.json",
+  "title": "Сменили модель эмбеддинга — <b>переиндексируй всё</b>",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "имбеддинга,",
+    "эмбеддинга,"
+   ]
+  ]
+ },
+ {
+  "id": "s08_luchshe_ne_otvechat",
+  "edl": "s08_luchshe_ne_otvechat.edl.json",
+  "title": "Иногда RAG лучше <b>не отвечать</b>",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s09_novaya_model_kazhdye_2_mesyaca",
+  "edl": "s09_novaya_model_kazhdye_2_mesyaca.edl.json",
+  "title": "Новая модель раз в 2 месяца — <b>и всё заново</b>",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "моделька,",
+    "модель,"
+   ]
+  ]
+ },
+ {
+  "id": "s10_golden_dataset_avtotest",
+  "edl": "s10_golden_dataset_avtotest.edl.json",
+  "title": "Golden dataset — это <b>ваш автотест</b>",
+  "endline": "Подписывайся",
+  "endline2": "Буткемп НЭЙШН · урок про RAG",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": [
+   [
+    "голден",
+    "golden"
+   ],
+   [
+    "баба",
+    "баг"
+   ],
+   [
+    "сет",
+    "dataset"
+   ],
+   [
+    "сета",
+    "dataset"
+   ],
+   [
+    "бабу",
+    "баг"
+   ]
+  ]
+ }
+]
