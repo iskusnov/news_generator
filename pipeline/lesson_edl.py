@@ -17,8 +17,9 @@ def s2r(E, t, pre=0.0):
     ins = [e['src_in'] for e in E]; i = bisect.bisect_right(ins, t) - 1
     if i < 0: return pre
     e = E[i]
-    if t <= e['src_out']: return pre + e['rec'] + t - e['src_in']
-    return pre + (E[i + 1]['rec'] if i + 1 < len(E) else e['rec'] + e['src_out'] - e['src_in'])
+    sp = e.get('speed', 1.0)  # после pipeline/speed.py
+    if t <= e['src_out']: return pre + e['rec'] + (t - e['src_in']) / sp
+    return pre + (E[i + 1]['rec'] if i + 1 < len(E) else e['rec'] + (e['src_out'] - e['src_in']) / sp)
 
 if sys.argv[1] == 'tc':
     E = json.load(open(sys.argv[2]))['edl']; pre = float(sys.argv[3]); s = open(sys.argv[4], encoding='utf-8').read()

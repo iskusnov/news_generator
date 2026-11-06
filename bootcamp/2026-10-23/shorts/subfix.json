@@ -1,0 +1,7 @@
+{"t01_pravila_vypadayut": {"seq": [[["Продолжение", "следует..."], []], [["выпустить."], ["выпасть."]]]},
+ "t07_adr_mysql_redis": {"seq": [[["говорит,"], []], [["мастер-слейф-репликация,"], ["master-slave-репликация,"]]]},
+ "t02_tokeny_ne_sekonomit": {"seq": [[["E-модель,"], ["LLM,"]], [["ризоминга,"], ["reasoning,"]]]},
+ "t09_flash_modeli": {"seq": [[["резинга."], ["reasoning."]]]},
+ "t05_readme_dlya_agenta": {"seq": [[["«Ридми»."], ["README."]], [["Redmi"], ["README"]]]},
+ "t06_slon_i_rybka": {"seq": [[["байос."], ["bias."]]]},
+ "t08_exception_reviewer": {"seq": [[["пиар,"], ["PR,"]]]}}

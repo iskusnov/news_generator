@@ -36,7 +36,7 @@ for bd in plan.get('boards', []):
     r0 = T(bd['a']); beats = set(); sc = _loc(bd['scenes'], r0, beats)
     S.append(dict(id=bd['id'], type='board', rec=r0, dur=round(T(bd['b']) - r0, 2), label=bd['label'], box=bd['box'],
                   ox=bd['box']['x'] - 40, oy=bd['box']['y'] - 40, scenes=sc, beats=sorted(b for b in beats if b >= 0)))
-slot = lambda s: 'r' if s['type'] == 'stat' else 'board' if s['type'] == 'board' else 'full' if s['type'] in ('preroll', 'sting', 'hw') else 'bl'
+slot = lambda s: 'qf' if s.get('full') else 'r' if s['type'] == 'stat' else 'board' if s['type'] == 'board' else 'full' if s['type'] in ('preroll', 'sting', 'hw') else 'bl'
 S.sort(key=lambda s: s['rec']); last = {}
 for s in S:
     k = slot(s)

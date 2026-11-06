@@ -140,6 +140,7 @@ svg.lk path.ok{stroke:var(--a5);stroke-width:7}
 .pn.wd .lb{display:none;position:absolute;left:28px;top:20px;z-index:4;font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--a7)}
 .pn.wd .ac:not(.a-ln) .in{zoom:1.12}
 .pn.wd .ac.a-card .in{white-space:normal;max-width:1080px;line-height:1.15}
+.ac.a-card .in{white-space:normal;max-width:940px;line-height:1.15}
 </style></head><body><div id="st"></div>
 <script>
 const st=document.getElementById('st');let TL;
@@ -173,7 +174,7 @@ stage(sc,pn,tl){ // actors:[{k:'ic'|'tx'|'pill'|'ln'|'mk'|'dt'|'ring'|'card', i,
     const at=a.at??sc.at;
     if(k=='ln'){const L=Math.hypot(a.x2-a.x,a.y2-a.y),ang=Math.atan2(a.y2-a.y,a.x2-a.x)*180/Math.PI;IN.style.width=L+'px';
       gsap.set(d,{x:a.x,y:a.y-4,rotation:ang,transformOrigin:'0 50%'});tl.set(d,{autoAlpha:0},0).fromTo(d,{autoAlpha:1,scaleX:0},{scaleX:1,duration:a.dur||.5,ease:'power2.inOut'},at)}
-    else{if(window.WIDE){const r=IN.getBoundingClientRect(),PW=pn.clientWidth,PH=pn.clientHeight,hw=r.width/2+14,hh=r.height/2+10; // не вылезать за панель
+    else{if(true){const r=IN.getBoundingClientRect(),PW=pn.clientWidth,PH=pn.clientHeight,hw=r.width/2+14,hh=r.height/2+10; // не вылезать за панель
         a.x=Math.min(Math.max(a.x,hw),PW-hw);a.y=Math.min(Math.max(a.y,hh),PH-hh)}
       gsap.set(d,{x:a.x,y:a.y,xPercent:-50,yPercent:-50,scale:a.sc??1,rotation:a.r||0});
       const en=a.enter||'pop',S=a.sc??1;

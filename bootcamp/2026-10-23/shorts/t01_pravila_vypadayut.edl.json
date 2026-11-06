@@ -1,0 +1,52 @@
+{
+ "fps": 25,
+ "tc_start": 0,
+ "total": 47.72,
+ "gap_at": null,
+ "gap": 0,
+ "edl": [
+  {
+   "src_in": 4388.72,
+   "src_out": 4397.88,
+   "rec": 0.0,
+   "tag": "main",
+   "scale": 1.0,
+   "speed": 1.15
+  },
+  {
+   "src_in": 4398.84,
+   "src_out": 4404.76,
+   "rec": 7.96,
+   "tag": "main",
+   "scale": 1.12,
+   "speed": 1.15
+  },
+  {
+   "src_in": 4405.28,
+   "src_out": 4428.12,
+   "rec": 13.12,
+   "tag": "main",
+   "scale": 1.0,
+   "speed": 1.15
+  },
+  {
+   "src_in": 4479.16,
+   "src_out": 4486.32,
+   "rec": 33.0,
+   "tag": "main",
+   "scale": 1.12,
+   "speed": 1.15
+  },
+  {
+   "src_in": 4508.84,
+   "src_out": 4518.6,
+   "rec": 39.24,
+   "tag": "main",
+   "scale": 1.0,
+   "speed": 1.15
+  }
+ ],
+ "covers": [],
+ "speed": 1.15,
+ "rate_syl_s": 5.11
+}

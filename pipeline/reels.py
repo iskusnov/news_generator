@@ -55,7 +55,7 @@ for R in json.load(open(cfg)):
         v = R['vs']; spec['vs'] = {k: v[k] for k in ('a', 'al', 'b', 'bl')}; spec['vs'].update(at_a=s2r(v['src_a']), at_b=s2r(v['src_b']), out=s2r(v['src_out']))
     if 'extras' in R:   # box / tag / phone / fine (мелкий текст, на это время субтитры скрыты)
         spec['extras'] = [dict({k: v for k, v in x.items() if k not in ('src_at', 'src_out')}, at=s2r(x['src_at']), out=s2r(x['src_out']) if x['src_out'] < 9000 else round(dur - endDur, 2)) for x in R['extras']]
-    for k in ('capTop', 'stampTop', 'endline2', 'endHead', 'pv', 'scenes'):  # scenes — моушн-сцены шортсов из уроков (время ролика)
+    for k in ('capTop', 'stampTop', 'endline2', 'endHead', 'pv', 'scenes', 'tag', 'lector'):  # scenes — моушн-сцены шортсов из уроков (время ролика)
         if k in R: spec[k] = R[k]
     spec['covers'] = E.get('covers', [])
     json.dump(spec, open(R['id'] + '.spec.json', 'w'), ensure_ascii=False, indent=1)
