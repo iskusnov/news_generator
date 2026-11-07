@@ -1,0 +1,283 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<title>Материалы к выпуску · 7 ноября</title>
+<link rel="stylesheet" href="file:///home/claude/news_generator/graphics/node_modules/@fontsource/unbounded/800.css">
+<link rel="stylesheet" href="file:///home/claude/news_generator/graphics/node_modules/@fontsource/manrope/500.css">
+<link rel="stylesheet" href="file:///home/claude/news_generator/graphics/node_modules/@fontsource/manrope/700.css">
+<link rel="stylesheet" href="file:///home/claude/news_generator/graphics/node_modules/@fontsource/manrope/800.css">
+<link rel="stylesheet" href="file:///home/claude/news_generator/graphics/node_modules/@fontsource/jetbrains-mono/700.css">
+<style>
+:root{--ink:#0D0D0F;--ink2:#17171B;--ink3:#222228;--paper:#F5F0E8;--mut:#A9A49B;--lime:#C8FF2E;--red:#FF3B30}
+@page{size:1080px 1350px;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--ink)}
+body{font-family:'Manrope';color:var(--paper);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pg{width:1080px;height:1350px;position:relative;overflow:hidden;padding:84px 80px 90px;page-break-after:always;background:var(--ink)}
+.pg:last-child{page-break-after:auto}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,240,232,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(245,240,232,.04) 1px,transparent 1px);background-size:72px 72px;pointer-events:none}
+.top{position:absolute;left:80px;right:80px;top:40px;display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-weight:700;font-size:17px;letter-spacing:.14em;color:var(--mut)}
+.top b{color:var(--lime);font-weight:700}
+.foot{position:absolute;left:80px;right:80px;bottom:36px;display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-weight:700;font-size:16px;letter-spacing:.12em;color:#6d6a64}
+.chip{display:inline-block;padding:7px 14px;border-radius:8px;background:var(--lime);color:var(--ink);font-family:'JetBrains Mono';font-weight:700;font-size:18px;letter-spacing:.1em}
+.chip.r{background:var(--red);color:#fff}
+h1{font-family:'Unbounded';font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:.98}
+h2{font-family:'Unbounded';font-weight:800;font-size:54px;line-height:1.02;letter-spacing:-.02em;text-transform:uppercase;margin:22px 0 18px}
+h2 b,h1 b{color:var(--lime);font-weight:800}h2 i,h1 i{font-style:normal;color:var(--red)}
+h3{font-family:'Manrope';font-weight:800;font-size:28px;margin:30px 0 12px;color:var(--paper)}
+p,li{font-size:25px;line-height:1.42;font-weight:500;color:#E6E1D8}
+p+p{margin-top:12px}
+.lead{font-size:28px;line-height:1.4;color:var(--paper);font-weight:700}
+.mut{color:var(--mut)}
+b.l{color:var(--lime)}
+ul{list-style:none}ul li{position:relative;padding-left:30px;margin:8px 0}ul li:before{content:'';position:absolute;left:4px;top:15px;width:12px;height:12px;border-radius:3px;background:var(--lime)}
+ul.x li:before{background:var(--red)}
+.box{background:var(--ink2);border:2px solid rgba(245,240,232,.1);border-radius:22px;padding:26px 30px;margin-top:22px}
+.box.lime{border-color:var(--lime)}
+.box h3{margin-top:0}
+code,.code{font-family:'JetBrains Mono';font-weight:700}
+.code{display:block;background:#08080A;border:2px solid rgba(200,255,46,.25);border-radius:16px;padding:20px 24px;font-size:17.5px;line-height:1.55;color:#DDF7A0;white-space:pre-wrap;word-break:break-word;margin-top:14px}
+.prompt{display:block;background:#1C1C22;border-left:6px solid var(--lime);border-radius:12px;padding:14px 20px;font-size:20.5px;line-height:1.45;color:var(--paper);margin-top:12px;font-weight:600}
+.prompt:before{content:'ПРОМПТ';display:block;font-family:'JetBrains Mono';font-weight:700;font-size:14px;letter-spacing:.16em;color:var(--lime);margin-bottom:6px}
+.steps{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.st{display:flex;gap:22px;align-items:flex-start;background:var(--ink2);border-radius:18px;padding:20px 24px;border:2px solid rgba(245,240,232,.08)}
+.st .n{flex:0 0 58px;height:58px;border-radius:14px;background:var(--lime);color:var(--ink);font-family:'Unbounded';font-weight:800;font-size:28px;display:flex;align-items:center;justify-content:center}
+.st h4{font-family:'Manrope';font-weight:800;font-size:27px;margin-bottom:4px}
+.st p{font-size:22.5px;line-height:1.38}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:24px}
+.flow .f{flex:1;background:var(--ink2);border:2px solid rgba(245,240,232,.1);border-radius:16px;padding:16px 14px;text-align:center}
+.flow .f .t{font-family:'Unbounded';font-weight:800;font-size:19px;color:var(--lime);text-transform:uppercase}
+.flow .f .d{font-size:17px;line-height:1.3;color:#d9d4cb;margin-top:6px;font-weight:600}
+.flow .a{flex:0 0 34px;display:flex;align-items:center;justify-content:center;color:var(--lime);font-size:30px;font-weight:800}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.kv{display:grid;grid-template-columns:230px 1fr;gap:10px 22px;margin-top:16px}
+.kv div:nth-child(odd){font-family:'JetBrains Mono';font-weight:700;font-size:18px;letter-spacing:.06em;color:var(--lime);padding-top:5px}
+.kv div:nth-child(even){font-size:23px;line-height:1.38;font-weight:600}
+.link{font-family:'JetBrains Mono';font-weight:700;font-size:20px;color:var(--lime)}
+.warn{background:rgba(255,59,48,.1);border:2px solid rgba(255,59,48,.55);border-radius:18px;padding:20px 26px;margin-top:22px}
+.warn p,.warn li{font-size:22px}
+.warn .h{font-family:'JetBrains Mono';font-weight:700;font-size:16px;letter-spacing:.16em;color:var(--red);margin-bottom:8px}
+.toc{margin-top:36px;display:flex;flex-direction:column;gap:16px}
+.toc .r{display:flex;gap:24px;align-items:center;background:var(--ink2);border-radius:18px;padding:22px 26px;border:2px solid rgba(245,240,232,.08)}
+.toc .r.main{border-color:var(--lime);background:linear-gradient(90deg,rgba(200,255,46,.12),rgba(200,255,46,0) 70%),var(--ink2)}
+.toc .num{font-family:'Unbounded';font-weight:800;font-size:40px;color:var(--lime);width:66px}
+.toc .t{font-family:'Manrope';font-weight:800;font-size:29px;line-height:1.15}
+.toc .d{font-size:20px;color:var(--mut);margin-top:4px;font-weight:600}
+.toc .tag{margin-left:auto;align-self:center}
+.big{font-family:'Unbounded';font-weight:800;color:var(--lime);font-size:64px;line-height:1}
+.logos{display:flex;gap:14px;flex-wrap:wrap}
+.logos div{width:84px;height:84px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Manrope;font-weight:800;color:#000;font-size:18px;box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.logos img{width:52px}
+</style></head><body>
+
+<!-- 1. ОБЛОЖКА -->
+<section class="pg" style="padding-top:120px">
+  <div class="grid"></div>
+  <div style="position:absolute;width:900px;height:900px;border-radius:50%;right:-260px;top:420px;background:rgba(200,255,46,.13);filter:blur(60px)"></div>
+  <div class="top"><span>ПОКА ТЫ СПАЛ · НОВОСТИ AI</span><span><b>@SCALING_AI</b></span></div>
+  <span class="chip">ИТОГИ НЕДЕЛИ · 7 НОЯБРЯ</span>
+  <h1 style="font-size:104px;margin-top:40px">Повтори<br><b>сам</b></h1>
+  <p class="lead" style="font-size:36px;margin-top:34px;max-width:860px">Всё, что можно попробовать руками после выпуска: ссылки, команды, промпты и схемы.</p>
+  <div class="logos" style="margin-top:56px">
+    <div><img src="file:///home/claude/news_generator/graphics/node_modules/@lobehub/icons-static-svg/icons/github.svg"></div>
+    <div><img src="file:///home/claude/news_generator/graphics/node_modules/@lobehub/icons-static-svg/icons/gemini-color.svg"></div>
+    <div><img src="file:///home/claude/news_generator/graphics/node_modules/@lobehub/icons-static-svg/icons/claude-color.svg"></div>
+    <div><img src="file:///home/claude/news_generator/graphics/node_modules/@lobehub/icons-static-svg/icons/kimi-color.svg"></div>
+    <div style="font-size:15px">Pangram</div>
+    <div style="font-size:24px">✉</div>
+  </div>
+  <div style="position:absolute;left:80px;right:80px;bottom:120px">
+    <div class="big" style="font-size:150px">6</div>
+    <p class="lead" style="font-size:32px;margin-top:10px">готовых схем. Главная — <b class="l">как собрать свой сервис вместо платной подписки</b>, по методу OccupySaaS.</p>
+  </div>
+  <div class="foot"><span>youtube · пока ты спал</span><span>t.me/scaling_ai</span></div>
+</section>
+
+<!-- 2. ЧТО ВНУТРИ -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>ЧТО ВНУТРИ</span><span><b>02</b></span></div>
+  <h2>Что вы <b>заберёте</b></h2>
+  <div class="toc">
+    <div class="r main"><div class="num">01</div><div><div class="t">Свой сервис вместо подписки</div><div class="d">Как устроен OccupySaaS, запуск ZeroAuthy за 10 минут и схема «повторить для своего сервиса»</div></div><span class="chip tag">ГЛАВНОЕ</span></div>
+    <div class="r"><div class="num">02</div><div><div class="t">Картинка → видео за $1</div><div class="d">Механика Gemini Omni: кадр, оживление, правка текстом</div></div></div>
+    <div class="r"><div class="num">03</div><div><div class="t">Монтаж текстом через Claude</div><div class="d">Arsaze: подключение за 5 минут и команды</div></div></div>
+    <div class="r"><div class="num">04</div><div><div class="t">Фейк или нет: 3 проверки</div><div class="d">Детектор Pangram, метки в файле, первоисточник</div></div></div>
+    <div class="r"><div class="num">05</div><div><div class="t">Платить за ИИ меньше</div><div class="d">Открытая Kimi K3.1 Pro и калькулятор расходов</div></div></div>
+    <div class="r"><div class="num">06</div><div><div class="t">Почта и доступы для агента</div><div class="d">MachineMail и 5 правил, какие ключи давать</div></div></div>
+  </div>
+  <div class="foot"><span>пока ты спал · итоги недели</span><span>02</span></div>
+</section>
+
+<!-- 3. OCCUPYSAAS: ЧТО ЭТО -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>01 · СВОЙ СЕРВИС ВМЕСТО ПОДПИСКИ</span><span><b>03</b></span></div>
+  <span class="chip">OCCUPYSAAS</span>
+  <h2>«Нас уволили. <b>Мы пересобираем</b> их SaaS»</h2>
+  <p class="lead">Движение уволенных инженеров. Они собирают с помощью ИИ открытые копии дорогих сервисов — такие, чтобы ваш код работал с ними без переделок.</p>
+  <div class="two">
+    <div class="box lime"><h3>ZeroAuthy → вместо Auth0</h3><p>Вход на сайт: логин, регистрация, Google и Microsoft, SMS, магические ссылки, MFA, роли и организации. Вышел <b class="l">v1.0.0-rc.1</b> — ранняя версия «на попробовать».</p></div>
+    <div class="box"><h3>SalesCompel → вместо Salesforce</h3><p>CRM: пока умеет компании и контакты (создать, изменить, найти). Ранняя стадия, для экспериментов.</p></div>
+  </div>
+  <div class="kv" style="margin-top:28px">
+    <div>ЛИЦЕНЗИЯ</div><div>Apache-2.0 — можно ставить у себя, в том числе в коммерческих проектах</div>
+    <div>ЦЕНА</div><div>0 ₽. Без оплаты за места, без телеметрии</div>
+    <div>ГДЕ</div><div><span class="link">github.com/occupysaas</span> · <span class="link">occupysaas.com</span></div>
+    <div>ДАЛЬШЕ</div><div>В очереди: базы знаний, трекер задач, фича-флаги, логи и мониторинг, поддержка клиентов. Цель можно предложить через issue на GitHub</div>
+  </div>
+  <div class="foot"><span>пока ты спал · итоги недели</span><span>03</span></div>
+</section>
+
+<!-- 4. OCCUPYSAAS: МЕТОД -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>01 · СВОЙ СЕРВИС ВМЕСТО ПОДПИСКИ</span><span><b>04</b></span></div>
+  <h2>Как они это <b>делают</b>: «чистая комната»</h2>
+  <p class="lead">ИИ не копирует чужой код. Он строит сервис по публичному описанию, и это проверяется официальными библиотеками оригинала.</p>
+  <div class="flow">
+    <div class="f"><div class="t">Доки</div><div class="d">публичная документация API и стандарты</div></div><div class="a">→</div>
+    <div class="f"><div class="t">Спека</div><div class="d">openapi.yaml: что сервис обязан уметь</div></div><div class="a">→</div>
+    <div class="f"><div class="t">Агенты</div><div class="d">ИИ пишет код и тесты только по спеке</div></div><div class="a">→</div>
+    <div class="f"><div class="t">Проверка</div><div class="d">SDK оригинала работает без правок</div></div><div class="a">→</div>
+    <div class="f"><div class="t">Релиз</div><div class="d">у себя, свой сервер, свои данные</div></div>
+  </div>
+  <div class="steps" style="margin-top:28px">
+    <div class="st"><div class="n">1</div><div><h4>Только публичные материалы</h4><p>Документация API, открытые стандарты (OAuth 2.0, OIDC, REST), поведение публичных SDK. Утёкший и закрытый код — запрещён.</p></div></div>
+    <div class="st"><div class="n">2</div><div><h4>Кто пишет спеку — не пишет код</h4><p>Роли разделены. В каждом репозитории — правила <code>CLEAN_ROOM.md</code> и источник каждого примера.</p></div></div>
+    <div class="st"><div class="n">3</div><div><h4>ИИ-агенты строят, люди принимают</h4><p>Сначала контракт API, потом код, потом тесты. Каждое слияние смотрит человек. Планы задач для агентов открыты: <code>docs/plans</code>, <code>docs/superpowers</code>.</p></div></div>
+    <div class="st"><div class="n">4</div><div><h4>Готово = старый код работает</h4><p>Официальные SDK оригинала гоняют против нового сервера. Если ваш код надо переписывать — работа не закончена.</p></div></div>
+  </div>
+  <div class="foot"><span>источник: occupysaas.com</span><span>04</span></div>
+</section>
+
+<!-- 5. ZEROAUTHY ЗА 10 МИНУТ -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>01 · СВОЙ СЕРВИС ВМЕСТО ПОДПИСКИ</span><span><b>05</b></span></div>
+  <span class="chip">ПОПРОБОВАТЬ · 10 МИНУТ</span>
+  <h2>Свой <span style="text-transform:none">Auth0</span> <b>на ноутбуке</b></h2>
+  <p>Нужен только Docker. Одна команда (замените почту на свою):</p>
+<div class="code">docker run -d --name zeroauthy -p 8443:8443 \
+  -v zeroauthy-data:/data \
+  -e ZEROAUTHY_SERVER__LISTEN=:8443 \
+  -e ZEROAUTHY_SERVER__SYSTEM_HOST=localhost:8443 \
+  -e ZEROAUTHY_SERVER__TLS_SELF_SIGNED=true \
+  -e ZEROAUTHY_SERVER__TLS_SELF_SIGNED_CA_FILE=/data/ca.pem \
+  -e ZEROAUTHY_SECURITY__MASTER_KEY="$(openssl rand -base64 32)" \
+  -e ZEROAUTHY_BOOTSTRAP__ADMIN_EMAIL=you@example.com \
+  ghcr.io/occupysaas/zeroauthy:1.0.0-rc.1</div>
+  <div class="steps" style="margin-top:20px;gap:10px">
+    <div class="st"><div class="n">1</div><div><p><b class="l">Ссылка на первый вход</b> администратора — в одноразовом файле, сервер пишет его при старте (путь — в логах: <code>docker logs zeroauthy</code>).</p></div></div>
+    <div class="st"><div class="n">2</div><div><p><b class="l">Проверка:</b> <code>https://localhost:8443/.well-known/openid-configuration</code> — должен открыться JSON. Документация API — <code>/docs</code>.</p></div></div>
+    <div class="st"><div class="n">3</div><div><p><b class="l">Подключите своё приложение:</b> в auth0-react, auth0-spa-js или nextjs-auth0 поменяйте домен Auth0 на свой сервер. Код менять не нужно — так заявлено в README.</p></div></div>
+  </div>
+  <div class="warn"><div class="h">ВАЖНО</div><ul class="x"><li>MASTER_KEY сохраните отдельно: без него резервная копия базы бесполезна, сменить ключ нельзя.</li><li>Пока нет passkeys, WebAuthn и SAML. Это предрелиз — не для боевого сервиса.</li></ul></div>
+  <div class="foot"><span>github.com/occupysaas/zeroauthy · releases</span><span>05</span></div>
+</section>
+
+<!-- 6. ПОВТОРИТЬ МЕТОД -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>01 · СВОЙ СЕРВИС ВМЕСТО ПОДПИСКИ</span><span><b>06</b></span></div>
+  <h2 style="font-size:48px;margin:14px 0 12px">Повторить метод <b>для своего</b> сервиса</h2>
+  <p class="lead" style="font-size:25px">Трекер задач, форма заявок, мини-CRM — всё, за что платите «за место». Работаем в Claude Code или другом ИИ-агенте для кода.</p>
+  <div class="steps" style="gap:12px">
+    <div class="st"><div class="n">1</div><div><h4>Выберите цель</h4><p>У сервиса должна быть открытая документация API. Возьмите 3–5 функций, которыми реально пользуетесь, — не весь продукт.</p></div></div>
+    <div class="st"><div class="n">2</div><div><h4>Спецификация</h4><span class="prompt">Вот ссылки на публичную документацию API сервиса X. Составь openapi.yaml только для этих функций: […]. Каждое поле и ошибку подтверди ссылкой на документацию. Ничего не додумывай.</span></div></div>
+    <div class="st"><div class="n">3</div><div><h4>Сборка по спеке</h4><span class="prompt">Реализуй сервер строго по openapi.yaml. Сначала тесты на каждый эндпоинт, потом код, пока тесты не станут зелёными. Хранилище SQLite, запуск одной командой docker run.</span></div></div>
+    <div class="st"><div class="n">4</div><div><h4>Проверка совместимости</h4><p>Подключите официальную библиотеку сервиса к своему серверу и прогоните реальный сценарий. Ломается — ошибку агенту.</p></div></div>
+  </div>
+  <div class="warn" style="margin-top:14px;padding:14px 22px"><div class="h">ЧЕСТНО О РИСКАХ</div><p>Только публичные материалы — без чужого кода и утечек. Вход, безопасность и деньги — только после тестов и ревью человеком. Это не юридическая консультация.</p></div>
+  <div class="foot"><span>пока ты спал · итоги недели</span><span>06</span></div>
+</section>
+
+<!-- 7. GEMINI OMNI -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>02 · КАРТИНКА → ВИДЕО</span><span><b>07</b></span></div>
+  <span class="chip">GEMINI OMNI 1.2 FLASH</span>
+  <h2>Ролик <b>за $1</b>: механика</h2>
+  <div class="kv">
+    <div>ЧТО НОВОГО</div><div>Ролики до 15 секунд, лучше синхрон губ, правка обычным текстом. По данным Google — ~7 центов за секунду в API, то есть ~$1 за 15 секунд</div>
+    <div>ГДЕ</div><div>Без кода — приложение Gemini и Google Flow. Через API — Google AI Studio (бесплатного тарифа для этой модели нет)</div>
+  </div>
+  <div class="flow" style="margin-top:28px">
+    <div class="f"><div class="t">Кадр</div><div class="d">картинка в Nano Banana / Gemini</div></div><div class="a">→</div>
+    <div class="f"><div class="t">Оживить</div><div class="d">«картинка → видео», 4–5 с на пробу</div></div><div class="a">→</div>
+    <div class="f"><div class="t">Править</div><div class="d">текстом, по одной вещи за раз</div></div><div class="a">→</div>
+    <div class="f"><div class="t">Финал</div><div class="d">10–15 с + пометка «ИИ»</div></div>
+  </div>
+  <h3>Шаблон промпта</h3>
+<div class="code" style="font-size:20px;color:var(--paper)">[Кто] в [где], [что делает].
+Камера: [крупный план / пролёт / с руки]. Свет: [закат / неон].
+Стиль: [документальный / кино / реклама]. Звук: [речь / музыка].
+Длительность: 10 секунд.</div>
+  <h3>Правки, которые работают</h3>
+  <p>«сделай злее» · «сделай веселее» · «замени ночь на утро» · «пусть говорит медленнее» · «камера ближе к лицу»</p>
+  <div class="box"><p><b class="l">Почему так дешевле:</b> картинку можно перегенерировать сколько угодно, а секунды видео платные. Модель сильна именно в режиме «картинка → видео» — там она сразу вошла в топ слепых сравнений Arena.</p></div>
+  <div class="foot"><span>x.com/Google · x.com/arena</span><span>07</span></div>
+</section>
+
+<!-- 8. ARSAZE -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>03 · МОНТАЖ ТЕКСТОМ</span><span><b>08</b></span></div>
+  <span class="chip">ARSAZE + CLAUDE</span>
+  <h2>Пишете «вырежи паузы» — <b>видео режется</b></h2>
+  <p class="lead">По тесту автора: ролик, который руками монтировали 3 ч 12 мин, с Claude собрали за 23 минуты. Бесплатно, если монтировать со своим ИИ.</p>
+  <h3>Подключение за 5 минут</h3>
+  <div class="steps" style="gap:10px;margin-top:10px">
+    <div class="st"><div class="n">1</div><div><p>Регистрация на <span class="link">arsaze.com</span>, загрузите видео.</p></div></div>
+    <div class="st"><div class="n">2</div><div><p>Claude → Настройки → Коннекторы → «Добавить свой коннектор» → <code>https://api.arsaze.com/mcp</code></p></div></div>
+    <div class="st"><div class="n">3</div><div><p>Вход через OAuth, ключ не нужен. Работает также с ChatGPT и Gemini.</p></div></div>
+    <div class="st"><div class="n">4</div><div><p>Откройте проект в браузере — правки видно вживую.</p></div></div>
+  </div>
+  <h3>Команды</h3>
+  <ul><li>«Сначала составь план монтажа списком, потом применяй»</li><li>«Вырежи паузы длиннее 0,5 с и оговорки»</li><li>«Добавь субтитры: крупно, внизу, жёлтым»</li><li>«Найди, где я смеюсь, и собери нарезку на 30 секунд»</li><li>«Сделай вертикальную версию 9:16, лицо по центру»</li></ul>
+  <div class="foot"><span>arsaze.com</span><span>08</span></div>
+</section>
+
+<!-- 9. ФЕЙК ИЛИ НЕТ -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>04 · ФЕЙК ИЛИ НЕТ</span><span><b>09</b></span></div>
+  <h2>3 проверки <b>за 2 минуты</b></h2>
+  <div class="steps">
+    <div class="st"><div class="n">1</div><div><h4>Детектор Pangram</h4><p><span class="link">pangram.com/image-detector</span> — 3 проверки в день без регистрации, с бесплатным аккаунтом 20 кредитов в день. JPG, PNG, WebP от 512×512 до 30 МБ, до 10 файлов сразу. Вердикт + тепловая карта: какие куски похожи на ИИ. Есть расширение для Chrome и Firefox.</p></div></div>
+    <div class="st"><div class="n">2</div><div><h4>Метки в файле</h4><p><b class="l">C2PA</b> — «паспорт» файла: чем и когда сделан. Смотреть: <span class="link">contentcredentials.org/verify</span>. <b class="l">SynthID</b> — невидимая метка Google: загрузите картинку в приложение Gemini и спросите, сделана ли она ИИ. Pangram тоже показывает C2PA и EXIF, но решение принимает по пикселям.</p></div></div>
+    <div class="st"><div class="n">3</div><div><h4>Первоисточник</h4><p>Google Lens или поиск по картинке: где она появилась впервые и кто выложил.</p></div></div>
+  </div>
+  <div class="warn"><div class="h">ЧТО ПОКАЗАЛ НАШ ТЕСТ</div><ul class="x"><li>Скриншот и пересылка в мессенджере стирают метки — проверяйте оригинал.</li><li>Детекторы ошибаются на маленьких и пережатых картинках. 99,5–99,96% точности — цифры самой компании.</li><li>Вопрос «это правда?» сменился на «кто это сделал и зачем?». Главный детектор — голова.</li></ul></div>
+  <div class="foot"><span>pangram.com · blog.google</span><span>09</span></div>
+</section>
+
+<!-- 10. ПЛАТИТЬ МЕНЬШЕ + АГЕНТ -->
+<section class="pg">
+  <div class="grid"></div>
+  <div class="top"><span>05–06 · ДЕНЬГИ И КЛЮЧИ</span><span><b>10</b></span></div>
+  <h2>Платить <b>меньше</b></h2>
+  <div class="box lime" style="margin-top:6px"><h3>Kimi K3.1 Pro — открытая модель</h3>
+    <p>2,8 трлн параметров, но на каждый запрос работает ~100 млрд («смесь экспертов») — поэтому дёшево. Окно ~1 млн токенов.</p>
+    <p><span class="link">platform.kimi.ai</span> — API совместим с OpenAI: меняете адрес и ключ. $2 за 1 млн токенов на вход, $10 на выход. Веса — <span class="link">huggingface.co/moonshotai</span>.</p></div>
+  <div class="box" style="padding:22px 30px"><h3>Калькулятор за 10 минут</h3><ul><li>Выпишите все ИИ-подписки и API — сумма в месяц</li><li>Поставьте месячный лимит в консолях Anthropic, OpenAI, Google</li><li>Рутину — дешёвой модели, сложное — топовой</li></ul></div>
+  <h2 style="font-size:46px;margin-top:34px">Агенту — <b>почта и ключи</b></h2>
+  <p><span class="link">machinemail.dev</span> — своя почта для агента. Дайте агенту <code>machinemail.dev/auth.md</code> и попросите тестовый ящик — без регистрации. Бесплатно: 3 000 писем в месяц. У каждого письма есть «отчёт о доверии», можно включить режим черновиков: агент пишет, отправляете вы.</p>
+  <div class="box" style="padding:20px 30px"><h3 style="font-size:25px">5 правил ключей</h3><p style="font-size:22px">1 · отдельная почта, не основная &nbsp; 2 · «только чтение», где можно &nbsp; 3 · оплата и удаление — после вашего «да» &nbsp; 4 · белый список адресатов &nbsp; 5 · раз в неделю журнал действий</p></div>
+  <div class="foot"><span>platform.kimi.ai · machinemail.dev</span><span>10</span></div>
+</section>
+
+<!-- 11. ФИНАЛ -->
+<section class="pg" style="padding-top:140px">
+  <div class="grid"></div>
+  <div style="position:absolute;width:900px;height:900px;border-radius:50%;left:-300px;top:-200px;background:rgba(200,255,46,.12);filter:blur(60px)"></div>
+  <div class="top"><span>ИСТОЧНИКИ</span><span><b>11</b></span></div>
+  <h1 style="font-size:76px">Попробовали? <b>Покажите</b></h1>
+  <p class="lead" style="margin-top:26px;font-size:32px">Пишите в комментариях к посту, что получилось: сервис, ролик, проверка. Лучшее разберём в следующем выпуске.</p>
+  <div class="box" style="margin-top:50px"><h3>Первоисточники</h3>
+  <p style="font-size:20px;line-height:1.6" class="mut">occupysaas.com · github.com/occupysaas/zeroauthy · github.com/occupysaas/salescompel · runtimewire.com (OccupySaaS) · x.com/Google (Gemini Omni 1.2 Flash) · x.com/arena · arsaze.com · pangram.com/image-detector · contentcredentials.org/verify · blog.google (проверка SynthID в Gemini) · platform.kimi.ai · huggingface.co/moonshotai · machinemail.dev</p></div>
+  <div style="position:absolute;left:80px;right:80px;bottom:110px;display:flex;justify-content:space-between;align-items:flex-end">
+    <div><div class="chip">ПОКА ТЫ СПАЛ · НОВОСТИ AI</div><p class="lead" style="margin-top:16px">Коротко и по делу о самом интересном в мире AI</p></div>
+    <div class="big" style="font-size:44px">@scaling_ai</div>
+  </div>
+  <div class="foot"><span>данные — на 7 ноября 2026</span><span>11</span></div>
+</section>
+</body></html>
