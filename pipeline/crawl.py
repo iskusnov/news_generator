@@ -6,7 +6,7 @@ import sys, json, os, html
 from playwright.sync_api import sync_playwright
 src, out = sys.argv[1], sys.argv[2]; C = json.load(open(src)); os.makedirs(out, exist_ok=True)
 NM = '/home/claude/news_generator/graphics/node_modules/@fontsource'
-CSS = f"""<link rel="stylesheet" href="{NM}/manrope/800.css"><link rel="stylesheet" href="{NM}/jetbrains-mono/700.css">
+CSS = f"""<link rel="stylesheet" href="file://{NM}/manrope/800.css"><link rel="stylesheet" href="file://{NM}/jetbrains-mono/700.css">
 <style>*{{margin:0;padding:0}}body{{background:transparent}}
 #b{{display:inline-flex;align-items:center;height:52px;background:#C8FF2E;color:#0D0D0F;white-space:nowrap;font-family:'Manrope';font-weight:800;font-size:24px}}
 .it{{padding:0 22px}}.st{{font-family:'JetBrains Mono';font-size:20px}}
@@ -17,7 +17,7 @@ with sync_playwright() as p:
     b = p.chromium.launch(); pg = b.new_page(viewport={'width': 1920, 'height': 200})
     for i, w in enumerate(C['windows']):
         one = ''.join(f'<span class="it">{html.escape(t)}</span><span class="st">✶</span>' for t in w['items'])
-        pg.set_content(f'<!doctype html><html><head><meta charset="utf-8">{CSS}</head><body><div id="b">{one}</div><br><div id="l" class="lb">{html.escape(w["label"])}</div></body></html>')
+        hp = os.path.abspath(f'{out}/_crawl.html'); open(hp, 'w').write(f'<!doctype html><html><head><meta charset="utf-8">{CSS}</head><body><div id="b">{one}</div><br><div id="l" class="lb">{html.escape(w["label"])}</div></body></html>'); pg.goto('file://' + hp)  # локальный файл, иначе шрифты file:// не грузятся
         pg.evaluate('document.fonts.ready.then(()=>1)')
         cyc = pg.evaluate("document.getElementById('b').getBoundingClientRect().width")
         reps = int(1920 // cyc) + 3
