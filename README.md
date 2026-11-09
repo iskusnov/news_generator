@@ -9,6 +9,8 @@
 | Google Drive `News_generator/` (аккаунт tony.alexandridis, расшарен на aiskusnov) | видео, скриншоты, музыка, B-roll, рендеры |
 | Mac Антона | Drive for desktop (`~/Library/CloudStorage/GoogleDrive-tony.alexandridis@gmail.com/My Drive/News_generator`), DaVinci Resolve |
 
+> **Хочешь просто сделать рилс/шортс из своего видео** (монтаж без пауз, субтитры по словам, обложка) — читай [`docs/REELS_GUIDE.md`](docs/REELS_GUIDE.md).
+
 Начни с:
 - [`AGENTS.md`](AGENTS.md) — общие правила для любой модели;
 - [`CLAUDE.md`](CLAUDE.md) — как Claude ведёт выпуск от записи до готовых файлов;
