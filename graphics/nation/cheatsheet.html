@@ -1,0 +1,58 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Шпаргалка к уроку буткемпа (A4, PDF) в дизайн-системе Нэйшн v1. Данные — window.DATA (см. bootcamp/README.md «Шпаргалка»):
+     {num, title, lector, sub, sections:[{h, lead?, items?:[[term,text]], note?, cols?:[{h,t}], table?:{head:[...], rows:[[...]]}}]} -->
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--paper:#F6F5F1;--ink:#15161A;--warm:#E7E4DC;--yel:#F2CB3A;--line:#D8D6CF;--mut:#5E6168;--dev:#3446D3;--fh:'Onest',sans-serif;--fm:'JetBrains Mono',monospace}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:var(--fh);color:var(--ink);background:var(--paper);font-size:10.4pt;line-height:1.42}
+.pg{padding:15mm 16mm 18mm;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.top{display:flex;justify-content:space-between;align-items:center;font-family:var(--fm);font-size:8pt;letter-spacing:.06em;text-transform:uppercase}
+.top b{font-family:var(--fh);font-weight:800;font-size:13pt;letter-spacing:-.02em;text-transform:none}
+.tag{display:flex;align-items:center;gap:8px}
+.num{background:var(--ink);color:var(--paper);font-weight:700;border-radius:4px;padding:2px 7px}
+.hero{margin:10mm 0 7mm;display:grid;grid-template-columns:1fr 34mm;gap:8mm;align-items:end}
+h1{font-weight:800;font-size:34pt;letter-spacing:-.045em;line-height:.95;text-wrap:balance}
+.hero .ysq{height:24mm;border-radius:4mm;background:var(--yel)}
+.meta{display:flex;align-items:center;gap:10px;margin-top:5mm;font-size:10pt;color:var(--mut)}
+.meta i{width:9px;height:9px;background:var(--dev);display:inline-block}
+.dash{border-top:1.4px dashed var(--ink);margin:0 0 6mm}
+section{margin-bottom:7mm}h2,.lead{break-after:avoid}.it,.note,.cols,tr{break-inside:avoid}
+h2{display:flex;align-items:baseline;gap:10px;font-weight:800;font-size:15pt;letter-spacing:-.03em;margin-bottom:3mm}
+h2 span{font-family:var(--fm);font-weight:700;font-size:9pt;background:var(--ink);color:var(--paper);border-radius:4px;padding:2px 6px;letter-spacing:.04em}
+.lead{margin-bottom:3mm}
+.it{display:grid;grid-template-columns:42mm 1fr;gap:5mm;padding:2.4mm 0;border-top:1px solid var(--line)}
+.it:first-of-type{border-top:0}
+.it b{font-weight:700}
+.note{margin-top:3mm;padding:3mm 4mm;background:#fff;border-radius:3mm;border-left:3mm solid var(--yel)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.cols div{background:#fff;border-radius:3mm;padding:4mm}
+.cols h3{font-family:var(--fm);font-size:8.5pt;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2mm}
+table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:3mm;overflow:hidden}
+th{text-align:left;font-family:var(--fm);font-weight:500;font-size:8pt;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);padding:3mm 4mm;border-bottom:1.4px dashed var(--ink)}
+td{vertical-align:top;padding:2.6mm 4mm;border-top:1px solid var(--line)}
+tr:nth-child(1) td{border-top:0}
+td:first-child{font-weight:700;width:34mm}
+.foot{position:fixed;left:16mm;right:16mm;bottom:8mm;display:flex;align-items:center;gap:10px;font-family:var(--fm);font-size:7.5pt;letter-spacing:.06em;text-transform:uppercase}
+.foot b{font-weight:700}.foot i{width:22mm;border-top:1.4px dashed var(--ink)}.foot span:last-child{margin-left:auto;color:var(--mut)}
+</style></head><body>
+<div class="foot"><b>Нэйшн</b><i></i><span>Технари новой формации</span><span>ai-nation.ru</span></div>
+<div class="pg" id="pg"></div>
+<script>
+const e=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const md=s=>e(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+const D=window.DATA;
+document.getElementById('pg').innerHTML=`
+<div class="top"><b>Нэйшн</b><span class="tag"><span class="num">${e(D.num)}</span>${e(D.kicker||'Шпаргалка к уроку')}</span></div>
+<div class="hero"><div><h1>${e(D.title)}</h1><div class="meta"><i></i>${e(D.lector)}${D.sub?' · '+e(D.sub):''}</div></div><div class="ysq"></div></div>
+<div class="dash"></div>
+${D.sections.map((s,i)=>`<section><h2><span>${String(i+1).padStart(2,'0')}</span>${e(s.h)}</h2>
+ ${s.lead?`<p class="lead">${md(s.lead)}</p>`:''}
+ ${s.items?s.items.map(([a,b])=>`<div class="it"><b>${e(a)}</b><div>${md(b)}</div></div>`).join(''):''}
+ ${s.cols?`<div class="cols">${s.cols.map(c=>`<div><h3>${e(c.h)}</h3>${md(c.t)}</div>`).join('')}</div>`:''}
+ ${s.table?`<table><tr>${s.table.head.map(h=>`<th>${e(h)}</th>`).join('')}</tr>${s.table.rows.map(r=>`<tr>${r.map(c=>`<td>${md(c)}</td>`).join('')}</tr>`).join('')}</table>`:''}
+ ${s.note?`<p class="note">${md(s.note)}</p>`:''}</section>`).join('')}`;
+</script></body></html>
