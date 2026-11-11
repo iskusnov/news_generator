@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Шортсы из уроков буткемпа (1080×1920) в дизайн-системе Нэйшн v1 (11.11.2026). Спека — pipeline/reels.py
+     (title, chunks, dur, endDur, endline, endline2, tail; доп.: tag, lector, role). Слой поверх базы pipeline/vertical_render.py (LESSON=1):
+     бумага, камера лектора 1080×608 (y 280, квадратная метка роли), слайд 1080×608 (y 904; окно камеры Zoom закрыто),
+     субтитры y 1528 (выше интерфейса Shorts): жирные, текущее слово — на жёлтой плашке (единственный жёлтый элемент кадра). -->
+<link rel="stylesheet" href="../nation/fonts.css">
+<script src="../../graphics/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+:root{--paper:#F6F5F1;--ink:#15161A;--warm:#E7E4DC;--yel:#F2CB3A;--line:#D8D6CF;--mut:#5E6168;--dev:#3446D3;--fh:'Onest',sans-serif;--fm:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:transparent;font-family:var(--fh);color:var(--ink);-webkit-font-smoothing:antialiased}
+#st{position:absolute;inset:0}
+.top{position:absolute;left:48px;right:48px;top:44px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:32px;letter-spacing:-.02em}
+.tag{display:flex;align-items:center;gap:12px;font-family:var(--fm);font-size:21px;letter-spacing:.06em;text-transform:uppercase}
+.num{background:var(--ink);color:var(--paper);font-family:var(--fm);font-weight:700;font-size:21px;border-radius:6px;padding:4px 10px}
+.title{position:absolute;left:48px;right:48px;top:104px;height:164px;display:flex;align-items:center;font-weight:800;font-size:56px;line-height:1.04;letter-spacing:-.04em;text-wrap:balance}
+.title b{font-weight:800;box-shadow:inset 0 -0.16em 0 var(--ink)}
+.fr{position:absolute;left:0;width:1080px;height:608px}
+.cam{top:280px}.sld{top:904px}
+.role{position:absolute;left:0;top:280px;width:72px;height:72px;background:var(--dev)}
+.nm{position:absolute;left:28px;top:812px;display:flex;align-items:center;gap:14px;padding:10px 18px;background:var(--paper);border-radius:8px;font-weight:700;font-size:26px}
+.nm small{font-family:var(--fm);font-weight:500;font-size:17px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.nm i{width:14px;height:14px;background:var(--dev);display:inline-block}
+.cover{position:absolute;right:0;top:904px;width:186px;height:106px;background:var(--paper)}
+.cover span{position:absolute;right:20px;top:26px;font-family:var(--fm);font-weight:600;font-size:17px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.dash{position:absolute;left:48px;right:48px;top:1520px;border-top:2.8px dashed var(--line)}
+.cap{position:absolute;left:40px;right:40px;top:1548px;text-align:center;font-weight:800;font-size:64px;line-height:1.16;letter-spacing:-.025em}
+.cap .w{display:inline-block;margin:0 .06em;padding:0 .1em;border-radius:10px;color:var(--ink)}
+.cap .w.on{background:var(--yel)}
+.cap .w.on~.w.on{background:transparent}
+.pnl{position:absolute;left:0;top:904px;width:1080px;height:608px;background:var(--paper);padding:56px 48px;display:flex;flex-direction:column;gap:22px}
+.pnl .hd{font-family:var(--fm);font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.pnl .rw{display:flex;align-items:center;gap:24px;background:#fff;border-radius:16px;padding:26px 30px}
+.pnl .rw .num{font-size:24px}.pnl .rw b{font-weight:800;font-size:44px;letter-spacing:-.03em;line-height:1.05}.pnl .rw span:last-child{font-size:28px;color:var(--mut);margin-left:auto;text-align:right}
+.end{position:absolute;inset:0;background:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:0 80px;gap:36px}
+.end .s{font-family:var(--fm);font-size:26px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.end .h{font-weight:800;font-size:92px;letter-spacing:-.045em;line-height:.98}
+.end .b{align-self:flex-start;padding:22px 40px;background:var(--yel);border-radius:999px;font-weight:800;font-size:42px}
+.end .ft{position:absolute;left:80px;bottom:140px;display:flex;align-items:center;gap:20px;font-family:var(--fm);font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+.end .ft i{width:90px;border-top:2.8px dashed var(--ink)}
+</style></head><body><div id="st"></div>
+<script>
+const st=document.getElementById('st');let TL;
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const safe=s=>esc(s).replace(/&lt;(\/?)b>/g,'<$1b>');
+window.setup=function(p){
+  st.innerHTML=`<div class="top"><span class="logo">Нэйшн</span><span class="tag"><span class="num">${esc(p.num||'08')}</span>${esc(p.tag||'Урок · Мультиагенты')}</span></div>
+   <div class="title"><div>${safe(p.title)}</div></div>
+   <div class="role"></div>
+   <div class="nm"><i></i>${esc(p.lector||'Николай Барышников')}<small>Разработка</small></div>
+   ${p.panel?`<div class="pnl"><div class="hd">${esc(p.panel.head)}</div>${p.panel.rows.map((r,i)=>`<div class="rw"><span class="num">${String(i+1).padStart(2,'0')}</span><b>${esc(r[0])}</b><span>${esc(r[1])}</span></div>`).join('')}</div>`:`<div class="cover"><span>слайд урока</span></div>`}
+   <div class="dash"></div>
+   <div class="cap"></div>
+   <div class="end"><div class="s">${esc(p.endline2||'AI Bootcamp Нэйшн · урок 08')}</div><div class="h">${p.endHead||'Полный урок — на буткемпе Нэйшн'}</div><div class="b">${esc(p.endline||'Подписывайся')}</div><div class="ft"><b>Нэйшн</b><i></i><span>Технари новой формации</span></div></div>`;
+  const E3='cubic-bezier(.2,.7,.2,1)';
+  TL=gsap.timeline({paused:true});
+  TL.from('.top',{y:-30,opacity:0,duration:.45,ease:'power3.out'},0)
+    .from('.title>div',{y:30,opacity:0,duration:.45,ease:'power3.out'},.07)
+    .from('.role',{scale:0,transformOrigin:'0 0',duration:.45,ease:'power3.out'},.14)
+    .from('.nm',{x:-40,opacity:0,duration:.45,ease:'power3.out'},.21)
+    .from('.pnl .rw',{y:30,opacity:0,duration:.45,stagger:.07,ease:'power3.out'},.6)
+    .from('.dash',{scaleX:0,transformOrigin:'0 0',duration:.9,ease:'power2.out'},.28);
+  const E=st.querySelector('.end');
+  TL.set(E,{opacity:0},0).fromTo(E,{opacity:0,y:60},{opacity:1,y:0,duration:.45,ease:'power3.out'},p.dur-p.endDur)
+    .from(E.querySelectorAll('.s,.h,.b,.ft'),{y:30,opacity:0,duration:.45,stagger:.07,ease:'power3.out'},p.dur-p.endDur+.1);
+  window._chunks=p.chunks;TL.seek(0);
+};
+window.seek=function(t){
+  TL.seek(t,false);
+  const cap=st.querySelector('.cap');if(!cap)return;const c=window._chunks.find(c=>t>=c.s&&t<c.e);
+  if(!c){cap.innerHTML='';return}
+  // подсвечена только текущая (последняя начавшаяся) фраза-слово
+  let cur=-1;c.words.forEach((w,i)=>{if(t>=w.s)cur=i});
+  cap.innerHTML=c.words.map((w,i)=>`<span class="w ${i===cur?'on':''}">${esc(w.t)}</span>`).join(' ');
+  const k=Math.min(1,(t-c.s)/.12);cap.style.transform=`scale(${.94+.06*k})`;cap.style.opacity=k;
+};
+</script></body></html>

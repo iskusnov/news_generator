@@ -43,7 +43,7 @@ for i, e in enumerate(E['edl']):
         st_ = f',setpts=PTS/{sp}' if sp != 1.0 else ''; at_ = f'atempo={sp},' if sp != 1.0 else ''
         cam = f'[1:v]scale=1080:608,crop={cw}:{ch}:{(1080 - cw) // 2}:{int((608 - ch) * 0.3)},scale=1080:608,setsar=1{st_},fps=25[c];'
         sld = f'[0:v]scale=1080:608,setsar=1{st_},fps=25[s];[a][s]overlay=0:904,format=yuv420p[v];' if not MOTION else '[a]format=yuv420p[v];'
-        fc = (f'color=c=0xFFFDF8:s=1080x1920:r=25[bg];{cam}'
+        fc = (f'color=c={os.environ.get("BGC", "0xFFFDF8")}:s=1080x1920:r=25[bg];{cam}'
               f'[bg][c]overlay=0:{CAMY}:shortest=1[a];{sld}'
               f'[2:a]aresample=48000,{at_}afade=t=in:d=0.015,afade=t=out:st={max(0, nf/25 - 0.015):.3f}:d=0.015,apad[au]')
         t = f'{d + 0.5:.3f}'

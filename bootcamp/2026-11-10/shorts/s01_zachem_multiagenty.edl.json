@@ -1,0 +1,17 @@
+{
+ "fps": 25,
+ "tc_start": 0,
+ "total": 45.36,
+ "gap_at": null,
+ "gap": 0,
+ "edl": [
+  {
+   "src_in": 518.76,
+   "src_out": 564.12,
+   "rec": 0.0,
+   "tag": "main",
+   "scale": 1.0
+  }
+ ],
+ "covers": []
+}
