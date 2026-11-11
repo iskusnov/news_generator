@@ -1,0 +1,82 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Динамическая заставка урока, дизайн-система Нэйшн v1. Идея: люди (квадратные портреты с меткой роли) и агенты
+     соединяются пунктирными связями в одну сеть вокруг жёлтого узла — затем сеть уходит вправо, слева собирается заголовок урока.
+     API: window.setup(spec) / window.seek(t). spec: {num,title,sub,lector,role,photo,dur} -->
+<link rel="stylesheet" href="fonts.css">
+<script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+:root{--paper:#F6F5F1;--ink:#15161A;--warm:#E7E4DC;--yel:#F2CB3A;--line:#D8D6CF;--mut:#5E6168;
+--dev:#3446D3;--qa:#0E9C86;--ba:#7A55D9;--pm:#E0497A;--mkt:#1A9BC7}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--paper);font-family:'Onest',sans-serif;color:var(--ink)}
+#net{position:absolute;inset:0}
+svg{position:absolute;inset:0;overflow:visible}
+svg path{fill:none;stroke:var(--ink);stroke-width:2.8;stroke-dasharray:10 10}
+.p{position:absolute;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:8px;background:var(--warm)}
+.p svg{position:absolute;left:26px;top:22px;width:80px;height:80px}
+.p svg path,.p svg circle{stroke:var(--mut);stroke-width:1.6;stroke-dasharray:none}
+.p i{position:absolute;left:0;bottom:0;width:30px;height:30px;border-bottom-left-radius:8px}
+.p b{position:absolute;left:50%;top:146px;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:17px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:var(--ink)}
+.a{position:absolute;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:16px;background:var(--ink);display:grid;place-items:center}
+.a svg{position:static;width:46px;height:46px}.a svg *{stroke:var(--paper);stroke-width:1.8;stroke-dasharray:none;fill:none}
+.hub{position:absolute;width:190px;height:136px;margin:-68px 0 0 -95px;border-radius:16px;background:var(--yel);display:grid;place-items:center;font-weight:800;font-size:34px;letter-spacing:-.03em}
+.dot{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--ink)}
+#ttl{position:absolute;left:144px;top:250px;width:980px}
+.tag{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+.num{background:var(--ink);color:var(--paper);font-weight:700;border-radius:6px;padding:4px 12px}
+h1{margin-top:44px;font-weight:800;font-size:150px;letter-spacing:-.05em;line-height:.92}
+h1 span{display:block}
+.sub{margin-top:40px;font-size:32px;color:var(--mut)}
+.lec{position:absolute;left:144px;top:820px;display:flex;align-items:center;gap:22px}
+.ph{position:relative;width:120px;height:120px;border-radius:8px;overflow:hidden;background:var(--warm)}
+.ph img{width:100%;height:100%;object-fit:cover}.ph i{position:absolute;left:0;bottom:0;width:28px;height:28px;background:var(--dev)}
+.lec b{display:block;font-weight:700;font-size:34px}
+.lec small{display:flex;align-items:center;gap:10px;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.06em;text-transform:uppercase}
+.lec small i{width:14px;height:14px;background:var(--dev)}
+.foot{position:absolute;left:144px;bottom:70px;display:flex;align-items:center;gap:20px;font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.06em;text-transform:uppercase}
+.foot .d{width:80px;border-top:2.8px dashed var(--ink)}
+</style></head><body>
+<div id="net"><svg id="edges" viewBox="0 0 1920 1080"></svg></div>
+<div id="ttl"><div class="tag"><span class="num"></span><span>Урок</span></div><h1></h1><div class="sub"></div></div>
+<div class="lec"><div class="ph"><img><i></i></div><div><b></b><small><i></i>Разработка</small></div></div>
+<div class="foot"><b>Нэйшн</b><span class="d"></span><span>Технари новой формации</span></div>
+<script>
+const USER='<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>';
+const BOT='<rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4M8 13h.01M16 13h.01M9 17h6"/>';
+const E='power3.out';let TL;
+window.setup=function(s){
+  document.querySelector('.num').textContent=s.num;document.querySelector('h1').innerHTML=s.title.map(t=>`<span>${t}</span>`).join('');
+  document.querySelector('.sub').textContent=s.sub;document.querySelector('.lec b').textContent=s.lector;document.querySelector('.ph img').src=s.photo;
+  const net=document.getElementById('net'),sv=document.getElementById('edges');
+  // сеть по центру кадра: хаб, 5 людей по кругу, 4 агента между ними
+  const C={x:960,y:540},P=[['Разработка','dev',-90],['Тестирование','qa',-18],['Аналитика','ba',54],['Продукт','pm',126],['Маркетинг','mkt',198]];
+  const pos=(a,r)=>({x:C.x+r*Math.cos(a*Math.PI/180),y:C.y+r*Math.sin(a*Math.PI/180)*.78});
+  const hub=document.createElement('div');hub.className='hub';hub.textContent='AI';Object.assign(hub.style,{left:C.x+'px',top:C.y+'px'});
+  const people=P.map(([n,r,a])=>{const d=document.createElement('div');d.className='p';d.innerHTML=`<svg viewBox="0 0 24 24">${USER}</svg><i style="background:var(--${r})"></i><b>${n}</b>`;const q=pos(a,400);Object.assign(d.style,{left:q.x+'px',top:q.y+'px'});d._p=q;return d});
+  const agents=[-54,18,90,162,234].map(a=>{const d=document.createElement('div');d.className='a';d.innerHTML=`<svg viewBox="0 0 24 24">${BOT}</svg>`;const q=pos(a,240);Object.assign(d.style,{left:q.x+'px',top:q.y+'px'});d._p=q;return d});
+  const paths=[];const line=(a,b)=>{const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',`M${a.x} ${a.y} L${b.x} ${b.y}`);sv.appendChild(p);paths.push(p);return p};
+  // связи: человек ↔ два соседних агента, агент ↔ хаб
+  people.forEach((p,i)=>{line(p._p,agents[i]._p);line(p._p,agents[(i+4)%5]._p)});agents.forEach(a=>line(a._p,C));
+  [...people,...agents,hub].forEach(d=>net.appendChild(d));
+  const dots=[0,1,2].map(i=>{const d=document.createElement('div');d.className='dot';net.appendChild(d);return d});
+  TL=gsap.timeline({paused:true,defaults:{ease:E}});
+  TL.from(people,{scale:.6,autoAlpha:0,duration:.45,stagger:.07},0.1)
+    .from(agents,{scale:.6,autoAlpha:0,duration:.45,stagger:.07},0.45)
+    .from(hub,{scale:.4,autoAlpha:0,duration:.45},0.9);
+  paths.forEach((p,i)=>{const L=p.getTotalLength();TL.fromTo(p,{strokeDasharray:`0 ${L}`},{strokeDasharray:`${L} 0`,duration:.9,ease:E},0.8+i*.035).set(p,{strokeDasharray:'10 10'},0.8+i*.035+.9)});
+  // «данные» бегут от людей к хабу
+  dots.forEach((d,i)=>{const p=people[i*2]._p,a=agents[i*2]._p;TL.fromTo(d,{left:p.x,top:p.y,autoAlpha:0},{autoAlpha:1,duration:.1},1.9+i*.15).to(d,{left:a.x,top:a.y,duration:.45,ease:'power1.inOut'},2.0+i*.15).to(d,{left:C.x,top:C.y,duration:.4,ease:'power1.inOut'},2.45+i*.15).to(d,{autoAlpha:0,duration:.1},2.85+i*.15)});
+  TL.to(hub,{scale:1.12,duration:.2,yoyo:true,repeat:1,ease:'power1.inOut'},2.85)
+  // сеть уходит вправо и уменьшается, слева собирается заголовок
+    .to(net,{x:520,y:20,scale:.62,transformOrigin:'960px 540px',duration:.9},3.1)
+    .from('#ttl .tag',{x:-40,autoAlpha:0,duration:.45},3.3)
+    .from('h1 span',{y:60,autoAlpha:0,duration:.45,stagger:.07},3.4)
+    .from('.sub',{y:30,autoAlpha:0,duration:.45},3.6)
+    .from('.lec',{x:-40,autoAlpha:0,duration:.45},3.75)
+    .from('.foot',{autoAlpha:0,duration:.45},3.9)
+    .to({},{duration:Math.max(0,(s.dur||6)-4.4)},4.4);
+  TL.seek(0);
+};
+window.seek=t=>{TL.seek(t,false);return 1};
+</script></body></html>
