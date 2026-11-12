@@ -34,7 +34,7 @@ frame:s=>`<div class="ink"></div>
 <div style="position:absolute;left:1568px;top:80px;width:320px;height:320px;border-radius:8px;background:#26282E"></div>
 <div style="position:absolute;left:1568px;top:420px;width:320px;color:var(--paper)">
 <div style="font-weight:700;font-size:30px;line-height:1.15">${esc(s.lector)}</div>
-<div style="margin-top:14px" class="rolelab"><i style="background:${R[s.role]}"></i>${RN[s.role]}</div></div>
+<div style="margin-top:14px" class="rolelab"><i style="background:${R[s.role]}"></i>${esc(s.org||RN[s.role])}</div></div>
 <div style="position:absolute;left:1568px;top:560px;width:320px;height:330px;color:var(--paper);display:flex;flex-direction:column;gap:16px">
 <div class="mono" style="font-size:17px;color:#A8AAB0">${esc(s.part)}</div>
 <div class="tag"><span class="num y">${esc(s.ch)}</span><span class="mono" style="font-size:17px;color:#A8AAB0">глава</span></div>
@@ -55,7 +55,7 @@ ${s.who?`<div class="mono" style="font-size:16px;color:var(--mut);margin-top:aut
 speaker:s=>`<div style="position:absolute;left:96px;bottom:96px;display:flex;align-items:stretch;background:var(--paper);border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.25)">
 <div style="width:20px;background:${R[s.role]}"></div>
 <div style="padding:26px 40px 28px 32px"><div style="font-weight:800;font-size:52px;letter-spacing:-.03em;line-height:1">${esc(s.lector)}</div>
-<div style="margin-top:16px" class="rolelab"><i style="background:${R[s.role]}"></i>${RN[s.role]} · <span style="color:var(--mut)">${esc(s.sub)}</span></div></div></div>`,
+<div style="margin-top:16px" class="rolelab"><i style="background:${R[s.role]}"></i>${esc(s.org||RN[s.role])}${s.sub?` · <span style="color:var(--mut)">${esc(s.sub)}</span>`:''}</div></div></div>`,
 hw:s=>`<div class="paper"></div>
 <div style="position:absolute;left:144px;top:110px" class="tag"><span class="num y">ДЗ</span><span class="mono">Домашнее задание · урок ${esc(s.num)}</span></div>
 <div style="position:absolute;left:144px;top:220px;width:1100px"><h1 style="font-size:92px">${esc(s.title)}</h1>

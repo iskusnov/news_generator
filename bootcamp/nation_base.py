@@ -50,6 +50,9 @@ def base(edl_p, g_p, SCR, CAM, AUD, JD):
         fc.append(f'[{cur}][sc]overlay={SX}:{SY}[l1]')
         fc.append(f'[1:v]fps={FPS},crop=ih:ih:(iw-ih)/2:0,scale={CS}:{CS},setsar=1[cm]')
         fc.append(f'[l1][cm]overlay={CX}:{CY}[l2]'); cur = 'l2'
+        co = [x for x in G.get('camoff', []) if ov(x[0], x[1], S, nf)]   # лектор выключил камеру — его фото вместо чёрной плитки Zoom
+        if co:
+            ic = img(G['camoff_png']); fc.append(f"[{cur}][{ic}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in co)}'[l2c]"); cur = 'l2c'
         ir = img(G['roletop']); fc.append(f'[{cur}][{ir}:v]overlay=0:0[l3]'); cur = 'l3'
         qs = [x for x in G['qside'] if ov(x[0], x[1], S, nf)]
         if qs:
@@ -98,7 +101,11 @@ def final(edl_p, g_p, JD, OUT, pre=5.0, hw=12.0, end=5.0):
     def card(png, d, name):
         return (f'ffmpeg -v error -y -loop 1 -framerate {FPS} -t {d} -i {q("gfx/" + png.split("/")[-1])} -f lavfi -t {d} -i anullsrc=r=48000:cl=stereo '
                 f'-vf "format=yuv420p,fade=t=in:d=0.45,fade=t=out:st={d - 0.45}:d=0.45" -shortest {V} {A} {name}')
-    L.append(card(G['intro'], pre, 'pre.mov')); L.append(card(G['hw'], hw, 'hw.mov')); L.append(card(G['end'], end, 'end.mov'))
+    if G.get('intro_mp4'):   # анимированная заставка урока (graphics/nation/intro_v3.html, вариант B) вместо статичной карточки
+        L.append(f'ffmpeg -v error -y -i {q("gfx/" + G["intro_mp4"].split("/")[-1])} -f lavfi -t {pre} -i anullsrc=r=48000:cl=stereo '
+                 f'-vf "scale=1920:1080,fps={FPS},format=yuv420p,fade=t=out:st={pre - 0.4}:d=0.4" -t {pre} {V} {A} pre.mov')
+    else: L.append(card(G['intro'], pre, 'pre.mov'))
+    L.append(card(G['hw'], hw, 'hw.mov')); L.append(card(G['end'], end, 'end.mov'))
     L.append("printf \"file 'pre.mov'\\nfile 'base.mov'\\nfile 'hw.mov'\\nfile 'end.mov'\\n\" > final_list.txt")
     af = 'highpass=f=70,afftdn=nf=-30,loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000'
     L.append(f'ffmpeg -v error -y -f concat -safe 0 -i final_list.txt -af {q(af)} -c:v h264_videotoolbox -b:v 8M -maxrate 10M -pix_fmt yuv420p '
