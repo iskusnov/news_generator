@@ -1,0 +1,102 @@
+[
+ {
+  "id": "s01_prototip_eto_tz",
+  "edl": "s01_prototip_eto_tz.edl.json",
+  "title": "Лучшее ТЗ — это <b>прототип</b>",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s02_ot_prototipa_k_api",
+  "edl": "s02_ot_prototipa_k_api.edl.json",
+  "title": "Прототип → <b>база данных</b> → API → микросервисы",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s03_chto_nuzhno_bylo_zakazchiku",
+  "edl": "s03_chto_nuzhno_bylo_zakazchiku.edl.json",
+  "title": "Объяснил заказчик, понял аналитик… а что <b>на самом деле</b> было нужно?",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s04_vykinte_i_sdelayte_zanovo",
+  "edl": "s04_vykinte_i_sdelayte_zanovo.edl.json",
+  "title": "Не получилось — <b>выкиньте и сделайте заново</b>",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s05_60_agentov",
+  "edl": "s05_60_agentov.edl.json",
+  "title": "60 бэкендеров не наймёшь. <b>60 агентов</b> — запустишь",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s06_monolit_v_agenta",
+  "edl": "s06_monolit_v_agenta.edl.json",
+  "title": "Весь монолит в агента — <b>захлебнётся</b>",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s07_kognitivnaya_nagruzka",
+  "edl": "s07_kognitivnaya_nagruzka.edl.json",
+  "title": "Думали, ИИ разгрузит голову? <b>Тренд обратный</b>",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s08_kod_ne_chitaem",
+  "edl": "s08_kod_ne_chitaem.edl.json",
+  "title": "Год назад: читать весь код. Сейчас — <b>не всё</b>",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s09_zoom_s_zakazchikom",
+  "edl": "s09_zoom_s_zakazchikom.edl.json",
+  "title": "Созвон с заказчиком → <b>Whisper</b> → новый прототип",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ },
+ {
+  "id": "s10_freymvork_za_12_chasov",
+  "edl": "s10_freymvork_za_12_chasov.edl.json",
+  "title": "Свой фреймворк агентов — <b>12 часов</b> работы",
+  "endline": "",
+  "endline2": "",
+  "endDur": 1.8,
+  "tail": 1.8,
+  "replace": []
+ }
+]
