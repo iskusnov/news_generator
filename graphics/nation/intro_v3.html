@@ -1,0 +1,69 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Заставка урока v3 (12.11): лектор ↔ буткемп ↔ мозаика ключевых инструментов урока (пунктир = связь). Дизайн-система Нэйшн v1.
+     spec: {v:'tri'|'stack', num, title:[..], lector, org, photo, boot, flow, date, tools:[{t,i}], dur} -->
+<link rel="stylesheet" href="fonts.css">
+<script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<script src="../overlays/icons_boot.js"></script>
+<style>
+:root{--paper:#F6F5F1;--ink:#15161A;--warm:#E7E4DC;--yel:#F2CB3A;--line:#D8D6CF;--mut:#5E6168}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--paper);font-family:'Onest',sans-serif;color:var(--ink)}
+svg#ed{position:absolute;inset:0}#ed path{fill:none;stroke:var(--ink);stroke-width:2.8;stroke-dasharray:10 10}
+.n{position:absolute;width:220px;height:220px;margin:-110px 0 0 -110px;border-radius:16px}
+.cap{position:absolute;left:50%;top:238px;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.cap b{display:block;font-weight:700;font-size:30px;letter-spacing:-.02em}
+.cap small{display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.per{background:var(--warm)}.per img{width:100%;height:100%;object-fit:cover;border-radius:16px}
+.boot{background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:0 26px}
+.boot b{font-weight:800;font-size:38px;letter-spacing:-.03em;line-height:1}.boot span{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:var(--yel)}
+.tl{position:absolute;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:16px;background:#fff;border:2.8px solid var(--ink);display:grid;place-items:center}
+.tl.y{background:var(--yel)}
+.tl svg{width:64px;height:64px}.tl svg *{fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tl i{position:absolute;left:50%;top:162px;transform:translateX(-50%);font-style:normal;white-space:nowrap;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:18px;letter-spacing:.05em;text-transform:uppercase}
+.dot{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:var(--ink)}
+#ttl{position:absolute}
+.tag{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+.num{background:var(--ink);color:var(--paper);font-weight:700;border-radius:6px;padding:4px 12px}
+h1{margin-top:34px;font-weight:800;font-size:118px;letter-spacing:-.05em;line-height:.92}h1 span{display:block}
+.foot{position:absolute;left:144px;bottom:64px;display:flex;align-items:center;gap:20px;font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.06em;text-transform:uppercase}
+.foot .d{width:80px;border-top:2.8px dashed var(--ink)}.foot .s{color:var(--mut)}
+</style></head><body>
+<svg id="ed" viewBox="0 0 1920 1080"></svg>
+<div id="ttl"><div class="tag"><span class="num"></span><span>Урок</span></div><h1></h1></div>
+<div class="n per"><img><div class="cap"><b></b><small></small></div></div>
+<div class="n boot"><b></b><span></span><div class="cap"><small></small></div></div>
+<div class="dot"></div>
+<div class="foot"><b>Нэйшн</b><span class="d"></span><span>ai-nation.ru</span><span class="d"></span><span class="s">Технари новой формации</span></div>
+<script>
+const $=q=>document.querySelector(q),E='power3.out';let TL;
+const LAY={
+ tri:{per:[1290,250],boot:[1290,730],ttl:[144,400],side:1,tiles:[[1610,250],[1800,250],[1610,490],[1800,490],[1610,730],[1800,730]],
+      links:[['per','boot'],['per',0],['per',2],['boot',4],['boot',2],[0,1],[2,3],[4,5]]},
+ stack:{per:[1330,220],boot:[1700,220],ttl:[144,330],side:0,tiles:[[1270,600],[1515,600],[1760,600],[1270,860],[1515,860],[1760,860]],
+      links:[['per','boot'],['per',0],['per',1],['boot',1],['boot',2],[0,3],[1,4],[2,5]]}};
+window.setup=function(s){
+  const V=LAY[s.v||'tri'];
+  $('.num').textContent=s.num;$('h1').innerHTML=s.title.map(t=>`<span>${t}</span>`).join('');
+  $('.per img').src=s.photo;$('.per b').textContent=s.lector;$('.per small').textContent=s.org||'';
+  $('.boot b').innerHTML=s.boot||'AI<br>Bootcamp';$('.boot span').textContent=s.flow||'3 поток';$('.boot .cap small').textContent=s.date||'';
+  const N={per:$('.per'),boot:$('.boot')};for(const k in N){N[k].style.left=V[k][0]+'px';N[k].style.top=V[k][1]+'px'}
+  if(V.side)document.querySelectorAll('.cap').forEach(c=>Object.assign(c.style,{left:'auto',right:'250px',top:'50%',transform:'translateY(-50%)',textAlign:'right'}));
+  $('#ttl').style.left=V.ttl[0]+'px';$('#ttl').style.top=V.ttl[1]+'px';
+  const T=(s.tools||[]).slice(0,6).map((x,i)=>{const d=document.createElement('div');d.className='tl'+(i===0?' y':'');d.innerHTML=`<svg viewBox="0 0 24 24">${(window.ICONS||{})[x.i]||''}</svg><i>${x.t}</i>`;
+    d.style.left=V.tiles[i][0]+'px';d.style.top=V.tiles[i][1]+'px';document.body.appendChild(d);return d});
+  const P=(k,o)=>typeof k==='number'?V.tiles[k]:(V.side||o?V[k]:[V[k][0],V[k][1]+200]);const sv=$('#ed');
+  const paths=V.links.filter(([a,b])=>(typeof a!=='number'||a<T.length)&&(typeof b!=='number'||b<T.length)).map(([a,b])=>{const p=document.createElementNS('http://www.w3.org/2000/svg','path');const both=typeof a!=='number'&&typeof b!=='number';let A=P(a,both),B=P(b,both);if(typeof a==='number'&&typeof b==='number'&&A[0]===B[0])A=[A[0],A[1]+108];p.setAttribute('d',`M${A[0]} ${A[1]} L${B[0]} ${B[1]}`);sv.appendChild(p);return p});
+  TL=gsap.timeline({paused:true,defaults:{ease:E}});
+  TL.from(N.per,{scale:.5,autoAlpha:0,duration:.5},0.15).from('.per .cap',{y:16,autoAlpha:0,duration:.4},0.5)
+    .from(N.boot,{scale:.5,autoAlpha:0,duration:.5},0.6).from('.boot .cap',{y:16,autoAlpha:0,duration:.4},0.9);
+  paths.forEach((p,i)=>{const l=p.getTotalLength();const at=i===0?0.45:1.0+i*.1;TL.fromTo(p,{strokeDasharray:`0 ${l}`},{strokeDasharray:`${l} 0`,duration:.45,ease:'power2.inOut'},at).set(p,{strokeDasharray:'10 10'},at+.45)});
+  T.forEach((d,i)=>TL.from(d,{scale:.3,autoAlpha:0,rotation:-8,duration:.4,ease:'back.out(2)'},1.1+i*.12));
+  const d=$('.dot'),pts=[V.per,V.boot,V.tiles[T.length>4?4:0]];TL.set(d,{left:pts[0][0],top:pts[0][1],autoAlpha:0},0).to(d,{autoAlpha:1,duration:.1},2.1);
+  pts.slice(1).forEach((q,i)=>TL.to(d,{left:q[0],top:q[1],duration:.45,ease:'power1.inOut'},2.2+i*.45));
+  TL.to(d,{autoAlpha:0,duration:.1},3.1).from('#ttl .tag',{x:-40,autoAlpha:0,duration:.45},2.2).from('h1 span',{y:60,autoAlpha:0,duration:.5,stagger:.08},2.35)
+    .from('.foot',{autoAlpha:0,duration:.45},2.9).to({},{duration:Math.max(0,(s.dur||6)-3.4)},3.4);
+  TL.seek(0);
+};
+window.seek=t=>{TL.seek(t,false);return 1};
+</script></body></html>
