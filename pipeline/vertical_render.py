@@ -37,7 +37,7 @@ for i, e in enumerate(E['edl']):
     s_in, s_src = pick_src(e['src_in'])  # файл по смещению: SRC2..SRC9 / OFF2..OFF9
     bw = ',hue=s=0,eq=contrast=1.12' if e.get('bw') else ''  # врезка «мысли за кадром» — ч/б
     cs = e.get('cam_ss', 0.0)  # сдвиг камеры (с): закрыть кадры, где Zoom показал не лектора (звук остаётся на месте)
-    nf = round(d / sp * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}{f"_x{sp}" if sp != 1.0 else ""}{f"_c{cs}" if cs else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
+    nf = round(d / sp * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}{f"_x{sp}" if sp != 1.0 else ""}{f"_c{cs}" if cs else ""}{"_m" if e.get("mute") else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
     parts.append(part)
     if LESSON:
         cw, ch = int(1080 / k) // 2 * 2, int(608 / k) // 2 * 2  # «панч» камеры ×scale из edl (чередуется на склейках)
@@ -46,7 +46,7 @@ for i, e in enumerate(E['edl']):
         sld = f'[0:v]scale=1080:608,setsar=1{st_},fps=25[s];[a][s]overlay=0:904,format=yuv420p[v];' if not MOTION else '[a]format=yuv420p[v];'
         fc = (f'color=c={os.environ.get("BGC", "0xFFFDF8")}:s=1080x1920:r=25[bg];{cam}'
               f'[bg][c]overlay=0:{CAMY}:shortest=1[a];{sld}'
-              f'[2:a]aresample=48000,{at_}afade=t=in:d=0.015,afade=t=out:st={max(0, nf/25 - 0.015):.3f}:d=0.015,apad[au]')
+              f'[2:a]aresample=48000,{"volume=0," if e.get("mute") else ""}{at_}afade=t=in:d=0.015,afade=t=out:st={max(0, nf/25 - 0.015):.3f}:d=0.015,apad[au]')
         t = f'{d + 0.5:.3f}'
         L.append(f'[ -s {part} ] || {{ ffmpeg -v error -y -ss {s_in:.3f} -t {t} -i {q(s_src)} -ss {s_in + cs:.3f} -t {t} -i {q(CAM)} -ss {s_in:.3f} -t {t} -i {q(AUD)} '
                  f'-filter_complex {q(fc)} -map [v] -map [au] -frames:v {nf} -t {nf/25:.3f} -c:v libx264 -preset veryfast -crf 16 -pix_fmt yuv420p '

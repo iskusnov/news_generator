@@ -1,0 +1,31 @@
+{
+ "fps": 25,
+ "tc_start": 0,
+ "total": 36.44,
+ "gap_at": null,
+ "gap": 0,
+ "edl": [
+  {
+   "src_in": 2414.48,
+   "src_out": 2422.0,
+   "rec": 0.0,
+   "tag": "hook",
+   "scale": 1.0
+  },
+  {
+   "src_in": 2380.08,
+   "src_out": 2385.52,
+   "rec": 7.52,
+   "tag": "main",
+   "scale": 1.12
+  },
+  {
+   "src_in": 2390.84,
+   "src_out": 2414.32,
+   "rec": 12.96,
+   "tag": "main",
+   "scale": 1.0
+  }
+ ],
+ "covers": []
+}
