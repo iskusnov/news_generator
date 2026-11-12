@@ -1,0 +1,74 @@
+{
+ "fps": 25,
+ "tc_start": 0,
+ "total": 48.72,
+ "gap_at": null,
+ "gap": 0,
+ "edl": [
+  {
+   "src_in": 11862.24,
+   "src_out": 11866.96,
+   "rec": 0.0,
+   "tag": "hook",
+   "scale": 1.0,
+   "camimg": true
+  },
+  {
+   "src_in": 11844.48,
+   "src_out": 11851.04,
+   "rec": 4.72,
+   "tag": "main",
+   "scale": 1.12,
+   "camimg": true
+  },
+  {
+   "src_in": 11851.48,
+   "src_out": 11855.68,
+   "rec": 11.28,
+   "tag": "main",
+   "scale": 1.0,
+   "camimg": true
+  },
+  {
+   "src_in": 11857.56,
+   "src_out": 11861.36,
+   "rec": 15.48,
+   "tag": "main",
+   "scale": 1.12,
+   "camimg": true
+  },
+  {
+   "src_in": 11862.2,
+   "src_out": 11866.76,
+   "rec": 19.28,
+   "tag": "main",
+   "scale": 1.0,
+   "camimg": true
+  },
+  {
+   "src_in": 11867.84,
+   "src_out": 11880.04,
+   "rec": 23.84,
+   "tag": "main",
+   "scale": 1.12,
+   "camimg": true
+  },
+  {
+   "src_in": 11881.8,
+   "src_out": 11888.44,
+   "rec": 36.04,
+   "tag": "main",
+   "scale": 1.0,
+   "camimg": true
+  },
+  {
+   "src_in": 11889.32,
+   "src_out": 11895.36,
+   "rec": 42.68,
+   "tag": "main",
+   "scale": 1.12,
+   "camimg": true
+  }
+ ],
+ "covers": []
+}
