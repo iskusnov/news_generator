@@ -186,6 +186,9 @@ html,body{font-family:var(--sans)}
 .hk{position:absolute;inset:0;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:0 80px;z-index:60}
 .hk .hl2{font-weight:800;font-size:118px;letter-spacing:-.045em;line-height:1.02}.hk .hl2.s2{font-size:100px}.hk .hl2.s3{font-size:76px}
 .hk .hw{display:inline-block;transform-origin:50% 70%}.hk .hw.on{color:var(--a5)}
+.wm{position:absolute;left:0;right:0;top:1652px;text-align:center;font-family:var(--mono);font-size:26px;letter-spacing:.08em;color:var(--ink);opacity:.38;z-index:70}
+.hk .hd{position:absolute;left:80px;right:80px;top:56px;display:flex;justify-content:space-between;align-items:center}.hk .hd b{font-weight:800;font-size:40px;letter-spacing:-.02em}.hk .hd span{font-family:var(--mono);font-weight:600;font-size:22px;letter-spacing:.06em;text-transform:uppercase;background:var(--a5);color:var(--ink);padding:8px 14px;border-radius:6px}
+.hk~.wm,.hk .wm2{color:var(--paper)}
 .hk .bar{position:absolute;left:80px;top:420px;width:180px;height:18px;background:var(--a5);transform-origin:left}
 .hk .kick{margin-top:48px;font-family:var(--mono);font-size:30px;letter-spacing:.06em;text-transform:uppercase;color:var(--a5)}
 .end .ysq{position:absolute;right:90px;bottom:240px;width:200px;height:144px;border-radius:16px;background:var(--a5)}
@@ -309,7 +312,7 @@ function setupWide(p){ // 16:9 урок: моушн-панель на пусто
 window.setup=function(p){
   if(p.wide)return setupWide(p);
   window.WIDE=false;
-  st.innerHTML=`<div class="top"><span class="logo">Нэйшн<span class="st">ai-nation.ru</span></span><span class="pill">${esc(p.tag||'Мультиагенты')}</span></div>
+  st.innerHTML=`<div class="top"><span class="logo">Нэйшн</span><span class="pill">${esc(p.tag||'Мультиагенты')}</span></div>
    <div class="title"><div>${safe(p.title)}</div></div>
    <div class="fr cam"><div class="nm">${esc(p.lector||'Николай Барышников')}${p.org?`<small>${esc(p.org)}</small>`:''}</div></div>
    <div class="fr sld"></div>
@@ -317,6 +320,7 @@ window.setup=function(p){
    <div class="pn"></div>
    <div class="dash"></div>
    <div class="cap"></div>
+   <div class="wm">ai-nation.ru</div>
    <div class="end"><div class="nb">Нэйшн</div><div class="slog">Технари новой формации</div><div class="ln2"></div><div class="site">Больше у нас в <b>Telegram-канале</b> — ссылка в профиле</div><div class="ysq"></div></div>`;
   st.style.setProperty('--camy',p.scenes?'260px':'280px');
   TL=gsap.timeline({paused:true});
@@ -336,12 +340,12 @@ window.setup=function(p){
   TL.set(E,{opacity:0},0).fromTo(E,{opacity:0,y:60},{opacity:1,y:0,duration:.45,ease:'power3.out'},p.dur-p.endDur)
     .from(E.querySelectorAll('.nb,.slog,.ln2,.site,.ysq'),{y:30,opacity:0,duration:.45,stagger:.1,ease:'power3.out'},p.dur-p.endDur+.15);
   if(p.hookcard){const h=p.hookcard,d=document.createElement('div');d.className='hk';  // хук-карточка на весь кадр: слова по одному (под звук «поп»), уезжает вверх
-    d.innerHTML='<div class="bar"></div>'+h.lines.map(l=>`<div class="hl2 ${l.size?'s'+l.size:''}">${l.words.map(w=>`<span class="hw ${w.hl?'on':''}">${esc(w.t)}</span>`).join(' ')}</div>`).join('')+(h.kick?`<div class="kick">${esc(h.kick.t)}</div>`:'');st.appendChild(d);
+    d.innerHTML=`<div class="hd"><b>Нэйшн</b><span>${esc(h.dir||'Разработка')}</span></div><div class="bar"></div>`+h.lines.map(l=>`<div class="hl2 ${l.size?'s'+l.size:''}">${l.words.map(w=>`<span class="hw ${w.hl?'on':''}">${esc(w.t)}</span>`).join(' ')}</div>`).join('')+(h.kick?`<div class="kick">${esc(h.kick.t)}</div>`:'');st.appendChild(d);
     const flat=h.lines.flatMap(l=>l.words);const ws=[...d.querySelectorAll('.hw')];TL.set(ws,{autoAlpha:0},0);
     ws.forEach((x,i)=>TL.fromTo(x,{scale:2,autoAlpha:0,rotation:-7},{scale:1,autoAlpha:1,rotation:0,duration:.22,ease:'back.out(2.4)',immediateRender:false},flat[i].at));
     TL.fromTo(d.querySelector('.bar'),{scaleX:0},{scaleX:1,duration:.3,ease:'power3.out'},flat[0].at);
     if(h.kick){TL.set(d.querySelector('.kick'),{autoAlpha:0},0).to(d.querySelector('.kick'),{autoAlpha:1,duration:.2},h.kick.at)}
-    TL.set(d,{yPercent:0},0).to(d,{yPercent:-100,duration:.28,ease:'power3.in'},h.out-.28);}
+    TL.set(d,{yPercent:0},0).to(d,{yPercent:-100,duration:.28,ease:'power3.in'},h.out-.28);const wm=st.querySelector('.wm');st.appendChild(wm);TL.set(wm,{color:'#F6F5F1'},0).set(wm,{color:'#15161A'},h.out-.14);}
   window._chunks=p.chunks;TL.seek(0);
 };
 window.seek=function(t){
