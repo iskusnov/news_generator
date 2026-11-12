@@ -86,7 +86,9 @@ def base(edl_p, g_p, SCR, CAM, AUD, JD):
         TO = int(60 + nf / FPS * 2)   # тайм-аут куска (VideoToolbox иногда зависает): perl alarm, повтор на libx264
         def mk(venc): return (f"perl -e 'alarm shift; exec @ARGV' {TO} ffmpeg -nostdin -v error -y {' '.join(ins)} -filter_complex {q(';'.join(fc))} -map [v] -map [a] "
                               f'-frames:v {nf} {venc} -t {nf / FPS:.3f} {A} parts/tmp.mov && mv parts/tmp.mov {p}')
-        L.append(f'ok {p} || {{ {mk(V)}; }} || true; ok {p} || {{ echo "RETRY {p}"; rm -f {p}; {mk("-c:v libx264 -preset veryfast -crf 18 -pix_fmt yuv420p")}; }}')
+        TO2 = int(120 + nf / FPS * 8)   # libx264 на 1080p с 4K-исходником медленнее реального времени
+        def mk2(venc): return mk(venc).replace(f"alarm shift; exec @ARGV' {TO} ", f"alarm shift; exec @ARGV' {TO2} ", 1)
+        L.append(f'ok {p} || {{ {mk(V)}; }} || true; ok {p} || {{ echo "RETRY {p}"; rm -f {p}; {mk2("-c:v libx264 -preset veryfast -crf 18 -pix_fmt yuv420p")}; }} || true')
     L.append('for f in ' + ' '.join(parts) + '; do ok "$f" || { echo "MISSING $f"; exit 3; }; done; echo "parts $(date +%T)"')
     L.append("printf '%s\\n' " + ' '.join(q(f"file '{p.split('/')[-1]}'") for p in parts) + ' > parts/list.txt')
     L.append('ffmpeg -v error -xerror -y -f concat -safe 0 -i parts/list.txt -c copy base.mov')
