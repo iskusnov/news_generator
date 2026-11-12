@@ -36,7 +36,8 @@ for i, e in enumerate(E['edl']):
         x = max(0, min(3840 - w, CX - w // 2)); y = 0 if k == 1.0 else int((2160 - h) * 0.35)
     s_in, s_src = pick_src(e['src_in'])  # файл по смещению: SRC2..SRC9 / OFF2..OFF9
     bw = ',hue=s=0,eq=contrast=1.12' if e.get('bw') else ''  # врезка «мысли за кадром» — ч/б
-    nf = round(d / sp * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}{f"_x{sp}" if sp != 1.0 else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
+    cs = e.get('cam_ss', 0.0)  # сдвиг камеры (с): закрыть кадры, где Zoom показал не лектора (звук остаётся на месте)
+    nf = round(d / sp * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}{f"_x{sp}" if sp != 1.0 else ""}{f"_c{cs}" if cs else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
     parts.append(part)
     if LESSON:
         cw, ch = int(1080 / k) // 2 * 2, int(608 / k) // 2 * 2  # «панч» камеры ×scale из edl (чередуется на склейках)
@@ -47,7 +48,7 @@ for i, e in enumerate(E['edl']):
               f'[bg][c]overlay=0:{CAMY}:shortest=1[a];{sld}'
               f'[2:a]aresample=48000,{at_}afade=t=in:d=0.015,afade=t=out:st={max(0, nf/25 - 0.015):.3f}:d=0.015,apad[au]')
         t = f'{d + 0.5:.3f}'
-        L.append(f'[ -s {part} ] || {{ ffmpeg -v error -y -ss {s_in:.3f} -t {t} -i {q(s_src)} -ss {s_in:.3f} -t {t} -i {q(CAM)} -ss {s_in:.3f} -t {t} -i {q(AUD)} '
+        L.append(f'[ -s {part} ] || {{ ffmpeg -v error -y -ss {s_in:.3f} -t {t} -i {q(s_src)} -ss {s_in + cs:.3f} -t {t} -i {q(CAM)} -ss {s_in:.3f} -t {t} -i {q(AUD)} '
                  f'-filter_complex {q(fc)} -map [v] -map [au] -frames:v {nf} -t {nf/25:.3f} -c:v libx264 -preset veryfast -crf 16 -pix_fmt yuv420p '
                  f'-c:a pcm_s16le -ar 48000 {tmp}/tmp.mov && mv {tmp}/tmp.mov {part}; }}')
         continue

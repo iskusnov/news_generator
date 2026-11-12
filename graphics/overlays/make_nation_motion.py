@@ -7,13 +7,12 @@ CSS = r'''
 /* ===== ТЕМА НЭЙШН v1 (11.11.2026): бумага/тушь, один жёлтый акцент, плоско, пунктир = связь ===== */
 :root{--paper:#F6F5F1;--warm:#E7E4DC;--line:#D8D6CF;--ink:#15161A;--body:#15161A;--muted:#5E6168;--a3:#F2CB3A;--a5:#F2CB3A;--a7:#15161A;--sans:'Onest',sans-serif;--mono:'JetBrains Mono',monospace;--grn:#1F8F50;--dev:#3446D3}
 html,body{font-family:var(--sans)}
-.top{top:44px}.logo{font-weight:800;font-size:32px;letter-spacing:-.02em}
+.top{top:44px}.logo{font-weight:800;font-size:32px;letter-spacing:-.02em;display:flex;align-items:baseline;gap:14px}.logo .st{font-family:var(--mono);font-weight:500;font-size:22px;letter-spacing:.02em;color:var(--muted)}
 .pill{background:var(--ink);color:var(--paper);border-radius:6px;font-weight:700}
 .title{font-size:56px;letter-spacing:-.045em;line-height:1.02}.title b{color:var(--ink);box-shadow:inset 0 -.12em 0 var(--ink)}
 .fr .br{display:none}
 .nm{left:0;bottom:0;border-left:0;border-radius:0 8px 0 0;box-shadow:none;display:flex;align-items:center;gap:12px;padding:12px 20px}
 .nm::before{content:'';width:14px;height:14px;background:var(--dev)}
-.role{position:absolute;left:0;top:var(--camy,280px);width:72px;height:72px;background:var(--dev);z-index:3}
 .cover span{color:var(--muted)}
 .pn{background:var(--paper)}.bgd{display:none}
 .pg{background:var(--ink);height:4px}
@@ -42,25 +41,24 @@ html,body{font-family:var(--sans)}
 .cap .w{margin:0 .06em;padding:0 .1em;border-radius:10px;color:var(--ink)}.cap .w.on{background:var(--a5);color:var(--ink)}
 .end{background:var(--paper);align-items:flex-start;padding:0 90px;gap:28px}
 .end .nb{font-weight:800;font-size:170px;letter-spacing:-.055em;line-height:.9}
-.end .site{font-family:var(--mono);font-size:44px;letter-spacing:.04em}
-.end .ln2{width:240px;border-top:2.8px dashed var(--ink)}
-.end .slog{font-family:var(--mono);font-size:30px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.end .slog{font-weight:700;font-size:64px;letter-spacing:-.03em;line-height:1.05}
+.end .ln2{width:240px;border-top:2.8px dashed var(--ink);margin-top:20px}
+.end .site{font-size:44px;line-height:1.25;letter-spacing:-.01em;color:var(--muted);max-width:820px}.end .site b{color:var(--ink);font-weight:700;box-shadow:inset 0 -.18em 0 var(--a5)}
 .end .ysq{position:absolute;right:90px;bottom:240px;width:200px;height:144px;border-radius:16px;background:var(--a5)}
 '''
 s = s.replace('</style></head>', CSS + '</style></head>', 1)
 lines = s.split('\n')
 a = next(i for i, l in enumerate(lines) if l.startswith('  st.innerHTML=`<div class="top">'))
 b = next(i for i in range(a, len(lines)) if lines[i].startswith('  TL=gsap.timeline({paused:true});'))
-NEW = '''  st.innerHTML=`<div class="top"><span class="logo">Нэйшн</span><span class="pill">${esc(p.tag||'08 · Мультиагенты')}</span></div>
+NEW = '''  st.innerHTML=`<div class="top"><span class="logo">Нэйшн<span class="st">ai-nation.ru</span></span><span class="pill">${esc(p.tag||'Мультиагенты')}</span></div>
    <div class="title"><div>${safe(p.title)}</div></div>
-   <div class="fr cam"><div class="nm">${esc(p.lector||'Николай Барышников')}<small>Разработка</small></div></div>
-   <div class="role"></div>
+   <div class="fr cam"><div class="nm">${esc(p.lector||'Николай Барышников')}${p.org?`<small>${esc(p.org)}</small>`:''}</div></div>
    <div class="fr sld"></div>
    <div class="cover"><span>слайд урока</span></div>
    <div class="pn"></div>
    <div class="dash"></div>
    <div class="cap"></div>
-   <div class="end"><div class="nb">Нэйшн</div><div class="site">ai-nation.ru</div><div class="ln2"></div><div class="slog">Технари новой формации</div><div class="ysq"></div></div>`;
+   <div class="end"><div class="nb">Нэйшн</div><div class="slog">Технари новой формации</div><div class="ln2"></div><div class="site">Больше у нас в <b>Telegram-канале</b> — ссылка в профиле</div><div class="ysq"></div></div>`;
   st.style.setProperty('--camy',p.scenes?'260px':'280px');'''
 lines[a:b] = NEW.split('\n')
 s = '\n'.join(lines)
@@ -68,8 +66,8 @@ def rep(old, new):
     global s
     assert old in s, old[:60]
     s = s.replace(old, new, 1)
-rep(".from('.nm',{x:-40,opacity:0,duration:.45,ease:'power3.out'},.5);", ".from('.nm',{x:-40,opacity:0,duration:.45,ease:'power3.out'},.21).from('.role',{scale:0,transformOrigin:'0 0',duration:.45,ease:'power3.out'},.14);")
-rep("E.querySelectorAll('.s,.h,.b')", "E.querySelectorAll('.nb,.site,.ln2,.slog,.ysq')")
+rep(".from('.nm',{x:-40,opacity:0,duration:.45,ease:'power3.out'},.5);", ".from('.nm',{x:-40,opacity:0,duration:.45,ease:'power3.out'},.21);")
+rep("E.querySelectorAll('.s,.h,.b')", "E.querySelectorAll('.nb,.slog,.ln2,.site,.ysq')")
 rep("cap.innerHTML=c.words.map(w=>`<span class=\"w ${t>=w.s?'on':''}\">${esc(w.t)}</span>`).join('');",
     "let cur=-1;c.words.forEach((w,i)=>{if(t>=w.s)cur=i});cap.innerHTML=c.words.map((w,i)=>`<span class=\"w ${i===cur?'on':''}\">${esc(w.t)}</span>`).join(' ');")
 open(D + '/nation_motion.html', 'w', encoding='utf-8').write(s)

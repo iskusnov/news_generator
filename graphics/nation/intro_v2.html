@@ -1,0 +1,71 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Заставка урока v2 (12.11): три связанных узла — лектор ↔ буткемп ↔ пиктограмма темы, пунктир = связь. Дизайн-система Нэйшн v1.
+     API: setup(spec)/seek(t). spec: {v:'row'|'tri'|'stack', num, title:[..], lector, org, photo, boot, flow, date, icon:'network'|'layers'|..., dur} -->
+<link rel="stylesheet" href="fonts.css">
+<script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+:root{--paper:#F6F5F1;--ink:#15161A;--warm:#E7E4DC;--yel:#F2CB3A;--line:#D8D6CF;--mut:#5E6168;--dev:#3446D3}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--paper);font-family:'Onest',sans-serif;color:var(--ink)}
+svg#ed{position:absolute;inset:0}
+#ed path{fill:none;stroke:var(--ink);stroke-width:2.8;stroke-dasharray:10 10}
+.n{position:absolute;width:220px;height:220px;margin:-110px 0 0 -110px;border-radius:16px}
+.n .cap{position:absolute;left:50%;top:238px;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.cap b{display:block;font-weight:700;font-size:30px;letter-spacing:-.02em}
+.cap small{display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.per{overflow:visible;background:var(--warm)}.per img{width:100%;height:100%;object-fit:cover;border-radius:16px}
+.boot{background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:0 26px}
+.boot b{font-weight:800;font-size:38px;letter-spacing:-.03em;line-height:1}.boot span{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:var(--yel)}
+.ico{background:var(--yel);display:grid;place-items:center}.ico svg{width:120px;height:120px}.ico svg *{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.dot{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:var(--ink)}
+#ttl{position:absolute}
+.tag{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+.num{background:var(--ink);color:var(--paper);font-weight:700;border-radius:6px;padding:4px 12px}
+h1{margin-top:34px;font-weight:800;font-size:140px;letter-spacing:-.05em;line-height:.92}h1 span{display:block}
+.foot{position:absolute;left:144px;bottom:64px;display:flex;align-items:center;gap:20px;font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:.06em;text-transform:uppercase}
+.foot .d{width:80px;border-top:2.8px dashed var(--ink)}.foot .s{color:var(--mut)}
+</style></head><body>
+<svg id="ed" viewBox="0 0 1920 1080"></svg>
+<div id="ttl"><div class="tag"><span class="num"></span><span>Урок</span></div><h1></h1></div>
+<div class="n per"><img><div class="cap"><b></b><small></small></div></div>
+<div class="n boot"><b></b><span></span><div class="cap"><small></small></div></div>
+<div class="n ico"><svg viewBox="0 0 24 24"></svg><div class="cap"><small></small></div></div>
+<div class="dot"></div>
+<div class="foot"><b>Нэйшн</b><span class="d"></span><span>ai-nation.ru</span><span class="d"></span><span class="s">Технари новой формации</span></div>
+<script>
+const IC={network:'<rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"/>',
+ layers:'<path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/>'};
+const E='power3.out';let TL;const $=q=>document.querySelector(q);
+const L={ // финальные позиции центров узлов и заголовка
+ row:{per:[420,660],boot:[960,660],ico:[1500,660],ttl:[144,150],pairs:[['per','boot'],['boot','ico']]},
+ tri:{per:[1400,240],boot:[1400,760],ico:[1720,500],ttl:[144,400],pairs:[['per','boot'],['boot','ico'],['ico','per']],cap:'sideLR'},
+ stack:{per:[1600,190],boot:[1600,510],ico:[1600,830],ttl:[144,300],pairs:[['per','boot'],['boot','ico']],cap:'side'}};
+window.setup=function(s){
+  const V=L[s.v||'row'];
+  $('.num').textContent=s.num;$('h1').innerHTML=s.title.map(t=>`<span>${t}</span>`).join('');
+  $('.per img').src=s.photo;$('.per b').textContent=s.lector;$('.per small').textContent=s.org||'';
+  $('.boot b').innerHTML=s.boot||'AI<br>Bootcamp';$('.boot span').textContent=s.flow||'3 поток';$('.boot .cap small').textContent=s.date||'';
+  $('.ico svg').innerHTML=IC[s.icon||'network'];$('.ico small').textContent=s.iconCap||'';
+  const N={per:$('.per'),boot:$('.boot'),ico:$('.ico')};
+  for(const k in N){N[k].style.left=V[k][0]+'px';N[k].style.top=V[k][1]+'px'}
+  if(V.cap==='sideLR'){document.querySelectorAll('.per .cap,.boot .cap').forEach(c=>Object.assign(c.style,{left:'auto',right:'250px',top:'50%',transform:'translateY(-50%)',textAlign:'right'}));$('h1').style.fontSize='122px'}
+  if(V.cap==='side')document.querySelectorAll('.cap').forEach(c=>Object.assign(c.style,{left:'auto',right:'250px',top:'50%',transform:'translateY(-50%)',textAlign:'right'}));
+  const T=$('#ttl');T.style.left=V.ttl[0]+'px';T.style.top=V.ttl[1]+'px';if(s.v==='row')$('h1').style.cssText='font-size:120px;display:flex;gap:.25em';if(s.v==='row')document.querySelectorAll('h1 span').forEach(x=>x.style.display='inline');
+  const sv=$('#ed');const P=V.pairs.map(([a,b])=>{const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',`M${V[a][0]} ${V[a][1]} L${V[b][0]} ${V[b][1]}`);sv.appendChild(p);return p});
+  TL=gsap.timeline({paused:true,defaults:{ease:E}});
+  const from=s.v==='stack'?{x:260,autoAlpha:0}:{scale:.5,autoAlpha:0};
+  TL.from(N.per,{...from,duration:.5},0.15);
+  P.forEach((p,i)=>{const l=p.getTotalLength();TL.fromTo(p,{strokeDasharray:`0 ${l}`},{strokeDasharray:`${l} 0`,duration:.55,ease:'power2.inOut'},0.55+i*.55).set(p,{strokeDasharray:'10 10'},1.1+i*.55)});
+  TL.from(N.boot,{...from,duration:.5},0.85).from(N.ico,{...from,duration:.5},1.4)
+    .from('.per .cap',{y:16,autoAlpha:0,duration:.4},0.5).from('.boot .cap',{y:16,autoAlpha:0,duration:.4},1.1).from('.ico .cap',{y:16,autoAlpha:0,duration:.4},1.7);
+  // точка бежит по связям: лектор → буткемп → тема
+  const d=$('.dot'),pts=[V.per,V.boot,V.ico];TL.set(d,{left:pts[0][0],top:pts[0][1],autoAlpha:0},0).to(d,{autoAlpha:1,duration:.1},2.0);
+  pts.slice(1).forEach((q,i)=>TL.to(d,{left:q[0],top:q[1],duration:.5,ease:'power1.inOut'},2.1+i*.5));
+  TL.to(d,{autoAlpha:0,duration:.1},3.1).to(N.ico,{scale:1.08,duration:.18,yoyo:true,repeat:1,ease:'power1.inOut'},3.05)
+    .from('#ttl .tag',{x:-40,autoAlpha:0,duration:.45},2.2).from('h1 span',{y:60,autoAlpha:0,duration:.5,stagger:.08},2.35)
+    .from('.foot',{autoAlpha:0,duration:.45},2.9).to({},{duration:Math.max(0,(s.dur||6)-3.4)},3.4);
+  TL.seek(0);
+};
+window.seek=t=>{TL.seek(t,false);return 1};
+</script></body></html>
