@@ -45,10 +45,10 @@ def base(edl_p, g_p, SCR, CAM, AUD, JD):
         for j, (a, b, p) in enumerate(fr[1:]):
             ii = img(p); fc.append(f"[{cur}][{ii}:v]overlay=0:0:enable='gte({T},{a:.2f})'[b{j + 1}]"); cur = f'b{j + 1}'
         dark = [x for x in G.get('dark', []) if ov(x[0], x[1], S, nf)]
-        # окно Zoom с камерой в углу демонстрации (x 1600–1920, y 0–180) закрываем продлением цвета слайда слева (решение Антона 13.11; было чёрной плашкой)
-        boxes = "split[sx1][sx2];[sx2]crop=4:180:1594:0,scale=326:180:flags=neighbor[sxp];[sx1][sxp]overlay=1594:0"
+        # окно Zoom с камерой в углу демонстрации закрываем белой подложкой с логотипом «Нэйшн» (решение Антона 13.11, вариант A;
+        # graphics/nation/zoom_plate.html → gfx/zoom_plate.png, кладётся поверх кадра ниже, кроме полноэкранной камеры и шторок)
         # setpts=PTS-STARTPTS: после -ss первый кадр исходника приходит не в 0 → fps терял кадр 0 → вспышка чёрного кадра на стыке кусков (136 шт. в уроке 12.11)
-        fc.append(f'[0:v]setpts=PTS-STARTPTS,fps={FPS},scale=1920:1080,setsar=1,split[sf][sx];[sx]{boxes},scale={SW}:{SH}[sc]')
+        fc.append(f'[0:v]setpts=PTS-STARTPTS,fps={FPS},scale=1920:1080,setsar=1,split[sf][sx];[sx]scale={SW}:{SH}[sc]')
         fc.append(f'[{cur}][sc]overlay={SX}:{SY}[l1]')
         fc.append(f'[1:v]setpts=PTS-STARTPTS,fps={FPS},crop=ih:ih:(iw-ih)/2:0,scale={CS}:{CS},setsar=1[cm]')
         fc.append(f'[l1][cm]overlay={CX}:{CY}[l2]'); cur = 'l2'
@@ -56,6 +56,7 @@ def base(edl_p, g_p, SCR, CAM, AUD, JD):
         if co:
             ic = img(G['camoff_png']); fc.append(f"[{cur}][{ic}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in co)}'[l2c]"); cur = 'l2c'
         ir = img(G['roletop']); fc.append(f'[{cur}][{ir}:v]overlay=0:0[l3]'); cur = 'l3'
+        iz = img(G.get('zoom_plate', 'gfx/zoom_plate.png')); fc.append(f'[{cur}][{iz}:v]overlay=0:0[l3z]'); cur = 'l3z'
         qs = [x for x in G['qside'] if ov(x[0], x[1], S, nf)]
         if qs:
             iq = img(G['qside_png']); fc.append(f"[{cur}][{iq}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in qs)}'[l4]"); cur = 'l4'
