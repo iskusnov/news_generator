@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Посты для Telegram-канала к уроку (A4, PDF) — как у урока 27.10: обложка со списком, каждый пост на своей странице карточкой «как в канале».
+     window.DATA = {lesson,title,channel,author,intro,posts:[{h,shorts,lead,b:[["p",text]|["ul",[..]]|["ol",[..]]]}]}; **жирный** в тексте -->
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--paper:#F6F5F1;--ink:#15161A;--yel:#F2CB3A;--line:#D8D6CF;--mut:#5E6168;--fh:'Onest',sans-serif;--fm:'JetBrains Mono',monospace}
+@page{size:A4;margin:0}*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:var(--fh);color:var(--ink);background:var(--paper);font-size:11.5pt;line-height:1.45}
+.page{width:210mm;height:297mm;padding:18mm 18mm 0;position:relative;page-break-after:always;overflow:hidden}
+.top{display:flex;justify-content:space-between;align-items:center;font-family:var(--fm);font-size:8pt;letter-spacing:.06em;text-transform:uppercase}
+.top b{font-family:var(--fh);font-weight:800;font-size:13pt;letter-spacing:-.02em;text-transform:none}
+.hero{margin-top:38mm;display:grid;grid-template-columns:1fr 36mm;gap:10mm;align-items:start}
+h1{font-weight:800;font-size:38pt;letter-spacing:-.045em;line-height:1}
+.ysq{height:24mm;border-radius:4mm;background:var(--yel);margin-top:2mm}
+.intro{margin-top:8mm;font-size:12.5pt;color:var(--mut);max-width:140mm;line-height:1.5}
+.dash{border-top:1.2px dashed var(--ink);margin:9mm 0 6mm}
+.toc div{display:flex;gap:4mm;align-items:center;padding:2.6mm 0;border-top:1px solid var(--line);font-weight:700;font-size:10.5pt}
+.toc div:last-child{border-bottom:1px solid var(--line)}
+.n{font-family:var(--fm);font-size:7.5pt;font-weight:700;background:var(--ink);color:var(--paper);border-radius:3px;padding:1px 5px}
+.foot{position:absolute;left:18mm;right:18mm;bottom:12mm;display:flex;align-items:center;gap:10px;font-family:var(--fm);font-size:7.5pt;letter-spacing:.06em;text-transform:uppercase}
+.foot b{font-weight:700}.foot i{width:30mm;border-top:1.2px dashed var(--ink)}.foot span:last-child{margin-left:auto;color:var(--mut)}
+.ph{display:flex;justify-content:space-between;gap:10mm;align-items:flex-start;margin:4mm 4mm 5mm;font-family:var(--fm);font-size:7.5pt;letter-spacing:.04em;color:var(--mut)}
+.ph .l{display:flex;gap:3mm;align-items:center;text-transform:uppercase;white-space:nowrap}
+.ph .r{text-align:right;max-width:100mm}
+.card{background:#fff;border-radius:6mm;padding:9mm 9mm 8mm;margin:0 4mm;box-shadow:0 1mm 3mm rgba(21,22,26,.06)}
+.ch{display:flex;gap:3.5mm;align-items:center;margin-bottom:6mm}
+.av{width:11mm;height:11mm;border-radius:50%;background:var(--ink);display:grid;place-items:center}.av i{width:4.4mm;height:4.4mm;background:var(--yel);border-radius:1mm}
+.ch b{display:block;font-size:11pt}.ch small{font-family:var(--fm);font-size:7pt;color:var(--mut)}
+.card h2{font-weight:800;font-size:17pt;letter-spacing:-.025em;line-height:1.15;margin-bottom:4mm}
+.lead{font-weight:700;margin-bottom:3.5mm}.lead span{box-shadow:inset 0 -.22em 0 var(--yel)}
+.card p{margin-bottom:3mm}
+.card ul,.card ol{margin:0 0 3mm 6mm}.card li{margin-bottom:1.4mm;padding-left:1mm}
+.sig{color:var(--mut);margin-top:4mm}
+</style></head><body><div id="r"></div>
+<script>
+const e=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const md=s=>e(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+const D=window.DATA,N=D.posts.length,pad=i=>String(i).padStart(2,'0');
+const foot=`<div class="foot"><b>Нэйшн</b><i></i><span>Технари новой формации</span><span>ai-nation.ru</span></div>`;
+const plain=p=>[p.h,p.lead,...p.b.map(([t,v])=>t==='p'?v:v.join(' '))].join(' ').replace(/\*\*/g,'');
+let h=`<div class="page"><div class="top"><b>Нэйшн</b><span>Буткемп · ${e(D.lesson)}</span></div>
+<div class="hero"><h1>${e(D.title)}</h1><div class="ysq"></div></div><p class="intro">${e(D.intro)}</p><div class="dash"></div>
+<div class="toc">${D.posts.map((p,i)=>`<div><span class="n">${pad(i+1)}</span>${e(p.h)}</div>`).join('')}</div>${foot}</div>`;
+D.posts.forEach((p,i)=>{h+=`<div class="page"><div class="ph"><span class="l"><span class="n">${pad(i+1)}</span>Пост ${i+1} из ${N}</span><span class="r">${e(p.shorts||'')}</span></div>
+<div class="card"><div class="ch"><div class="av"><i></i></div><div><b>${e(D.channel)}</b><small>${plain(p).length} знаков</small></div></div>
+<h2>${e(p.h)}</h2><p class="lead"><span>${md(p.lead)}</span></p>
+${p.b.map(([t,v])=>t==='p'?`<p>${md(v)}</p>`:`<${t}>${v.map(x=>`<li>${md(x)}</li>`).join('')}</${t}>`).join('')}
+<p class="sig">— ${e(D.author)}</p></div></div>`});
+document.getElementById('r').innerHTML=h;
+</script></body></html>
