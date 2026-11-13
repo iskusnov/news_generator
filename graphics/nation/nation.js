@@ -41,6 +41,20 @@ frame:s=>`<div class="ink"></div>
 <div style="font-weight:700;font-size:${s.chTitle.length>40?25:28}px;line-height:1.2;text-wrap:balance">${esc(s.chTitle)}</div></div>
 <div style="position:absolute;left:1568px;top:906px;width:320px;height:6px;border-radius:3px;background:#3A3C42"><div style="width:${Math.round((s.progress||0)*100)}%;height:100%;border-radius:3px;background:var(--paper)"></div></div>
 <div style="position:absolute;left:32px;top:966px;right:32px;display:flex;align-items:center;gap:14px;color:#A8AAB0" class="mono"><b style="color:var(--paper)">Нэйшн</b> · AI Bootcamp · 3 поток · Урок ${esc(s.num)} · ${esc(s.topic)}</div>`,
+// frame2: крупный экран (+15 %, 1730×973) — урок 12.11 после жалоб студентов на мелкий текст; камера — узкая колонка справа, глава — нижняя строка
+frame2:s=>`<div class="ink"></div>
+<div style="position:absolute;left:16px;top:16px;width:1730px;height:973px;border-radius:12px;background:#000"></div>
+<div style="position:absolute;left:1762px;top:16px;width:142px;height:142px;border-radius:8px;background:#26282E"></div>
+<div style="position:absolute;left:1762px;top:172px;width:142px;color:var(--paper);font-weight:700;font-size:19px;line-height:1.2">${esc(s.lector).replace(' ','<br>')}</div>
+<div style="position:absolute;left:1762px;top:228px;width:142px;color:#A8AAB0;font-size:13px;line-height:1.3" class="mono">${esc(s.org||RN[s.role])}</div>
+<div style="position:absolute;left:16px;top:1003px;right:16px;height:52px;display:flex;align-items:center;gap:18px;color:#A8AAB0" class="mono">
+<b style="color:var(--paper)">Нэйшн</b><span>Урок ${esc(s.num)}</span><span>·</span><span>${esc(s.part)}</span>
+<span class="num y" style="margin-left:10px">${esc(s.ch)}</span><span style="font-family:var(--fs,Onest);font-weight:700;font-size:24px;letter-spacing:0;text-transform:none;color:var(--paper)">${esc(s.chTitle)}</span></div>
+<div style="position:absolute;left:16px;right:16px;top:1062px;height:4px;border-radius:2px;background:#3A3C42"><div style="width:${Math.round((s.progress||0)*100)}%;height:100%;border-radius:2px;background:var(--paper)"></div></div>`,
+qside2:s=>`<div style="position:absolute;left:1690px;top:0;width:230px;height:230px;background:var(--warm);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+<svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#15161A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4"/><path d="M12 14.2h.01"/></svg>
+<div style="font-weight:700;font-size:21px;color:var(--ink)">${esc(s.label||'Вопрос из зала')}</div></div>`,
+roletop2:s=>`<i style="position:absolute;left:1690px;top:202px;width:28px;height:28px;background:${R[s.role]}"></i>`,
 roletop:s=>`<i style="position:absolute;left:1568px;top:${80+320-56}px;width:56px;height:56px;background:${R[s.role]}"></i>`,
 qside:s=>`<div style="position:absolute;left:1568px;top:80px;width:320px;height:320px;border-radius:8px;background:var(--warm);display:grid;place-items:center">
 <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#15161A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4"/><path d="M12 14.2h.01"/></svg></div>
