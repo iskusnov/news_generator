@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file:///home/claude/news_generator/graphics/nation/fonts.css">
+<style>body{margin:0;width:1600px;height:720px;background:#F6F5F1;font-family:Onest;color:#15161A;position:relative}
+.box{box-sizing:border-box;position:absolute;border:3px solid #15161A;border-radius:22px;background:#fff;padding:22px 28px}
+.lab{font-family:"JetBrains Mono";font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:#5E6168}
+h{display:block;font-weight:800;font-size:32px;letter-spacing:-.02em;margin:6px 0 8px}
+p{margin:0;font-size:22px;line-height:1.35}
+.y{background:#F2CB3A}
+.g{background:transparent;border-style:dashed}
+.ar{position:absolute;font-size:40px;font-weight:800}
+</style></head><body>
+<div class="lab" style="position:absolute;left:60px;top:36px">state агента · агент stateless, состояние приходит вместе с запросом</div>
+<div class="box y" style="left:60px;top:100px;width:470px;height:420px"><div class="lab" style="color:#15161A">context state</div><h>План</h><p>План, инструкции, какие шаги пройдены и какие следующие.<br><br>Обычно файл, в продакшене — запись в базе.</p></div>
+<div class="box" style="left:565px;top:100px;width:470px;height:420px"><div class="lab">environment state</div><h>Среда</h><p>Что нужно модели в моменте: методы, API, скиллы, MCP, тулы.<br><br>Как манифест Kubernetes для среды, где живёт агент.</p></div>
+<div class="box" style="left:1070px;top:100px;width:470px;height:420px"><div class="lab">run state</div><h>Управление планом</h><p>Решения, бюджеты, текущие статусы для следующего шага.<br><br>Тоже в базе.</p></div>
+<div class="box g" style="left:60px;top:560px;width:1480px;height:110px"><p style="font-size:26px;padding-top:6px"><b>Чтобы восстановить сессию или передать её коллеге,</b> нужно собрать вместе все три.</p></div>
+</body></html>

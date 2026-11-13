@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file:///home/claude/news_generator/graphics/nation/fonts.css">
+<style>body{margin:0;width:1600px;height:820px;background:#F6F5F1;font-family:Onest;color:#15161A;position:relative}
+.box{box-sizing:border-box;position:absolute;border:3px solid #15161A;border-radius:22px;background:#fff;padding:22px 28px}
+.lab{font-family:"JetBrains Mono";font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:#5E6168}
+h{display:block;font-weight:800;font-size:32px;letter-spacing:-.02em;margin:6px 0 8px}
+p{margin:0;font-size:22px;line-height:1.35}
+.y{background:#F2CB3A}
+.g{background:transparent;border-style:dashed}
+.ar{position:absolute;font-size:40px;font-weight:800}
+</style></head><body>
+<div class="lab" style="position:absolute;left:60px;top:36px">цикл harness · тот же агентский цикл, разложенный на компоненты</div>
+<div class="box" style="left:60px;top:90px;width:330px;height:200px"><div class="lab">1</div><h>Context compiler</h><p>Собирает контекст: промпты, нужные тулы, знания</p></div>
+<div class="ar" style="left:402px;top:160px">→</div>
+<div class="box" style="left:450px;top:90px;width:300px;height:200px"><div class="lab">2</div><h>Модель</h><p>Вызов LLM и следующее действие</p></div>
+<div class="ar" style="left:762px;top:160px">→</div>
+<div class="box" style="left:810px;top:90px;width:340px;height:200px"><div class="lab">3</div><h>Политики</h><p>Схемы, валидация, права и ограничения</p></div>
+<div class="ar" style="left:1162px;top:160px">→</div>
+<div class="box" style="left:1210px;top:90px;width:330px;height:200px"><div class="lab">4</div><h>Тулы и MCP</h><p>Результат возвращается в модель</p></div>
+<div class="ar" style="left:1355px;top:300px">↓</div>
+<div class="box" style="left:1210px;top:360px;width:330px;height:200px"><div class="lab">5</div><h>Verifier</h><p>Ревью, линтеры, тесты, другой агент</p></div>
+<div class="ar" style="left:1150px;top:430px">←</div>
+<div class="box y" style="left:450px;top:360px;width:690px;height:200px"><div class="lab" style="color:#15161A">6 · то, что делает цикл harness-ом</div><h>Обновление плана</h><p>План — один файл. Меняют его другие агенты: скаут, ресерчер, Oracle</p></div>
+<div class="ar" style="left:220px;top:300px">↑</div>
+<div class="ar" style="left:402px;top:430px">←</div><div class="box g" style="left:60px;top:360px;width:330px;height:200px;padding-top:16px"><div class="lab">развилка</div><h style="font-size:28px;margin:2px 0 6px">Пункты закрыты?</h><p>Да — выход.<br>Нет — новый круг</p></div>
+<div class="box g" style="left:60px;top:610px;width:1480px;height:150px"><div class="lab">сбоку, не влияет на выполнение</div><h>Observability и артефакты</h><p>Трейсы, метрики, логи: токены, время, применённые политики, какие файлы сгенерированы</p></div>
+</body></html>
