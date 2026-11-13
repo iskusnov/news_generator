@@ -1,0 +1,41 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Посты к уроку буткемпа (A4, PDF) в Нэйшн v1. window.DATA = {num,title,lector,sub,posts:[{h,shorts,body}]}; body — абзацы через \n\n, строки «• » — пункты. -->
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--paper:#F6F5F1;--ink:#15161A;--yel:#F2CB3A;--line:#D8D6CF;--mut:#5E6168;--dev:#3446D3;--fh:'Onest',sans-serif;--fm:'JetBrains Mono',monospace}
+@page{size:A4;margin:0}*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:var(--fh);color:var(--ink);background:var(--paper);font-size:10.6pt;line-height:1.45}
+.pg{padding:15mm 16mm 22mm;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.top{display:flex;justify-content:space-between;align-items:center;font-family:var(--fm);font-size:8pt;letter-spacing:.06em;text-transform:uppercase}
+.top b{font-family:var(--fh);font-weight:800;font-size:13pt;letter-spacing:-.02em;text-transform:none}
+.tag{display:flex;align-items:center;gap:8px}.num{background:var(--ink);color:var(--paper);font-weight:700;border-radius:4px;padding:2px 7px}
+.hero{margin:10mm 0 7mm;display:grid;grid-template-columns:1fr 34mm;gap:8mm;align-items:end}
+h1{font-weight:800;font-size:32pt;letter-spacing:-.045em;line-height:.95}
+.hero .ysq{height:24mm;border-radius:4mm;background:var(--yel)}
+.meta{display:flex;align-items:center;gap:10px;margin-top:5mm;font-size:10pt;color:var(--mut)}.meta i{width:9px;height:9px;background:var(--dev);display:inline-block}
+.dash{border-top:1.4px dashed var(--ink);margin:0 0 6mm}
+.post{background:#fff;border-radius:3mm;padding:5mm 6mm;margin-bottom:5mm;break-inside:avoid}
+.ph{display:flex;align-items:baseline;gap:10px;margin-bottom:2mm}
+.ph span{font-family:var(--fm);font-weight:700;font-size:9pt;background:var(--ink);color:var(--paper);border-radius:4px;padding:2px 6px}
+.ph h2{font-weight:800;font-size:14pt;letter-spacing:-.03em}
+.sh{font-family:var(--fm);font-size:8pt;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-bottom:3mm;padding-left:2mm;border-left:2mm solid var(--yel)}
+.post p{margin-bottom:2.2mm}.post p:last-child{margin-bottom:0}
+.post ul{list-style:none;margin:0 0 2.2mm}.post li{padding-left:5mm;position:relative;margin-bottom:1mm}.post li:before{content:'';position:absolute;left:0;top:.55em;width:2.4mm;height:2.4mm;background:var(--yel);border-radius:.6mm}
+.foot{position:fixed;left:16mm;right:16mm;bottom:8mm;display:flex;align-items:center;gap:10px;font-family:var(--fm);font-size:7.5pt;letter-spacing:.06em;text-transform:uppercase}
+.foot b{font-weight:700}.foot i{width:22mm;border-top:1.4px dashed var(--ink)}.foot span:last-child{margin-left:auto;color:var(--mut)}
+</style></head><body>
+<div class="foot"><b>Нэйшн</b><i></i><span>Технари новой формации</span><span>ai-nation.ru</span></div>
+<div class="pg" id="pg"></div>
+<script>
+const e=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const D=window.DATA;
+const body=t=>t.split('\n\n').map(b=>{const L=b.split('\n');if(L.every(l=>l.startsWith('• ')))return '<ul>'+L.map(l=>'<li>'+e(l.slice(2))+'</li>').join('')+'</ul>';
+ const pre=L.filter(l=>!l.startsWith('• ')),it=L.filter(l=>l.startsWith('• '));return '<p>'+e(pre.join(' '))+'</p>'+(it.length?'<ul>'+it.map(l=>'<li>'+e(l.slice(2))+'</li>').join('')+'</ul>':'')}).join('');
+document.getElementById('pg').innerHTML=`
+<div class="top"><b>Нэйшн</b><span class="tag"><span class="num">${e(D.num)}</span>${e(D.kicker||'Посты к уроку')}</span></div>
+<div class="hero"><div><h1>${e(D.title)}</h1><div class="meta"><i></i>${e(D.lector)}${D.sub?' · '+e(D.sub):''}</div></div><div class="ysq"></div></div>
+<div class="dash"></div>
+${D.posts.map((p,i)=>`<div class="post"><div class="ph"><span>${String(i+1).padStart(2,'0')}</span><h2>${e(p.h)}</h2></div>${p.shorts?`<div class="sh">${e(p.shorts)}</div>`:""}${body(p.body)}</div>`).join('')}`;
+</script></body></html>
