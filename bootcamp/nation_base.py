@@ -45,10 +45,12 @@ def base(edl_p, g_p, SCR, CAM, AUD, JD):
         for j, (a, b, p) in enumerate(fr[1:]):
             ii = img(p); fc.append(f"[{cur}][{ii}:v]overlay=0:0:enable='gte({T},{a:.2f})'[b{j + 1}]"); cur = f'b{j + 1}'
         dark = [x for x in G.get('dark', []) if ov(x[0], x[1], S, nf)]
-        boxes = f"drawbox=x=1600:y=0:w=320:h=180:color=0x15161A:t=fill"
-        fc.append(f'[0:v]fps={FPS},scale=1920:1080,setsar=1,split[sf][sx];[sx]{boxes},scale={SW}:{SH}[sc]')
+        # окно Zoom с камерой в углу демонстрации (x 1600–1920, y 0–180) закрываем продлением цвета слайда слева (решение Антона 13.11; было чёрной плашкой)
+        boxes = "split[sx1][sx2];[sx2]crop=4:180:1594:0,scale=326:180:flags=neighbor[sxp];[sx1][sxp]overlay=1594:0"
+        # setpts=PTS-STARTPTS: после -ss первый кадр исходника приходит не в 0 → fps терял кадр 0 → вспышка чёрного кадра на стыке кусков (136 шт. в уроке 12.11)
+        fc.append(f'[0:v]setpts=PTS-STARTPTS,fps={FPS},scale=1920:1080,setsar=1,split[sf][sx];[sx]{boxes},scale={SW}:{SH}[sc]')
         fc.append(f'[{cur}][sc]overlay={SX}:{SY}[l1]')
-        fc.append(f'[1:v]fps={FPS},crop=ih:ih:(iw-ih)/2:0,scale={CS}:{CS},setsar=1[cm]')
+        fc.append(f'[1:v]setpts=PTS-STARTPTS,fps={FPS},crop=ih:ih:(iw-ih)/2:0,scale={CS}:{CS},setsar=1[cm]')
         fc.append(f'[l1][cm]overlay={CX}:{CY}[l2]'); cur = 'l2'
         co = [x for x in G.get('camoff', []) if ov(x[0], x[1], S, nf)]   # лектор выключил камеру — его фото вместо чёрной плитки Zoom
         if co:
