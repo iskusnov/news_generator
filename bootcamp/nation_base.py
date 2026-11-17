@@ -19,7 +19,7 @@ HEAD = ['#!/bin/bash', 'set -e', 'export PATH=/opt/homebrew/bin:$PATH',
         'FREE=$(df -g "$HOME" | awk \'NR==2{print $4}\'); echo "free ${FREE}G"; [ "$FREE" -ge ${MINFREE:-30} ] || { echo "LOW_DISK ${FREE}G"; exit 9; }',
         'ok(){ ffprobe -v error -show_entries format=duration -of csv=p=0 "$1" >/dev/null 2>&1; }']
 V = os.environ.get('VENC', '-c:v h264_videotoolbox -b:v 10M -pix_fmt yuv420p'); A = '-c:a pcm_s16le -ar 48000 -ac 2'
-SX, SY, SW, SH = 32, 80, 1504, 846; CX, CY, CS = 1568, 80, 320
+SX, SY, SW, SH = 32, int(os.environ.get('NB_SY', 80)), 1504, 846; CX, CY, CS = 1568, int(os.environ.get('NB_SY', 80)), 320   # NB_SY=117 — экран по центру по вертикали (урок 17.11, без нижней строки)
 YEL = '0xF2CB3A'
 
 def ov(a, b, S, nf):  # пересечение [a,b] (исходник) с куском [S, S+nf/FPS]
@@ -50,13 +50,18 @@ def base(edl_p, g_p, SCR, CAM, AUD, JD):
         # setpts=PTS-STARTPTS: после -ss первый кадр исходника приходит не в 0 → fps терял кадр 0 → вспышка чёрного кадра на стыке кусков (136 шт. в уроке 12.11)
         fc.append(f'[0:v]setpts=PTS-STARTPTS,fps={FPS},scale=1920:1080,setsar=1,split[sf][sx];[sx]scale={SW}:{SH}[sc]')
         fc.append(f'[{cur}][sc]overlay={SX}:{SY}[l1]')
-        fc.append(f'[1:v]setpts=PTS-STARTPTS,fps={FPS},crop=ih:ih:(iw-ih)/2:0,scale={CS}:{CS},setsar=1[cm]')
-        fc.append(f'[l1][cm]overlay={CX}:{CY}[l2]'); cur = 'l2'
+        if G.get('nocam'):   # камера лектора выключена весь урок (17.11): в колонке — монограмма из фона кадра, avo не накладываем
+            fc.append('[1:v]nullsink'); cur = 'l1'
+        else:
+            fc.append(f'[1:v]setpts=PTS-STARTPTS,fps={FPS},crop=ih:ih:(iw-ih)/2:0,scale={CS}:{CS},setsar=1[cm]')
+            fc.append(f'[l1][cm]overlay={CX}:{CY}[l2]'); cur = 'l2'
         co = [x for x in G.get('camoff', []) if ov(x[0], x[1], S, nf)]   # лектор выключил камеру — его фото вместо чёрной плитки Zoom
         if co:
             ic = img(G['camoff_png']); fc.append(f"[{cur}][{ic}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in co)}'[l2c]"); cur = 'l2c'
-        ir = img(G['roletop']); fc.append(f'[{cur}][{ir}:v]overlay=0:0[l3]'); cur = 'l3'
-        iz = img(G.get('zoom_plate', 'gfx/zoom_plate.png')); fc.append(f'[{cur}][{iz}:v]overlay=0:0[l3z]'); cur = 'l3z'
+        if G.get('roletop'):
+            ir = img(G['roletop']); fc.append(f'[{cur}][{ir}:v]overlay=0:0[l3]'); cur = 'l3'
+        if G.get('zoom_plate'):   # окно Zoom в углу демонстрации (урок 12.11); если окна нет — не ставим
+            iz = img(G['zoom_plate']); fc.append(f'[{cur}][{iz}:v]overlay=0:0[l3z]'); cur = 'l3z'
         qs = [x for x in G['qside'] if ov(x[0], x[1], S, nf)]
         if qs:
             iq = img(G['qside_png']); fc.append(f"[{cur}][{iq}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in qs)}'[l4]"); cur = 'l4'

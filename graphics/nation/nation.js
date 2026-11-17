@@ -55,6 +55,25 @@ qside2:s=>`<div style="position:absolute;left:1690px;top:0;width:230px;height:23
 <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#15161A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4"/><path d="M12 14.2h.01"/></svg>
 <div style="font-weight:700;font-size:21px;color:var(--ink)">${esc(s.label||'Вопрос из зала')}</div></div>`,
 roletop2:s=>`<i style="position:absolute;left:1690px;top:202px;width:28px;height:28px;background:${R[s.role]}"></i>`,
+// frame3: раскладка «экран + колонка лектора» без нижней строки, экран по центру (top=117); камера выключена — монограмма (урок 17.11)
+frame3:s=>{const y=s.top||117;return `<div class="ink"></div>
+<div style="position:absolute;left:32px;top:${y}px;width:1504px;height:846px;border-radius:16px;background:#000"></div>
+<div style="position:absolute;left:1568px;top:${y}px;width:320px;height:320px;border-radius:8px;background:#26282E;display:grid;place-items:center">
+<div style="font-weight:800;font-size:120px;letter-spacing:-.04em;color:var(--paper);line-height:1">${esc((s.lector||'?')[0])}</div>
+<i style="position:absolute;left:0;bottom:0;width:48px;height:48px;background:${R[s.role]}"></i></div>
+<div style="position:absolute;left:1568px;top:${y+344}px;width:320px;color:var(--paper)">
+<div style="font-weight:700;font-size:34px;line-height:1.1">${esc(s.lector)}</div>
+<div style="margin-top:12px" class="rolelab"><i style="background:${R[s.role]}"></i>${esc(s.org||RN[s.role])}</div></div>
+<div style="position:absolute;left:1568px;top:${y+470}px;width:320px;height:330px;color:var(--paper);display:flex;flex-direction:column;gap:16px">
+<div class="mono" style="font-size:17px;color:#A8AAB0">${esc(s.part)}</div>
+<div class="tag"><span class="num y">${esc(s.ch)}</span><span class="mono" style="font-size:17px;color:#A8AAB0">глава</span></div>
+<div style="font-weight:700;font-size:${s.chTitle.length>40?25:28}px;line-height:1.2;text-wrap:balance">${esc(s.chTitle)}</div></div>
+<div style="position:absolute;left:1568px;top:${y+840}px;width:320px;height:6px;border-radius:3px;background:#3A3C42"><div style="width:${Math.round((s.progress||0)*100)}%;height:100%;border-radius:3px;background:var(--paper)"></div></div>`},
+qside3:s=>{const y=s.top||117;return `<div style="position:absolute;left:1568px;top:${y}px;width:320px;height:320px;border-radius:8px;background:var(--warm);display:grid;place-items:center">
+<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#15161A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4"/><path d="M12 14.2h.01"/></svg></div>
+<div style="position:absolute;left:1568px;top:${y+324}px;width:320px;height:120px;background:var(--ink);color:var(--paper)">
+<div style="margin-top:20px;font-weight:700;font-size:34px;line-height:1.1">${esc(s.label||'Вопрос из зала')}</div>
+<div style="margin-top:12px;color:#A8AAB0;font-size:18px" class="mono">${esc(s.sub||'Участник потока')}</div></div>`},
 roletop:s=>`<i style="position:absolute;left:1568px;top:${80+320-56}px;width:56px;height:56px;background:${R[s.role]}"></i>`,
 qside:s=>`<div style="position:absolute;left:1568px;top:80px;width:320px;height:320px;border-radius:8px;background:var(--warm);display:grid;place-items:center">
 <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#15161A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4"/><path d="M12 14.2h.01"/></svg></div>
