@@ -59,12 +59,12 @@ roletop2:s=>`<i style="position:absolute;left:1690px;top:202px;width:28px;height
 frame3:s=>{const y=s.top||117;return `<div class="ink"></div>
 <div style="position:absolute;left:32px;top:${y}px;width:1504px;height:846px;border-radius:16px;background:#000"></div>
 <div style="position:absolute;left:1568px;top:${y}px;width:320px;height:320px;border-radius:8px;background:#26282E;display:grid;place-items:center">
-<div style="font-weight:800;font-size:120px;letter-spacing:-.04em;color:var(--paper);line-height:1">${esc((s.lector||'?')[0])}</div>
+${s.photo?`<img src="${s.photo}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px">`:`<div style="font-weight:800;font-size:120px;letter-spacing:-.04em;color:var(--paper);line-height:1">${esc((s.lector||'?')[0])}</div>`}
 <i style="position:absolute;left:0;bottom:0;width:48px;height:48px;background:${R[s.role]}"></i></div>
 <div style="position:absolute;left:1568px;top:${y+344}px;width:320px;color:var(--paper)">
 <div style="font-weight:700;font-size:34px;line-height:1.1">${esc(s.lector)}</div>
-<div style="margin-top:12px" class="rolelab"><i style="background:${R[s.role]}"></i>${esc(s.org||RN[s.role])}</div></div>
-<div style="position:absolute;left:1568px;top:${y+470}px;width:320px;height:330px;color:var(--paper);display:flex;flex-direction:column;gap:16px">
+<div style="margin-top:14px" class="rolelab"><i style="background:${R[s.role]}"></i>${esc(s.org||RN[s.role])}</div></div>
+<div style="position:absolute;left:1568px;top:${y+505}px;width:320px;height:330px;color:var(--paper);display:flex;flex-direction:column;gap:16px">
 <div class="mono" style="font-size:17px;color:#A8AAB0">${esc(s.part)}</div>
 <div class="tag"><span class="num y">${esc(s.ch)}</span><span class="mono" style="font-size:17px;color:#A8AAB0">глава</span></div>
 <div style="font-weight:700;font-size:${s.chTitle.length>40?25:28}px;line-height:1.2;text-wrap:balance">${esc(s.chTitle)}</div></div>
