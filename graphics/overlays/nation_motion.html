@@ -347,10 +347,12 @@ window.setup=function(p){
     TL.fromTo(d.querySelector('.bar'),{scaleX:0},{scaleX:1,duration:.3,ease:'power3.out'},flat[0].at);
     if(h.kick){TL.set(d.querySelector('.kick'),{autoAlpha:0},0).to(d.querySelector('.kick'),{autoAlpha:1,duration:.2},h.kick.at)}
     TL.set(d,{yPercent:0},0).to(d,{yPercent:-100,duration:.28,ease:'power3.in'},h.out-.28);const wm=st.querySelector('.wm');st.appendChild(wm);TL.set(wm,{color:'#F6F5F1'},0).set(wm,{color:'#15161A'},h.out-.14);}
-  window._chunks=p.chunks;TL.seek(0);
+  window._chunks=p.chunks;window._names=p.names||[];window._nm0=st.querySelector('.nm')?st.querySelector('.nm').innerHTML:'';TL.seek(0);
 };
 window.seek=function(t){
   TL.seek(t,false);
+  if(window._names&&window._names.length){const nm=st.querySelector('.nm');const n=window._names.find(n=>t>=n.s&&t<n.e);  // p.names:[{s,e,t,org}] — подпись в окне камеры на кусках студента
+    if(nm)nm.innerHTML=n?`${esc(n.t)}${n.org?`<small>${esc(n.org)}</small>`:''}`:window._nm0;}
   const cap=st.querySelector('.cap');if(!cap)return;const c=window._chunks.find(c=>t>=c.s&&t<c.e);
   if(!c){cap.innerHTML='';return}
   let cur=-1;c.words.forEach((w,i)=>{if(t>=w.s)cur=i});cap.innerHTML=c.words.map((w,i)=>`<span class="w ${i===cur?'on':''}">${esc(w.t)}</span>`).join(' ');

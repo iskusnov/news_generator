@@ -36,13 +36,13 @@ for i, e in enumerate(E['edl']):
         x = max(0, min(3840 - w, CX - w // 2)); y = 0 if k == 1.0 else int((2160 - h) * 0.35)
     s_in, s_src = pick_src(e['src_in'])  # файл по смещению: SRC2..SRC9 / OFF2..OFF9
     bw = ',hue=s=0,eq=contrast=1.12' if e.get('bw') else ''  # врезка «мысли за кадром» — ч/б
-    cs = e.get('cam_ss', 0.0)  # сдвиг камеры (с): закрыть кадры, где Zoom показал не лектора (звук остаётся на месте)
-    nf = round(d / sp * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}{f"_x{sp}" if sp != 1.0 else ""}{f"_c{cs}" if cs else ""}{"_m" if e.get("mute") else ""}{"_i" if e.get("camimg") else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
+    cs = e.get('cam_ss', 0.0)  # сдвиг камеры (с): закрыть кадры, где Zoom показал не лектора (звук остаётся на месте); scr=1 — в окне камеры экран (говорит участник без камеры)
+    nf = round(d / sp * 25); part = f'{tmp}/p_{e["src_in"]:.2f}_{nf}_{k}{"_bw" if e.get("bw") else ""}{f"_x{sp}" if sp != 1.0 else ""}{f"_c{cs}" if cs else ""}{"_m" if e.get("mute") else ""}{"_i" if e.get("camimg") else ""}{"_s" if e.get("scr") else ""}.mov'  # имя по содержимому: после правки монтажа готовые куски переиспользуются
     parts.append(part)
     if LESSON:
         cw, ch = int(1080 / k) // 2 * 2, int(608 / k) // 2 * 2  # «панч» камеры ×scale из edl (чередуется на склейках)
         st_ = f',setpts=PTS/{sp}' if sp != 1.0 else ''; at_ = f'atempo={sp},' if sp != 1.0 else ''
-        cam = f'[1:v]scale=1080:608,crop={cw}:{ch}:{(1080 - cw) // 2}:{int((608 - ch) * 0.3)},scale=1080:608,setsar=1{st_},fps=25[c];'
+        cam = f'[{0 if e.get("scr") else 1}:v]scale=1080:608,crop={cw}:{ch}:{(1080 - cw) // 2}:{int((608 - ch) * 0.3)},scale=1080:608,setsar=1{st_},fps=25[c];'
         if e.get('camimg'): cam = cam.replace('[1:v]scale=1080:608,', "[1:v]scale=1080:608,zoompan=z='min(zoom+0.0003,1.12)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x608:fps=25,", 1)
         sld = f'[0:v]scale=1080:608,setsar=1{st_},fps=25[s];[a][s]overlay=0:904,format=yuv420p[v];' if not MOTION else '[a]format=yuv420p[v];'
         fc = (f'color=c={os.environ.get("BGC", "0xFFFDF8")}:s=1080x1920:r=25[bg];{cam}'
