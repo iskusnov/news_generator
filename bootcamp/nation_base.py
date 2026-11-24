@@ -50,18 +50,30 @@ def base(edl_p, g_p, SCR, CAM, AUD, JD):
         # setpts=PTS-STARTPTS: после -ss первый кадр исходника приходит не в 0 → fps терял кадр 0 → вспышка чёрного кадра на стыке кусков (136 шт. в уроке 12.11)
         fc.append(f'[0:v]setpts=PTS-STARTPTS,fps={FPS},scale=1920:1080,setsar=1,split[sf][sx];[sx]scale={SW}:{SH}[sc]')
         fc.append(f'[{cur}][sc]overlay={SX}:{SY}[l1]')
+        # страницы PDF лектора вместо записи экрана (урок 24.11): G['slides'] = [[src_a, src_b, png_1920x1080_с_слайдом_в_окне_экрана]]
+        cur = 'l1'
+        sl = [x for x in G.get('slides', []) if ov(x[0], x[1], S, nf)]
+        by = {}
+        for a, b, pg in sl: by.setdefault(pg, []).append((a, b))
+        for pg, iv in by.items():
+            ii = img(pg); n = len(fc)
+            fc.append(f"[{cur}][{ii}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in iv)}'[s{n}]"); cur = f's{n}'
         if G.get('nocam'):   # камера лектора выключена весь урок (17.11): в колонке — монограмма из фона кадра, avo не накладываем
-            fc.append('[1:v]nullsink'); cur = 'l1'
+            fc.append('[1:v]nullsink')
         else:
             fc.append(f'[1:v]setpts=PTS-STARTPTS,fps={FPS},crop=ih:ih:(iw-ih)/2:0,scale={CS}:{CS},setsar=1[cm]')
-            fc.append(f'[l1][cm]overlay={CX}:{CY}[l2]'); cur = 'l2'
+            fc.append(f'[{cur}][cm]overlay={CX}:{CY}[l2]'); cur = 'l2'
         co = [x for x in G.get('camoff', []) if ov(x[0], x[1], S, nf)]   # лектор выключил камеру — его фото вместо чёрной плитки Zoom
         if co:
             ic = img(G['camoff_png']); fc.append(f"[{cur}][{ic}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in co)}'[l2c]"); cur = 'l2c'
         if G.get('roletop'):
             ir = img(G['roletop']); fc.append(f'[{cur}][{ir}:v]overlay=0:0[l3]'); cur = 'l3'
         if G.get('zoom_plate'):   # окно Zoom в углу демонстрации (урок 12.11); если окна нет — не ставим
-            iz = img(G['zoom_plate']); fc.append(f'[{cur}][{iz}:v]overlay=0:0[l3z]'); cur = 'l3z'
+            zi = G.get('zoom_iv')   # 24.11: только там, где окно есть (детект NCC угла с камерой) и слайд не заменён PDF
+            zz = [x for x in zi if ov(x[0], x[1], S, nf)] if zi is not None else None
+            if zz is None or zz:
+                en = f":enable='{'+'.join(btw(a, b) for a, b in zz)}'" if zz else ''
+                iz = img(G['zoom_plate']); fc.append(f'[{cur}][{iz}:v]overlay=0:0{en}[l3z]'); cur = 'l3z'
         qs = [x for x in G['qside'] if ov(x[0], x[1], S, nf)]
         if qs:
             iq = img(G['qside_png']); fc.append(f"[{cur}][{iq}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in qs)}'[l4]"); cur = 'l4'
