@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file:///home/claude/news_generator/graphics/nation/fonts.css">
+<style>body{margin:0;width:1600px;height:820px;background:#F6F5F1;font-family:Onest;color:#15161A;position:relative}
+.box{box-sizing:border-box;position:absolute;border:3px solid #15161A;border-radius:22px;background:#fff;padding:20px 26px}
+.lab{font-family:"JetBrains Mono";font-size:19px;letter-spacing:.06em;text-transform:uppercase;color:#5E6168}
+h{display:block;font-weight:800;font-size:30px;letter-spacing:-.02em;margin:6px 0 8px;line-height:1.1}
+p{margin:0;font-size:21px;line-height:1.35}
+.y{background:#F2CB3A}.y .lab{color:#15161A}
+.g{background:transparent;border-style:dashed}
+.s{padding:14px 22px}.s h{font-size:25px;margin:2px 0 4px}.s p{font-size:19px}
+.ar{position:absolute;font-size:40px;font-weight:800}
+</style></head><body>
+<div class="lab" style="position:absolute;left:60px;top:36px">API-first · задачу делим уже на уровне спецификации, проверяют маленькие агенты</div>
+<div class="box" style="left:60px;top:90px;width:300px;height:250px"><div class="lab">вход</div><h>Задача</h><p>Затрагивает несколько сервисов и фронтенд</p></div>
+<div class="ar" style="left:372px;top:180px">→</div>
+<div class="box y" style="left:420px;top:90px;width:330px;height:250px"><div class="lab">сначала</div><h>Спецификация</h><p>API всех сервисов и их взаимодействие, например через брокеры. Потом — фронт, бэк и тесты</p></div>
+<div class="ar" style="left:762px;top:180px">→</div>
+<div class="box s" style="left:810px;top:90px;width:360px;height:110px"><h>Контракт REST API</h><p>каких сервисов меняется</p></div>
+<div class="box s" style="left:810px;top:215px;width:360px;height:110px"><h>Фронтенд</h><p>какой фронтенд или микрофронтенд</p></div>
+<div class="box s" style="left:810px;top:340px;width:360px;height:110px"><h>Бэкенд</h><p>задача по каждому сервису</p></div>
+<div class="box s" style="left:810px;top:465px;width:360px;height:125px"><h>Тесты</h><p>API и end-to-end — в отрыве от реализации, по контракту</p></div>
+<div class="ar" style="left:1182px;top:310px">→</div>
+<div class="box" style="left:1230px;top:90px;width:310px;height:500px"><div class="lab">goldfish</div><h>Маленькие ревьюеры</h><p>Каждый проверяет свой элемент спецификации.<br><br>Каждый микросервис — своими тестами, весь цикл — end-to-end-тестом</p></div>
+<div class="box g" style="left:60px;top:400px;width:690px;height:190px"><div class="lab">elephant</div><h>Крупный агент с большим расходом контекста</h><p>Не создавать никогда</p></div>
+<div class="box g" style="left:60px;top:630px;width:1480px;height:140px"><div class="lab">защита от «сделал не то»</div><h>Тестовый стенд и человек в конце</h><p>Отдельный экземпляр на тестовом сервере; для микросервисов — Docker Compose, фича-стенды, service mesh</p></div>
+</body></html>

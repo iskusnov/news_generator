@@ -1342,7 +1342,7 @@
  {
   "id": "s11_vosem_chasov",
   "edl": "s11_vosem_chasov.edl.json",
-  "title": "Сколько времени ушло на <b>свой фреймворк</b>?",
+  "title": "Сколько часов ушло на <b>код фреймворка</b>?",
   "endline": "",
   "endDur": 1.8,
   "tail": 1.8,
