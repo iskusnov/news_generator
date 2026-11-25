@@ -79,6 +79,7 @@ def base(edl_p, g_p, SCR, CAM, AUD, JD):
             iq = img(G['qside_png']); fc.append(f"[{cur}][{iq}:v]overlay=0:0:enable='{'+'.join(btw(a, b) for a, b in qs)}'[l4]"); cur = 'l4'
         for c in G['cards']:
             if c['id'] == 'speaker' or not ov(c['from'], c['to'], S, nf): continue
+            if c['kind'] != 'chapter' and c['to'] - S < 0.5: continue   # плашка уходит в первые 0,5 с куска: fade с st<0 вешает ffmpeg на Mac (24.11)
             a, b = c['from'], c['to']; ic = img(c['png']); n = len(fc)
             if c['kind'] == 'chapter':
                 fc.append(f"[{ic}:v]format=rgba,fade=t=out:st={b - S - 0.45:.3f}:d=0.45:alpha=1[c{n}]")
